@@ -1,0 +1,26 @@
+version: 1
+updated: 2026-06-30
+tracks:
+  - ai-coding
+  - echarts
+  - react
+  - fullstack-transition
+  - frontend-efficiency-tooling
+tags_index:
+  vue: [ai-coding, echarts]
+  echarts: [echarts]
+  visualization: [echarts]
+  react: [react]
+  hooks: [react]
+  fastify: [fullstack-transition]
+  backend: [fullstack-transition]
+  ai: [ai-coding, frontend-efficiency-tooling]
+  cursor: [ai-coding]
+  low-code: [frontend-efficiency-tooling]
+depth_index:
+  light: [react]
+  standard: [fullstack-transition, frontend-efficiency-tooling, echarts]
+  deep: [ai-coding]
+category_index:
+  tech-learning: [ai-coding, echarts, react, fullstack-transition]
+  work-assignment: [frontend-efficiency-tooling]

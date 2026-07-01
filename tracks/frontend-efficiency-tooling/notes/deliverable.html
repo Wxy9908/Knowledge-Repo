@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>前端提效工具建设方案</title>
+  <!-- 引入现代字体与图标 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- 引入动画库 -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --accent: #10b981;
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, "Microsoft YaHei", sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* 进度条 */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      z-index: 1000;
+      width: 0%;
+      transition: width 0.2s;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 顶部导航 */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 16px 0;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 800;
+      margin: 0 0 24px;
+      background: linear-gradient(to bottom right, #fff, #94a3b8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+
+    .hero-summary {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 48px;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* 核心指标卡片 */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      padding: 24px;
+      border-radius: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .metric-card i {
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 32px;
+      margin-bottom: 4px;
+    }
+
+    .metric-card span {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* 章节通用样式 */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    .section-title i {
+      color: var(--primary);
+    }
+
+    /* 推荐结论 */
+    .recommendation-box {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.05));
+      border: 1px solid var(--primary);
+      border-radius: 32px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tag {
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .reason-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .reason-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 16px;
+      border-radius: 16px;
+      border-left: 4px solid var(--primary);
+    }
+
+    /* 方案卡片容器 */
+    .plans-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      align-items: start;
+      /* 关键：设置为 start，让卡片高度独立，互不影响 */
+    }
+
+    .plan-card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      /* 关键：设置一个统一的最小高度，确保初始状态整齐 */
+      /* 根据您的内容量，520px 左右通常比较合适，您可以根据实际效果微调 */
+      min-height: 520px;
+    }
+
+    .plan-card.featured {
+      border: 2px solid var(--primary);
+      position: relative;
+    }
+
+    .plan-card.featured::after {
+      content: "首选推荐";
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--primary);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* 确保头部高度统一，内部指标对齐 */
+    .plan-header {
+      margin-bottom: 24px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan-rank {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .plan-title {
+      font-size: 22px;
+      margin: 0 0 12px;
+    }
+
+    .plan-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 0 0 24px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .stat-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* 关键修改：折叠交互样式 */
+    .collapsible-section {
+      border-top: 1px solid var(--glass-border);
+      padding-top: 16px;
+      margin-top: 8px;
+    }
+
+    .collapsible-trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 0;
+      transition: color 0.3s;
+    }
+
+    .collapsible-trigger:hover {
+      color: var(--primary);
+    }
+
+    .collapsible-trigger i {
+      transition: transform 0.3s;
+      color: var(--text-muted);
+    }
+
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+      opacity: 0;
+      font-size: 14px;
+    }
+
+    .collapsible-section.active .collapsible-content {
+      max-height: 500px;
+      /* 足够容纳内容的高度 */
+      opacity: 1;
+      margin-top: 12px;
+    }
+
+    .collapsible-section.active .collapsible-trigger i {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+
+    .collapsible-content ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-muted);
+    }
+
+    .collapsible-content li {
+      margin-bottom: 8px;
+    }
+
+    .fine-print {
+      margin-top: 18px;
+      color: var(--text-muted);
+      font-size: 12px;
+      opacity: 0.75;
+      text-align: right;
+    }
+
+    /* 时间轴 */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+      margin-top: 40px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--glass-border);
+      z-index: 0;
+    }
+
+    .timeline-item {
+      position: relative;
+      z-index: 1;
+      padding-top: 60px;
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--bg);
+      border: 4px solid var(--primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 21px;
+      left: 0;
+    }
+
+    .timeline-item h4 {
+      margin: 0 0 8px;
+      color: var(--primary);
+    }
+
+    .timeline-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* 底部 */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 900px) {
+      .recommendation-box {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .timeline-item {
+        padding-top: 0;
+        padding-left: 40px;
+      }
+
+      .timeline-dot {
+        top: 0;
+        left: 0;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <nav>
+    <div class="container nav-content">
+      <div style="font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+        <i data-lucide="zap" style="color: var(--primary);"></i> FE Efficiency
+      </div>
+      <div class="nav-links">
+        <a href="#recommend">推荐结论</a>
+        <a href="#plans">候选方案</a>
+        <a href="#roadmap">落地节奏</a>
+        <a href="#final">最终建议</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero" data-aos="fade-up">
+      <span class="eyebrow">Frontend Efficiency Research 2026</span>
+      <h1>前端提效工具<br />建设方案</h1>
+      <p class="hero-summary">
+        面向 <span class="highlight">2 人前端团队</span>、多模块并行交付、多端适配要求，<br />
+        建议优先建设 <span class="highlight">轻量提效体系</span>，以最小成本换取最大交付增量。
+      </p>
+
+      <div class="hero-grid">
+        <div class="metric-card" data-aos="zoom-in" data-aos-delay="100">
+          <i data-lucide="users"></i>
+          <strong>2 人</strong>
+          <span>团队规模</span>
+        </div>
+        <div class="metric-card" data-aos="zoom-in" data-aos-delay="200">
+          <i data-lucide="layers"></i>
+          <strong>3 类</strong>
+          <span>候选方案</span>
+        </div>
+        <div class="metric-card" data-aos="zoom-in" data-aos-delay="300">
+          <i data-lucide="clock"></i>
+          <strong>1-2 周</strong>
+          <span>试点周期</span>
+        </div>
+        <div class="metric-card" data-aos="zoom-in" data-aos-delay="400">
+          <i data-lucide="trending-up"></i>
+          <strong>30%-50%</strong>
+          <span>预期提效</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 推荐结论 -->
+    <section id="recommend" data-aos="fade-up">
+      <div class="section-title">
+        <i data-lucide="check-circle"></i>
+        <h2>推荐结论</h2>
+      </div>
+      <div class="recommendation-box">
+        <div>
+          <span class="tag">核心策略</span>
+          <h3 style="font-size: 24px; line-height: 1.4; margin-top: 0;">短期不建议自建完整低代码平台，<br />建议采用 <span
+              class="highlight">“AI + 模板 + 业务区块”</span> 组合。</h3>
+          <p style="color: var(--text-muted);">该路线试验成本最低、落地速度最快。即使试点不达预期，也能沉淀组件、模板、Prompt 等核心资产。</p>
+          <div class="fine-print">注：周期、收益和投入为前期预估，建议通过 1-2 个真实模块试点验证。</div>
+        </div>
+        <div class="reason-list">
+          <div class="reason-item">
+            <strong style="display: block; margin-bottom: 4px;">为什么不直接做低代码？</strong>
+            <span style="font-size: 13px; color: var(--text-muted);">2 人团队难以支撑搭建器、多端运行时等高复杂度研发。</span>
+          </div>
+          <div class="reason-item">
+            <strong style="display: block; margin-bottom: 4px;">轻量体系的优势？</strong>
+            <span style="font-size: 13px; color: var(--text-muted);">边交付业务边沉淀，不影响当前项目进度，风险极低。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 候选方案 -->
+    <section id="plans">
+      <div class="section-title" data-aos="fade-right">
+        <i data-lucide="list"></i>
+        <h2>三类候选方案</h2>
+      </div>
+
+      <div class="plans-container">
+        <!-- 方案 1 -->
+        <article class="plan-card featured" data-aos="fade-up" data-aos-delay="100">
+          <div class="plan-header">
+            <div class="plan-rank">优先级 1 · 短期首推</div>
+            <h3 class="plan-title">AI 辅助 + 模板工程 + 业务区块</h3>
+            <p style="font-size: 14px; color: var(--text-muted);">适合 2 人团队快速试点，减少重复页面开发。</p>
+          </div>
+          <div class="plan-stats">
+            <div class="stat-box">
+              <span class="stat-label">预计收益</span>
+              <span class="stat-value">30%-50%</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">验证周期</span>
+              <span class="stat-value">1-2 周</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">人力投入</span>
+              <span class="stat-value">1 人主导</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">试验成本</span>
+              <span class="stat-value">低</span>
+            </div>
+          </div>
+
+          <!-- 折叠部分 1 -->
+          <div class="collapsible-section">
+            <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+              <span>关键步骤</span>
+              <i data-lucide="chevron-down"></i>
+            </div>
+            <div class="collapsible-content">
+              <ul>
+                <li>沉淀 3-5 个高频标准页面模板</li>
+                <li>整理通用组件与业务区块库</li>
+                <li>真实模块试点，统计提效数据</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 折叠部分 2 -->
+          <div class="collapsible-section">
+            <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+              <span>成本与风险补充</span>
+              <i data-lucide="chevron-down"></i>
+            </div>
+            <div class="collapsible-content">
+              <ul>
+                <li>主要成本是前端整理规范、模板和 Prompt 的时间。</li>
+                <li>无需强采购，现有 AI 工具和代码工程即可启动。</li>
+                <li>风险在于 AI 输出不稳定，需要代码审查清单约束。</li>
+                <li>试验失败也能保留模板、组件和 Prompt 资产。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- 方案 2 -->
+        <article class="plan-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="plan-header">
+            <div class="plan-rank">优先级 2 · 中期增强</div>
+            <h3 class="plan-title">跨端统一技术栈 + 工程规范</h3>
+            <p style="font-size: 14px; color: var(--text-muted);">重点统一业务模型，UI 层按端适配。</p>
+          </div>
+          <div class="plan-stats">
+            <div class="stat-box">
+              <span class="stat-label">预计收益</span>
+              <span class="stat-value">20%-40%</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">验证周期</span>
+              <span class="stat-value">2-4 周</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">人力投入</span>
+              <span class="stat-value">2 人评估</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">试验成本</span>
+              <span class="stat-value">中</span>
+            </div>
+          </div>
+
+          <div class="collapsible-section">
+            <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+              <span>关键步骤</span>
+              <i data-lucide="chevron-down"></i>
+            </div>
+            <div class="collapsible-content">
+              <ul>
+                <li>明确覆盖端（PC/H5/小程序）</li>
+                <li>对比跨端路线，选 1 页试点</li>
+                <li>沉淀统一接口与目录规范</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="collapsible-section">
+            <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+              <span>成本与风险补充</span>
+              <i data-lucide="chevron-down"></i>
+            </div>
+            <div class="collapsible-content">
+              <ul>
+                <li>需要真实多端页面验证，不能只做理论选型。</li>
+                <li>如果当前业务以 PC 后台为主，过早统一多端会增加复杂度。</li>
+                <li>风险集中在复杂交互、性能和原生能力差异。</li>
+                <li>可沉淀多端目录规范、接口模型和适配经验。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- 方案 3 -->
+        <article class="plan-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="plan-header">
+            <div class="plan-rank">优先级 3 · 长期储备</div>
+            <h3 class="plan-title">自建跨端框架 + 低代码引擎</h3>
+            <p style="font-size: 14px; color: var(--text-muted);">规范稳定后的终极配置化方案。</p>
+          </div>
+          <div class="plan-stats">
+            <div class="stat-box">
+              <span class="stat-label">预计收益</span>
+              <span class="stat-value">配置化最高效</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">验证周期</span>
+              <span class="stat-value">2-3 月+</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">人力投入</span>
+              <span class="stat-value">2 人长期</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">试验成本</span>
+              <span class="stat-value">高</span>
+            </div>
+          </div>
+
+          <div class="collapsible-section">
+            <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+              <span>关键步骤</span>
+              <i data-lucide="chevron-down"></i>
+            </div>
+            <div class="collapsible-content">
+              <ul>
+                <li>定义组件协议与 Schema</li>
+                <li>建设搭建器、预览器与运行时</li>
+                <li>评估持续投入的商业价值</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="collapsible-section">
+            <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+              <span>成本与风险补充</span>
+              <i data-lucide="chevron-down"></i>
+            </div>
+            <div class="collapsible-content">
+              <ul>
+                <li>平台研发周期长，会明显挤占当前业务交付人力。</li>
+                <li>需要长期维护搭建器、组件协议、数据源和发布流程。</li>
+                <li>复杂业务仍可能回到手写代码，影响平台投入产出比。</li>
+                <li>适合作为长期储备，不建议作为本阶段主推方向。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 落地节奏 -->
+    <section id="roadmap" data-aos="fade-up">
+      <div class="section-title">
+        <i data-lucide="calendar"></i>
+        <h2>建议落地节奏</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <h4>第 1 阶段</h4>
+          <p>1 周：确定高频页面、组件清单和最小试点范围。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <h4>第 2 阶段</h4>
+          <p>1-2 周：真实模块验证 AI 生成和模板复用效果。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <h4>第 3 阶段</h4>
+          <p>2-4 周：沉淀组件库、业务区块库和 Mock 规范。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <h4>第 4 阶段</h4>
+          <p>后续：根据复用频率判断是否启动平台化研发。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最终建议 -->
+    <section id="final" data-aos="fade-up">
+      <div class="section-title">
+        <i data-lucide="award"></i>
+        <h2>最终建议</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 32px;">
+        <div style="background: rgba(255,255,255,0.03); padding: 32px; border-radius: 24px;">
+          <h4 style="margin-top: 0; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="message-square" style="color: var(--primary);"></i> 核心表达内容
+          </h4>
+          <ul style="color: var(--text-muted); line-height: 2;">
+            <li><span style="color: #fff;">短期：</span>做轻量提效体系，解决快速迭代问题。</li>
+            <li><span style="color: #fff;">中期：</span>统一多端规范，减少重复建设。</li>
+            <li><span style="color: #fff;">长期：</span>视试点效果，决定是否平台化。</li>
+          </ul>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 32px; border-radius: 24px;">
+          <h4 style="margin-top: 0; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="play" style="color: var(--accent);"></i> 推荐立即启动
+          </h4>
+          <ul style="color: var(--text-muted); line-height: 2;">
+            <li>选择 1 个列表、1 个表单、1 个详情页试点。</li>
+            <li>记录 AI + 模板生成的提效比例。</li>
+            <li>统计代码质量问题与可复用资产数量。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>前端提效工具建设方案 | 2026 汇报文档</p>
+    <p style="font-size: 12px; opacity: 0.5;">数据为前期预估，需结合试点结果修正</p>
+  </footer>
+
+  <!-- 脚本 -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // 初始化图标
+    lucide.createIcons();
+
+    // 初始化动画
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out-quad'
+    });
+
+    // 进度条逻辑
+    window.onscroll = function () {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+    };
+
+    // 折叠交互逻辑
+    function toggleCollapsible(trigger) {
+      const section = trigger.parentElement;
+      section.classList.toggle('active');
+    }
+  </script>
+</body>
+
+</html>

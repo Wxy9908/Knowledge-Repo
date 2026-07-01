@@ -1,0 +1,20 @@
+﻿id: fullstack-transition
+depth: standard
+category: tech-learning
+title: 前端转全栈
+status: in_progress
+tags: [fastify, backend, node]
+started: 2026-04-01
+updated: 2026-06-30
+last_reviewed: 2026-06-01
+next_review: 2026-08-01
+mastery: 0.4
+notes:
+  - path: notes/fastify-tutorial.md
+    title: Fastify 新手教程
+  - path: notes/backend-selection.md
+    title: 后端技术选型
+  - path: notes/backend-selection-with-ai.md
+    title: 后端选型（含 AI）
+related: [ai-coding]
+source: migrated-from/frontend-to-fullstack-lab

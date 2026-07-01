@@ -1,0 +1,19 @@
+﻿id: react
+depth: light
+category: tech-learning
+title: React 基础
+status: completed
+tags: [react, hooks]
+notes:
+  - path: notes/react-project-setup.md
+    title: React 项目搭建
+    mastery: proficient
+  - path: notes/react-hooks.md
+    title: React Hooks 要点
+    mastery: practicing
+started: 2026-01-01
+updated: 2026-06-30
+last_reviewed: 2026-06-30
+next_review: 2026-07-30
+related: [ai-coding]
+source: distilled-from/my-react

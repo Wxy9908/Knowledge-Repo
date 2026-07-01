@@ -1,0 +1,18 @@
+﻿id: frontend-efficiency-tooling
+depth: standard
+category: work-assignment
+title: 前端提效工具调研
+status: completed
+tags: [low-code, ai, team]
+started: 2026-05-01
+updated: 2026-06-01
+last_reviewed: 2026-06-01
+next_review: 2026-09-01
+mastery: 0.8
+notes:
+  - path: notes/deliverable.md
+    title: 方案汇报（Markdown）
+  - path: notes/deliverable.html
+    title: 方案汇报（HTML）
+related: [ai-coding]
+source: migrated-from/前端提效工具

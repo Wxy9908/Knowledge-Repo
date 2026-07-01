@@ -1,0 +1,360 @@
+{
+  "version": 1,
+  "updated": "2026-06-30",
+  "tags_index": {
+    "vue": [
+      "ai-coding",
+      "echarts"
+    ],
+    "echarts": [
+      "echarts"
+    ],
+    "visualization": [
+      "echarts"
+    ],
+    "react": [
+      "react"
+    ],
+    "hooks": [
+      "react"
+    ],
+    "fastify": [
+      "fullstack-transition"
+    ],
+    "backend": [
+      "fullstack-transition"
+    ],
+    "ai": [
+      "ai-coding",
+      "frontend-efficiency-tooling"
+    ],
+    "cursor": [
+      "ai-coding"
+    ],
+    "low-code": [
+      "frontend-efficiency-tooling"
+    ]
+  },
+  "depth_index": {
+    "light": [
+      "react"
+    ],
+    "standard": [
+      "fullstack-transition",
+      "frontend-efficiency-tooling",
+      "echarts"
+    ],
+    "deep": [
+      "ai-coding"
+    ]
+  },
+  "category_index": {
+    "tech-learning": [
+      "ai-coding",
+      "echarts",
+      "react",
+      "fullstack-transition"
+    ],
+    "work-assignment": [
+      "frontend-efficiency-tooling"
+    ]
+  },
+  "stats": {
+    "total": 5,
+    "byDepth": {
+      "deep": 1,
+      "standard": 3,
+      "light": 1
+    },
+    "byCategory": {
+      "tech-learning": 4,
+      "work-assignment": 1
+    },
+    "byStatus": {
+      "in_progress": 3,
+      "completed": 2
+    }
+  },
+  "reviewReminders": [],
+  "tracks": [
+    {
+      "id": "ai-coding",
+      "depth": "deep",
+      "category": "tech-learning",
+      "title": "AI Coding 系统学习",
+      "status": "in_progress",
+      "tags": [
+        "vue",
+        "ai",
+        "prompt-engineering",
+        "cursor"
+      ],
+      "started": "2026-03-01",
+      "updated": "2026-05-22",
+      "last_reviewed": "2026-05-22",
+      "next_review": "2026-07-22",
+      "mastery": 0.75,
+      "units": [
+        {
+          "id": "01-todo-basic",
+          "path": "units/01-todo-basic",
+          "hasReview": true
+        },
+        {
+          "id": "02-todo-enhance",
+          "path": "units/02-todo-enhance",
+          "hasReview": true
+        },
+        {
+          "id": "03-todo-filter",
+          "path": "units/03-todo-filter",
+          "hasReview": true
+        },
+        {
+          "id": "04-auth-login",
+          "path": "units/04-auth-login",
+          "hasReview": true
+        },
+        {
+          "id": "05-auth-guard",
+          "path": "units/05-auth-guard",
+          "hasReview": true
+        },
+        {
+          "id": "06-todo-polish",
+          "path": "units/06-todo-polish",
+          "hasReview": true
+        },
+        {
+          "id": "07-mock-api",
+          "path": "units/07-mock-api",
+          "hasReview": true
+        }
+      ],
+      "notes": [
+        {
+          "path": "notes/ai-coding-prompts.md",
+          "title": "Prompt 模板速查"
+        },
+        {
+          "path": "notes/ai-concept.md",
+          "title": "AI 概念笔记"
+        },
+        {
+          "path": "notes/phase1-self-assessment.md",
+          "title": "Phase1 自评"
+        }
+      ],
+      "artifacts": [
+        {
+          "type": "demo",
+          "route": "/todos",
+          "description": "Vue3 Todo + Mock API 全链路练习"
+        }
+      ],
+      "related": [
+        "fullstack-transition"
+      ],
+      "source": "migrated-from/new_work",
+      "noteFiles": [
+        {
+          "name": "ai-coding-prompts.md",
+          "path": "notes/ai-coding-prompts.md"
+        },
+        {
+          "name": "ai-concept.md",
+          "path": "notes/ai-concept.md"
+        },
+        {
+          "name": "phase1-self-assessment.md",
+          "path": "notes/phase1-self-assessment.md"
+        }
+      ],
+      "unitCount": 7,
+      "noteCount": 3
+    },
+    {
+      "id": "echarts",
+      "depth": "standard",
+      "category": "tech-learning",
+      "title": "ECharts 可视化",
+      "status": "in_progress",
+      "tags": [
+        "echarts",
+        "vue",
+        "visualization"
+      ],
+      "notes": [
+        {
+          "path": "notes/echarts-basics.md",
+          "title": "ECharts 基础",
+          "mastery": "learning"
+        }
+      ],
+      "started": "2026-06-30",
+      "updated": "2026-06-30",
+      "last_reviewed": "2026-06-30",
+      "next_review": "2026-07-30",
+      "related": [
+        "ai-coding"
+      ],
+      "artifacts": [
+        {
+          "type": "demo",
+          "route": "/demos/echarts/bar-basic",
+          "title": "基础柱状图",
+          "description": "init / setOption / dispose"
+        }
+      ],
+      "noteFiles": [
+        {
+          "name": "echarts-basics.md",
+          "path": "notes/echarts-basics.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 1
+    },
+    {
+      "id": "react",
+      "depth": "light",
+      "category": "tech-learning",
+      "title": "React 基础",
+      "status": "completed",
+      "tags": [
+        "react",
+        "hooks"
+      ],
+      "notes": [
+        {
+          "path": "notes/react-project-setup.md",
+          "title": "React 项目搭建",
+          "mastery": "proficient"
+        },
+        {
+          "path": "notes/react-hooks.md",
+          "title": "React Hooks 要点",
+          "mastery": "practicing"
+        }
+      ],
+      "started": "2026-01-01",
+      "updated": "2026-06-30",
+      "last_reviewed": "2026-06-30",
+      "next_review": "2026-07-30",
+      "related": [
+        "ai-coding"
+      ],
+      "source": "distilled-from/my-react",
+      "noteFiles": [
+        {
+          "name": "react-hooks.md",
+          "path": "notes/react-hooks.md"
+        },
+        {
+          "name": "react-project-setup.md",
+          "path": "notes/react-project-setup.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 2
+    },
+    {
+      "id": "fullstack-transition",
+      "depth": "standard",
+      "category": "tech-learning",
+      "title": "前端转全栈",
+      "status": "in_progress",
+      "tags": [
+        "fastify",
+        "backend",
+        "node"
+      ],
+      "started": "2026-04-01",
+      "updated": "2026-06-30",
+      "last_reviewed": "2026-06-01",
+      "next_review": "2026-08-01",
+      "mastery": 0.4,
+      "notes": [
+        {
+          "path": "notes/fastify-tutorial.md",
+          "title": "Fastify 新手教程"
+        },
+        {
+          "path": "notes/backend-selection.md",
+          "title": "后端技术选型"
+        },
+        {
+          "path": "notes/backend-selection-with-ai.md",
+          "title": "后端选型（含 AI）"
+        }
+      ],
+      "related": [
+        "ai-coding"
+      ],
+      "source": "migrated-from/frontend-to-fullstack-lab",
+      "noteFiles": [
+        {
+          "name": "backend-selection-with-ai.md",
+          "path": "notes/backend-selection-with-ai.md"
+        },
+        {
+          "name": "backend-selection.md",
+          "path": "notes/backend-selection.md"
+        },
+        {
+          "name": "fastify-tutorial.md",
+          "path": "notes/fastify-tutorial.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 3
+    },
+    {
+      "id": "frontend-efficiency-tooling",
+      "depth": "standard",
+      "category": "work-assignment",
+      "title": "前端提效工具调研",
+      "status": "completed",
+      "tags": [
+        "low-code",
+        "ai",
+        "team"
+      ],
+      "started": "2026-05-01",
+      "updated": "2026-06-01",
+      "last_reviewed": "2026-06-01",
+      "next_review": "2026-09-01",
+      "mastery": 0.8,
+      "notes": [
+        {
+          "path": "notes/deliverable.md",
+          "title": "方案汇报（Markdown）"
+        },
+        {
+          "path": "notes/deliverable.html",
+          "title": "方案汇报（HTML）"
+        }
+      ],
+      "related": [
+        "ai-coding"
+      ],
+      "source": "migrated-from/前端提效工具",
+      "noteFiles": [
+        {
+          "name": "deliverable.html",
+          "path": "notes/deliverable.html"
+        },
+        {
+          "name": "deliverable.md",
+          "path": "notes/deliverable.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 2
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+---
+description: 三角色 Agent 协作协议（通用模板 · 复制后改「项目配置」）
+alwaysApply: true
+---
+
+# Agent 协作协议
+
+> **安装**：复制到目标项目 `.cursor/rules/`，修改下方「项目配置」路径。  
+> 说明见 `agent-workflow-template/README.md`
+
+## 项目配置（复制后必改）
+
+| 项 | 占位 | 默认值示例 |
+|----|------|------------|
+| 状态文件 | `{{STATUS_FILE}}` | `docs/agent/STATUS.md` |
+| 任务目录 | `{{AGENT_ROOT}}` | `docs/agent` |
+| 业务代码 | `{{SOURCE_GLOB}}` | `src/**` |
+
+---
+
+## 角色与优先级
+
+**用户 > 需求拆解 / Prompt 审阅 / 实现**
+
+- 同一对话只激活**一个** Agent 角色
+- **STATUS**：需求拆解 Agent 与用户可写；Prompt 审 / 实现 **只读**
+
+## 标准流水线
+
+```text
+需求 → [需求拆解]（读/建/更新 STATUS + 分析）
+  → 用户写 prompt → [Prompt审] → 定稿
+  → [实现] → 用户验收 → 用户更新代码现状
+```
+
+**硬规则**
+
+1. `prompt_status: 已定稿` 前，实现 Agent **不得**改 `{{SOURCE_GLOB}}`
+2. 禁止整份 REQUIREMENTS 直接丢给实现
+3. 需求拆解 **不得**将 `prompt_status` 设为已定稿
+
+## 文件权限
+
+| 文件 | 需求拆解 | Prompt审 | 实现 | 用户 |
+|------|:--------:|:--------:|:----:|:----:|
+| `{{STATUS_FILE}}` | ✅ | 👁 | 👁 | ✅ |
+| `{{AGENT_ROOT}}/practice-*/REQUIREMENTS.md` | 👁 | 👁 | 👁 | ✅ |
+| `{{AGENT_ROOT}}/practice-*/analysis.md` | ✅ | 👁 | 👁 | ✅ |
+| `{{AGENT_ROOT}}/practice-*/prompt*.md` | ❌ | 💬 | 👁 | ✅ 定稿 |
+| `{{AGENT_ROOT}}/practice-*/review.md` | ❌ | ❌ | ❌ | ✅ |
+| `{{SOURCE_GLOB}}` | ❌ | ❌ | ✅ | ✅ |
+
+## STATUS 更新
+
+| 事件 | 谁 |
+|------|-----|
+| STATUS 不存在 / 新任务拆解 | **需求拆解**（或用户） |
+| Prompt 定稿 / 验收 / 复盘 | **用户** |
+| 实现完成 | 不写 |
+
+## Prompt 章节顺序（推荐）
+
+`背景 → 需求 → 数据边界 → 相关文件 → 保留 → 约束与范围 → 验收标准`
+
+## 角色收尾句
+
+| 角色 | 固定句 |
+|------|--------|
+| 需求拆解 | 需求拆解完成。已更新 STATUS…请自行撰写 Prompt… |
+| Prompt 审 | Prompt 审阅完成。请用户定稿后… |
+| 实现 | 实现完成。请用户验收… |
+
+## 开场
+
+各 Agent：读 `@{{STATUS_FILE}}`（需求拆解：不存在则初始化）→ 执行 → **停止**。

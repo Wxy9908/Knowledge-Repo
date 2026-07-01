@@ -1,0 +1,20 @@
+id: echarts
+depth: standard
+category: tech-learning
+title: ECharts 可视化
+status: in_progress
+tags: [echarts, vue, visualization]
+notes:
+  - path: notes/echarts-basics.md
+    title: ECharts 基础
+    mastery: learning
+started: 2026-06-30
+updated: 2026-06-30
+last_reviewed: 2026-06-30
+next_review: 2026-07-30
+related: [ai-coding]
+artifacts:
+  - type: demo
+    route: /demos/echarts/bar-basic
+    title: 基础柱状图
+    description: init / setOption / dispose

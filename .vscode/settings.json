@@ -1,0 +1,13 @@
+{
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.vite/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  }
+}
