@@ -38,9 +38,9 @@ chart.setOption({
 
 ## 动手
 
-本地：`cd playground/vue-playground && npm run dev` → 打开 `/demos/echarts/bar-basic`
+本地：`cd playground/vue-playground && pnpm dev` → 打开 `/demos/echarts/bar-basic`（当前为占位页）
 
-代码：`playground/vue-playground/src/demos/echarts/BarBasic.vue`
+代码：`playground/vue-playground/src/demos/echarts/BarBasic.vue`（阶段 3 起搭建 Showcase）
 
 ## 踩坑
 
