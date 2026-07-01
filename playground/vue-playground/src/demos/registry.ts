@@ -21,9 +21,9 @@ export const demoRegistry: DemoEntry[] = [
   },
   {
     track: 'echarts',
-    id: 'bar-basic',
-    title: 'ECharts 演示（开发中）',
-    path: '/demos/echarts/bar-basic',
-    component: () => import('./echarts/BarBasic.vue'),
+    id: 'showcase',
+    title: 'ECharts 演示中心',
+    path: '/demos/echarts/showcase',
+    component: () => import('./echarts/EchartsShowcase.vue'),
   },
 ];

@@ -34,7 +34,24 @@ a:hover { text-decoration: underline; }
   background: var(--surface);
 }
 
-.brand { font-weight: 700; font-size: 1.125rem; color: var(--text); text-decoration: none; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.brand:hover { text-decoration: none; }
+
+.brand-mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+.brand-text { line-height: 1; }
 .app-nav { display: flex; gap: 1.25rem; }
 .app-nav a { color: var(--muted); }
 .app-nav a.router-link-active { color: var(--accent); }
