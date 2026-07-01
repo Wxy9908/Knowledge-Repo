@@ -1,20 +1,33 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
+import type { Catalog, CatalogArtifact } from '@/types/catalog';
 import catalogData from '@/generated/catalog.json';
 
-const props = defineProps({
-  id: { type: String, required: true },
-});
+interface DemoLink {
+  title: string;
+  description: string;
+  route: string;
+}
+
+const props = defineProps<{
+  id: string;
+}>();
 
 const router = useRouter();
 
-const track = computed(() => catalogData.tracks.find((t) => t.id === props.id));
+const catalog = catalogData as Catalog;
 
-const demoLinks = computed(() => {
+const track = computed(() => catalog.tracks.find((t) => t.id === props.id));
+
+const demoLinks = computed((): DemoLink[] => {
   if (!track.value) return [];
-  const artifacts = track.value.artifacts ?? [];
-  const demos = (track.value.demos ?? []).map((d) => ({
+  const artifacts: DemoLink[] = (track.value.artifacts ?? []).map((a: CatalogArtifact) => ({
+    title: a.title,
+    description: a.description ?? a.title,
+    route: a.route,
+  }));
+  const demos: DemoLink[] = (track.value.demos ?? []).map((d) => ({
     title: d.title,
     description: d.title,
     route: d.route,

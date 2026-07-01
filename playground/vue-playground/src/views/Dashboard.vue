@@ -1,16 +1,17 @@
-﻿<script setup>
+﻿<script setup lang="ts">
 import { computed, ref } from 'vue';
+import type { Catalog } from '@/types/catalog';
 import catalogData from '@/generated/catalog.json';
 import StatOverview from '@/components/dashboard/StatOverview.vue';
 import TrackCard from '@/components/dashboard/TrackCard.vue';
 import TagFilter from '@/components/dashboard/TagFilter.vue';
 import ReviewReminder from '@/components/dashboard/ReviewReminder.vue';
 
-const catalog = ref(catalogData);
+const catalog = ref<Catalog>(catalogData as Catalog);
 const selectedTag = ref('');
 
-const allTags = computed(() => {
-  const set = new Set();
+const allTags = computed((): string[] => {
+  const set = new Set<string>();
   catalog.value.tracks.forEach((t) => (t.tags || []).forEach((tag) => set.add(tag)));
   return [...set].sort();
 });

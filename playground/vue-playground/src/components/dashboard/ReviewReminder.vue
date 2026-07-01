@@ -1,9 +1,12 @@
-﻿<script setup>
+﻿<script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import type { CatalogTrack } from '@/types/catalog';
 
-defineProps({
-  reminders: { type: Array, default: () => [] },
-});
+type ReviewReminderItem = CatalogTrack & { overdue?: boolean };
+
+defineProps<{
+  reminders: ReviewReminderItem[];
+}>();
 </script>
 
 <template>

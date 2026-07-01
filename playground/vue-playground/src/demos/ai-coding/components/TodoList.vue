@@ -1,14 +1,16 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useTodosStore } from '../stores/todos'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import type { Todo } from '@/types/todo';
+import type { TodoFilter } from '@/types/todo';
+import { useTodosStore } from '../stores/todos';
 
 defineOptions({
   name: 'TodoList',
-})
+});
 
-const todosStore = useTodosStore()
-const { filteredTodos, filter, loading, error, initialized } = storeToRefs(todosStore)
+const todosStore = useTodosStore();
+const { filteredTodos, filter, loading, error, initialized } = storeToRefs(todosStore);
 const {
   fetchTodos,
   addTodo,
@@ -17,47 +19,47 @@ const {
   updateTodoTitle,
   clearCompletedTodos,
   setFilter,
-} = todosStore
+} = todosStore;
 
-const newTitle = ref('')
-const editingTodoId = ref(null)
-const editingTitle = ref('')
-const showClearConfirm = ref(false)
+const newTitle = ref('');
+const editingTodoId = ref<number | null>(null);
+const editingTitle = ref('');
+const showClearConfirm = ref(false);
 
-const filterOptions = [
+const filterOptions: Array<{ value: TodoFilter; label: string; segmentClass: string }> = [
   { value: 'all', label: '全部', segmentClass: 'all' },
   { value: 'done', label: '已完成', segmentClass: 'done' },
   { value: 'active', label: '未完成', segmentClass: 'pending' },
-]
+];
 
 onMounted(async () => {
-  await fetchTodos()
-})
+  await fetchTodos();
+});
 
-const cancelEdit = () => {
-  editingTodoId.value = null
-  editingTitle.value = ''
-}
+const cancelEdit = (): void => {
+  editingTodoId.value = null;
+  editingTitle.value = '';
+};
 
-const handleAdd = async () => {
-  const success = await addTodo(newTitle.value)
+const handleAdd = async (): Promise<void> => {
+  const success = await addTodo(newTitle.value);
   if (success) {
-    newTitle.value = ''
+    newTitle.value = '';
   }
-}
+};
 
-const handleToggle = async (id) => {
-  await toggleTodo(id)
-}
+const handleToggle = async (id: number): Promise<void> => {
+  await toggleTodo(id);
+};
 
-const handleDelete = async (id) => {
+const handleDelete = async (id: number): Promise<void> => {
   if (editingTodoId.value === id) {
-    cancelEdit()
+    cancelEdit();
   }
-  await removeTodo(id)
-}
+  await removeTodo(id);
+};
 
-const handlePencilClick = async (todo) => {
+const handlePencilClick = async (todo: Todo): Promise<void> => {
   if (loading.value) {
     return
   }
@@ -78,23 +80,23 @@ const handlePencilClick = async (todo) => {
   editingTitle.value = todo.title
 }
 
-const handleOpenClearConfirm = () => {
+const handleOpenClearConfirm = (): void => {
   if (loading.value) {
     return
   }
   showClearConfirm.value = true
 }
 
-const handleConfirmClear = async () => {
+const handleConfirmClear = async (): Promise<void> => {
   await clearCompletedTodos()
   showClearConfirm.value = false
 }
 
-const handleCancelClear = () => {
+const handleCancelClear = (): void => {
   showClearConfirm.value = false
 }
 
-const handleRetry = async () => {
+const handleRetry = async (): Promise<void> => {
   await fetchTodos()
 }
 </script>

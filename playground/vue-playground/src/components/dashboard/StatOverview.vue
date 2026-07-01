@@ -1,7 +1,9 @@
-﻿<script setup>
-defineProps({
-  stats: { type: Object, required: true },
-});
+﻿<script setup lang="ts">
+import type { CatalogStats } from '@/types/catalog';
+
+defineProps<{
+  stats: CatalogStats;
+}>();
 </script>
 
 <template>

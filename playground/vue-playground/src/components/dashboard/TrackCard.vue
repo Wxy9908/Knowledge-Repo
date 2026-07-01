@@ -1,11 +1,12 @@
-﻿<script setup>
+﻿<script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import type { CatalogTrack } from '@/types/catalog';
 
-defineProps({
-  track: { type: Object, required: true },
-});
+defineProps<{
+  track: CatalogTrack;
+}>();
 
-const depthClass = (depth) => `badge badge-${depth}`;
+const depthClass = (depth: string): string => `badge badge-${depth}`;
 </script>
 
 <template>

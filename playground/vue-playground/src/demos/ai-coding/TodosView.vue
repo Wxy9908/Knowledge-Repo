@@ -1,9 +1,9 @@
-﻿<script setup>
-import './todos-base.css'
-import './todos-components.css'
-import TodoList from './components/TodoList.vue'
+﻿<script setup lang="ts">
+import './todos-base.css';
+import './todos-components.css';
+import TodoList from './components/TodoList.vue';
 
-defineOptions({ name: 'TodosView' })
+defineOptions({ name: 'TodosView' });
 </script>
 
 <template>

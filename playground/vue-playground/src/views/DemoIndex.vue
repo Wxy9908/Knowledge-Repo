@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { demoRegistry } from '@/demos/registry.js';
+import { demoRegistry } from '@/demos/registry';
 
 const tracks = [...new Set(demoRegistry.map((d) => d.track))];
 </script>

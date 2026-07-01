@@ -1,12 +1,14 @@
-﻿<script setup>
-const props = defineProps({
-  tags: { type: Array, default: () => [] },
-  modelValue: { type: String, default: '' },
-});
+﻿<script setup lang="ts">
+const props = defineProps<{
+  tags: string[];
+  modelValue: string;
+}>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  'update:modelValue': [value: string];
+}>();
 
-const handleSelect = (tag) => {
+const handleSelect = (tag: string): void => {
   emit('update:modelValue', props.modelValue === tag ? '' : tag);
 };
 </script>

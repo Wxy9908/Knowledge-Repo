@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '@/views/Dashboard.vue';
 import TrackDetail from '@/views/TrackDetail.vue';
 import DemoIndex from '@/views/DemoIndex.vue';
-import { demoRegistry } from '@/demos/registry.js';
+import { demoRegistry } from '@/demos/registry';
 import { useUserStore } from '@/demos/ai-coding/stores/user';
 
 const demoRoutes = demoRegistry.map((demo) => ({

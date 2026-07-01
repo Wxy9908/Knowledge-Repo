@@ -1,22 +1,22 @@
-<script setup>
-import './todos-base.css'
-import './todos-components.css'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUserStore } from './stores/user'
+<script setup lang="ts">
+import './todos-base.css';
+import './todos-components.css';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from './stores/user';
 
 defineOptions({
   name: 'LoginView',
-})
+});
 
-const router = useRouter()
-const userStore = useUserStore()
+const router = useRouter();
+const userStore = useUserStore();
 
-const username = ref('')
-const password = ref('')
-const errorMessage = ref('')
+const username = ref('');
+const password = ref('');
+const errorMessage = ref('');
 
-const handleLogin = () => {
+const handleLogin = (): void => {
   errorMessage.value = ''
 
   const trimmedUsername = username.value.trim()
