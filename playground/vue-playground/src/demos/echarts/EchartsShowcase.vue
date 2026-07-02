@@ -65,9 +65,6 @@ watch(activeTab, () => {
           <span class="status">全量能力验证 Demo</span>
         </p>
       </div>
-      <router-link to="/" class="back-link">
-        <span class="icon">←</span> 返回首页
-      </router-link>
     </div>
 
     <div class="tab-bar-container">
@@ -96,7 +93,10 @@ watch(activeTab, () => {
         <BasicChartsPanel ref="basicChartsPanelRef" />
       </div>
       <div v-show="activeTab === 'contract'" role="tabpanel" aria-label="合同业务看板">
-        <ContractDashboardPanel ref="contractDashboardPanelRef" />
+        <ContractDashboardPanel
+          ref="contractDashboardPanelRef"
+          :active="activeTab === 'contract'"
+        />
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@ watch(activeTab, () => {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 }
 
 .page-title {

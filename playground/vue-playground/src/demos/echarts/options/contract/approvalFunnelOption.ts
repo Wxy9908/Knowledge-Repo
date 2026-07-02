@@ -1,5 +1,5 @@
 import type { EChartsOption } from 'echarts';
-import { getApprovalFunnel } from '../../mock/contractAggregates';
+import type { FunnelItem } from '../../mock/contractAggregates';
 
 const FUNNEL_COLORS = ['#3b82f6', '#22c55e', '#f59e0b', '#a855f7'];
 
@@ -8,9 +8,7 @@ const TEXT_STYLE = {
   color: '#8b9cb3',
 };
 
-/** 图⑦：审批流程漏斗（主流程 ③ 审批与签署），展示各阶段转化 */
-export const buildApprovalFunnelOption = (): EChartsOption => {
-  const data = getApprovalFunnel();
+const createApprovalFunnelOption = (data: FunnelItem[]): EChartsOption => {
   const total = data[0]?.count ?? 1;
 
   return {
@@ -31,12 +29,12 @@ export const buildApprovalFunnelOption = (): EChartsOption => {
     series: [
       {
         name: '审批流程',
-        type: 'funnel', // 漏斗图：适合多阶段流程的数量递减展示
+        type: 'funnel',
         left: '8%',
         right: '8%',
         top: 16,
         bottom: 16,
-        sort: 'descending', // 从上到下由大到小
+        sort: 'descending',
         gap: 4,
         label: {
           show: true,
@@ -55,3 +53,19 @@ export const buildApprovalFunnelOption = (): EChartsOption => {
     ],
   };
 };
+
+export const buildEmptyApprovalFunnelOption = (): EChartsOption =>
+  createApprovalFunnelOption([]);
+
+export const setApprovalFunnelOption = (data: FunnelItem[]): EChartsOption => ({
+  series: [
+    {
+      name: '审批流程',
+      data: data.map((item) => ({ name: item.stage, value: item.count })),
+    },
+  ],
+});
+
+/** 图⑦：审批流程漏斗（主流程 ③ 审批与签署），展示各阶段转化 */
+export const buildApprovalFunnelOption = (data: FunnelItem[]): EChartsOption =>
+  createApprovalFunnelOption(data);

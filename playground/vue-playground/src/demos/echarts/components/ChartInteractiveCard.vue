@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, useSlots, type MaybeRefOrGetter, toValue } from 'vue';
+import { computed, provide, toRef, useSlots, type MaybeRefOrGetter, toValue } from 'vue';
 import type { EChartsOption } from 'echarts';
 import ChartCard from './ChartCard.vue';
 import ChartDevToolbar from './ChartDevToolbar.vue';
 import OptionCodeViewer from './OptionCodeViewer.vue';
 import { useChartDevPanel } from '../composables/useChartDevPanel';
+import { CHART_CARD_LOADING_KEY } from '../constants/chart';
 import type { ChartDevPanelMode } from '../types/chartDevTools';
 
 defineOptions({ name: 'ChartInteractiveCard' });
@@ -25,6 +26,7 @@ const props = withDefaults(
     option: MaybeRefOrGetter<EChartsOption>;
     showCode?: boolean;
     showDataForm?: boolean;
+    loading?: boolean;
   }>(),
   {
     description: '',
@@ -32,8 +34,11 @@ const props = withDefaults(
     ariaLabel: '',
     showCode: true,
     showDataForm: undefined,
+    loading: false,
   },
 );
+
+provide(CHART_CARD_LOADING_KEY, toRef(props, 'loading'));
 
 const emit = defineEmits<{
   panelChange: [mode: ChartDevPanelMode];
@@ -66,6 +71,7 @@ const chartAriaLabel = computed(() => props.ariaLabel || props.title);
     :description="description"
     :height="height"
     :ariaLabel="chartAriaLabel"
+    :loading="loading"
   >
     <template v-if="showCode || showDataFormButton" #toolbar>
       <ChartDevToolbar

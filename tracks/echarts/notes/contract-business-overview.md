@@ -215,6 +215,6 @@
 
 ## 复盘
 
-- 能否讲清楚：合同从商机到归档的主流程，以及各阶段谁关心什么数据？
+- 能否讲清楚：合同从商机到归档的主流程，以及各阶段谁关心什么数据？ → **能**
 - 何时使用：立项 Demo、与产品对齐需求、设计 mock 字段前
-- 沉淀去向：`contract-charts-analysis.md`、Showcase 合同 Tab、`mock/contractData.js`
+- 沉淀去向：`contract-charts-analysis.md`、Showcase 合同 Tab、`mock/contractData.ts`（128 条）

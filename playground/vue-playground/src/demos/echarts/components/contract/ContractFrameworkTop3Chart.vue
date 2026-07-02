@@ -1,14 +1,30 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useEcharts } from '../../composables/useEcharts';
-import { buildFrameworkTop3Option } from '../../options/contract/frameworkTop3Option';
+import { watch } from 'vue';
+import type { EChartsOption } from 'echarts';
+import { useAsyncContractChart } from '../../composables/useAsyncContractChart';
+import { fetchContractChartData } from '../../mock/contractApi';
+import {
+  buildEmptyFrameworkTop3Option,
+  buildFrameworkTop3Option,
+  setFrameworkTop3Option,
+} from '../../options/contract/frameworkTop3Option';
 import type { ShowcasePanelExpose } from '../../types/panel';
 
 defineOptions({ name: 'ContractFrameworkTop3Chart' });
 
-const chartRef = ref<HTMLElement | null>(null);
-const option = computed(() => buildFrameworkTop3Option());
-const { resize } = useEcharts(chartRef, option);
+const emit = defineEmits<{
+  optionChange: [option: EChartsOption];
+}>();
+
+const { chartRef, resize, option } = useAsyncContractChart({
+  buildEmptyOption: buildEmptyFrameworkTop3Option,
+  setDataOption: setFrameworkTop3Option,
+  buildOption: buildFrameworkTop3Option,
+  fetchData: () => fetchContractChartData('framework'),
+  emptyData: [],
+});
+
+watch(option, (nextOption) => emit('optionChange', nextOption), { immediate: true, deep: true });
 
 defineExpose<ShowcasePanelExpose>({ resizeCharts: resize });
 </script>

@@ -49,9 +49,9 @@ defineExpose<ShowcasePanelExpose>({ resizeCharts });
 
 <template>
   <div class="basics-panel">
-    <p class="panel-hint">
+    <!-- <p class="panel-hint">
       通用 mock · 每图 2～3 组数据 · 均支持查看代码；柱状图已接入编辑数据
-    </p>
+    </p> -->
 
     <div class="chart-grid">
       <ChartInteractiveCard

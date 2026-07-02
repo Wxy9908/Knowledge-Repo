@@ -5,6 +5,7 @@
 ## 命令
 
 ```bash
+cd playground\vue-playground
 pnpm install   # 或 npm install
 pnpm dev       # http://localhost:5173/
 pnpm build     # vue-tsc + vite build

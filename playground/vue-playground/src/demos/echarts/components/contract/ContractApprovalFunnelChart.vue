@@ -1,14 +1,30 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useEcharts } from '../../composables/useEcharts';
-import { buildApprovalFunnelOption } from '../../options/contract/approvalFunnelOption';
+import { watch } from 'vue';
+import type { EChartsOption } from 'echarts';
+import { useAsyncContractChart } from '../../composables/useAsyncContractChart';
+import { fetchContractChartData } from '../../mock/contractApi';
+import {
+  buildEmptyApprovalFunnelOption,
+  buildApprovalFunnelOption,
+  setApprovalFunnelOption,
+} from '../../options/contract/approvalFunnelOption';
 import type { ShowcasePanelExpose } from '../../types/panel';
 
 defineOptions({ name: 'ContractApprovalFunnelChart' });
 
-const chartRef = ref<HTMLElement | null>(null);
-const option = computed(() => buildApprovalFunnelOption());
-const { resize } = useEcharts(chartRef, option);
+const emit = defineEmits<{
+  optionChange: [option: EChartsOption];
+}>();
+
+const { chartRef, resize, option } = useAsyncContractChart({
+  buildEmptyOption: buildEmptyApprovalFunnelOption,
+  setDataOption: setApprovalFunnelOption,
+  buildOption: buildApprovalFunnelOption,
+  fetchData: () => fetchContractChartData('funnel'),
+  emptyData: [],
+});
+
+watch(option, (nextOption) => emit('optionChange', nextOption), { immediate: true, deep: true });
 
 defineExpose<ShowcasePanelExpose>({ resizeCharts: resize });
 </script>

@@ -2,30 +2,31 @@ id: echarts
 depth: standard
 category: tech-learning
 title: ECharts 可视化
-status: in_progress
+status: completed
 tags: [echarts, vue, visualization]
 notes:
   - path: notes/echarts-basics.md
     title: ECharts 基础
-    mastery: learning
+    mastery: practiced
   - path: notes/contract-business-overview.md
     title: 合同业务概览
-    mastery: learning
+    mastery: practiced
   - path: notes/contract-charts-analysis.md
     title: 合同业务看板图表选型
-    mastery: learning
+    mastery: practiced
   - path: notes/echarts-version-matrix.md
     title: ECharts 版本选型矩阵
-    mastery: learning
+    mastery: practiced
   - path: notes/task.md
     title: ECharts 演示 Demo 工作计划
-    mastery: learning
+    mastery: practiced
 started: 2026-06-30
 updated: 2026-07-01
+last_reviewed: 2026-07-01
 next_review: 2026-07-30
 related: [ai-coding]
 artifacts:
   - type: demo
-    route: /demos/echarts/bar-basic
-    title: ECharts 演示（开发中）
-    description: Showcase 占位，阶段 3 搭建
+    route: /demos/echarts/showcase
+    title: ECharts 演示中心
+    description: 版本说明 · 基础图表（含查看代码/编辑数据）· 合同业务看板 7 图 + KPI

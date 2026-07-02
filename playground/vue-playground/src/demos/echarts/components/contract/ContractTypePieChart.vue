@@ -1,14 +1,26 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useEcharts } from '../../composables/useEcharts';
-import { buildTypePieOption } from '../../options/contract/typePieOption';
+import { watch } from 'vue';
+import type { EChartsOption } from 'echarts';
+import { useAsyncContractChart } from '../../composables/useAsyncContractChart';
+import { fetchContractChartData } from '../../mock/contractApi';
+import { buildEmptyTypePieOption, buildTypePieOption, setTypePieOption } from '../../options/contract/typePieOption';
 import type { ShowcasePanelExpose } from '../../types/panel';
 
 defineOptions({ name: 'ContractTypePieChart' });
 
-const chartRef = ref<HTMLElement | null>(null);
-const option = computed(() => buildTypePieOption());
-const { resize } = useEcharts(chartRef, option);
+const emit = defineEmits<{
+  optionChange: [option: EChartsOption];
+}>();
+
+const { chartRef, resize, option } = useAsyncContractChart({
+  buildEmptyOption: buildEmptyTypePieOption,
+  setDataOption: setTypePieOption,
+  buildOption: buildTypePieOption,
+  fetchData: () => fetchContractChartData('typePie'),
+  emptyData: [],
+});
+
+watch(option, (nextOption) => emit('optionChange', nextOption), { immediate: true, deep: true });
 
 defineExpose<ShowcasePanelExpose>({ resizeCharts: resize });
 </script>

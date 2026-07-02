@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import ChartLoadingOverlay from './ChartLoadingOverlay.vue';
 
 defineOptions({ name: 'ChartCard' });
 
@@ -9,11 +10,13 @@ const props = withDefaults(
     description?: string;
     height?: string;
     ariaLabel?: string;
+    loading?: boolean;
   }>(),
   {
     description: '',
     height: '320px',
     ariaLabel: '',
+    loading: false,
   },
 );
 
@@ -38,6 +41,7 @@ const chartAriaLabel = computed(() => props.ariaLabel || props.title);
       role="img"
     >
       <slot />
+      <ChartLoadingOverlay :loading="loading" />
     </div>
     <div v-if="$slots.footer" class="chart-card-footer">
       <slot name="footer" />
@@ -85,6 +89,7 @@ const chartAriaLabel = computed(() => props.ariaLabel || props.title);
 }
 
 .chart-container {
+  position: relative;
   width: 100%;
 }
 </style>

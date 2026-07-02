@@ -1,6 +1,6 @@
 # ECharts 演示 Demo — 工作计划
 
-> 状态：阶段 0–2、阶段 1 已完成 · 下一步阶段 3（Showcase 骨架） | updated: 2026-07-01
+> 状态：阶段 0–6 已全部完成 | updated: 2026-07-01
 
 ## 一、任务背景
 
@@ -47,7 +47,8 @@
 - 合同看板 **7 图**（详见 `contract-charts-analysis.md`）
 - **Tab 2 基础图表从简**（最小 option、通用 mock）；**Tab 3 业务看板做复杂**（贴合场景、展示 ECharts 能力）
 - 框架额度：**TOP3 横向条形图**（双系列：已用 / 总额度）
-- 保留 `BarBasic.vue` 路由占位（ECharts 代码在阶段 3 Showcase 重写）
+- 主交付路由：`/demos/echarts/showcase`（单页 Tab 演示中心）
+- **交互增强试点**（阶段 4.5）：Tab 2 **仅柱状图**提供「查看代码」「编辑数据」两按钮；代码展示用 **option JSON（方案 A）**；效果满意后再考虑扩展到其他图或 Tab 3
 
 ### 阶段 0.5：TypeScript 迁移 ✅（ECharts 开发前完成）
 
@@ -104,21 +105,20 @@
 
 ---
 
-### 阶段 3：演示中心框架搭建（代码骨架）
+### 阶段 3：演示中心框架搭建（代码骨架） ✅
 
-- [ ] 设计目录结构（见下方「代码结构」）
-- [ ] 实现 `useEcharts` composable（init / setOption / resize / dispose）
-- [ ] 实现 `ChartCard.vue` 统一图表卡片（标题、容器、宽高、aria-label）
-- [ ] 实现 `EchartsShowcase.vue` 主页面（Tab 切换 + 布局 + 返回链接）
-- [ ] 在 `registry.js` 注册路由 `/demos/echarts/showcase`
-- [ ] 在 `meta.yaml` 的 `artifacts` 中登记 Showcase
-- [ ] Tab 1「版本说明」先放静态文案（引用阶段 1 文档要点）
+- [x] 设计目录结构（见下方「代码结构」）
+- [x] 实现 `useEcharts` composable（init / setOption / resize / dispose；**暴露 `setOption` 供阶段 4.5 实时更新**）
+- [x] 实现 `ChartCard.vue` 统一图表卡片（标题、容器、宽高、aria-label；**预留 `toolbar` 插槽**，供阶段 4.5「查看代码 / 编辑数据」按钮使用）
+- [x] 实现 `EchartsShowcase.vue` 主页面（Tab 切换 + 布局 + 返回链接）
+- [x] 在 `registry.ts` 注册路由 `/demos/echarts/showcase`
+- [x] 在 `meta.yaml` 的 `artifacts` 中登记 Showcase
+- [x] Tab 1「版本说明」先放静态文案（引用阶段 1 文档要点）
 
 **产出：**
 
 ```text
 playground/vue-playground/src/demos/echarts/
-├── BarBasic.vue                 # 占位页（阶段 3 起替换为 Showcase）
 ├── EchartsShowcase.vue          # 主入口
 ├── composables/useEcharts.ts
 ├── components/
@@ -135,26 +135,93 @@ playground/vue-playground/src/demos/echarts/
 
 ---
 
-### 阶段 4：基础图表演示（Tab 2 · 从简）
+### 阶段 4：基础图表演示（Tab 2 · 从简） ✅
 
-- [ ] 实现折线图、柱状图、饼图、散点图（2×2 网格）
-- [ ] 使用**通用 mock**（与合同无关），**最小 option**（axis + series + tooltip + legend）
-- [ ] 窗口 resize 时各图表正常自适应
-- [ ] Tab 切换后对隐藏图表执行 resize（`v-show` + `nextTick` 或等效方案）
+- [x] 实现折线图、柱状图、饼图、散点图（2×2 网格）
+- [x] 使用**通用 mock**（与合同无关），**最小 option**（axis + series + tooltip + legend）
+- [x] 窗口 resize 时各图表正常自适应
+- [x] Tab 切换后对隐藏图表执行 resize（`v-show` + `nextTick` 或等效方案）
 
 **产出：** `BasicChartsPanel.vue` + `mock/basicChartData.ts`（与 `contractData.ts` 分离）
 
 **验收：** 四图同屏、配置从简；无内存泄漏；不与 Tab 3 业务数据耦合。
 
+**阶段 4 与 4.5 分工：** 阶段 4 先让四图跑通；阶段 4.5 仅在**柱状图**一张上叠加交互试点，其余三图保持静态。
+
 ---
 
-### 阶段 5：合同业务看板（Tab 3 · 做复杂）
+### 阶段 4.5：交互增强试点（Tab 2 · 单图验证） ✅
 
-- [ ] 实现 **7 张业务图表** + 顶部 KPI 条（见 `contract-charts-analysis.md`）
-- [ ] 使用 `mock/contractData.js` 统一数据源与聚合函数
-- [ ] 丰富 option：面积渐变、markLine、funnel、双系列横向条、tooltip 格式化等
-- [ ] 每图配标题、单位、业务说明；布局按文档看板线框图
-- [ ] 一屏适合汇报投屏；能讲清各图对应主流程哪一阶段
+> **目标：** 在 Tab 2 的**柱状图**上验证「查看 option 代码 + 改数据实时渲染」效果；满意后再评估是否扩展到 Tab 2 其余图或 Tab 3。
+
+**已拍板：**
+
+| 项 | 决定 |
+|----|------|
+| 试点范围 | **仅 Tab 2 柱状图**（其余折线 / 饼图 / 散点图不加按钮） |
+| 按钮 1「查看代码」 | **方案 A**：展示当前图表的 **option JSON**（`JSON.stringify` 格式化），非完整 `.vue` 源码 |
+| 按钮 2「编辑数据」 | 简单表单：编辑柱状图 `categories` / `values` 数组项，改后图表**实时** `setOption` |
+| UI 形态 | `ChartCard` 标题栏右侧两按钮 → 点击展开**下方折叠面板**或**侧栏**（二选一，实现时取更简单者） |
+| 数据层 | `basicChartData.ts` 中柱状图部分用 `ref` / `reactive`，与阶段 4 静态 mock 同源、可写 |
+
+**任务清单：**
+
+- [x] 实现 `OptionCodeViewer.vue`：只读 JSON 展示 + 一键复制
+- [x] 实现 `BarDataForm.vue`（或内联于 `BasicChartsPanel`）：绑定柱状图 mock 字段（如月份标签、数值）
+- [x] `ChartCard` 的 `toolbar` 插槽接入两按钮（**仅柱状图实例传入**）
+- [x] 柱状图 option 改为 `computed`（依赖 reactive mock）→ 数据变 → `useEcharts.setOption` 自动更新
+- [x] 代码面板展示的 JSON 与当前图表同步（同一份 `computed` option，避免两份数据源）
+- [x] 折叠/展开代码或表单后，图表 `resize` 正常
+
+**产出：**
+
+```text
+playground/vue-playground/src/demos/echarts/
+├── components/
+│   ├── ChartCard.vue            # 已有 toolbar 插槽
+│   ├── OptionCodeViewer.vue     # 按钮 1：option JSON
+│   └── BarDataForm.vue          # 按钮 2：柱状图数据表单
+└── mock/
+    └── basicChartData.ts        # 柱状图数据改为 reactive
+```
+
+**交互示意：**
+
+```text
+┌─────────────────────────────────────────────┐
+│  基础柱状图              [查看代码] [编辑数据] │
+├─────────────────────────────────────────────┤
+│              ECharts 柱状图                  │
+├─────────────────────────────────────────────┤
+│  （展开区）option JSON  或  月份/数值表单     │
+└─────────────────────────────────────────────┘
+```
+
+**验收：**
+
+- [x] 仅柱状图卡片有工具栏，另外三图无按钮、行为与阶段 4 一致
+- [x] 「查看代码」显示与当前图表一致的 option JSON，可复制
+- [x] 表单改任意一个柱子的数值或标签，图表无刷新页面即更新
+- [x] 关闭面板、切换 Tab、窗口 resize 无布局错乱与内存泄漏
+
+**后续扩展（本阶段不做）：**
+
+- Tab 2 其余三图加同样能力
+- Tab 3 合同看板联动编辑（改 `contractList` 原始数据 → 多图聚合更新）
+- 语法高亮、JSON 编辑器、完整 Vue 源码展示（方案 B）
+
+**预估：** 45–60 min（在阶段 4 完成后进行）
+
+---
+
+### 阶段 5：合同业务看板（Tab 3 · 做复杂） ✅
+
+- [x] 实现 **7 张业务图表** + 顶部 KPI 条（见 `contract-charts-analysis.md`）
+- [x] 使用 `mock/contractData.ts` 统一数据源与聚合函数
+- [x] 丰富 option：面积渐变、markLine、funnel、双系列横向条、tooltip 格式化等
+- [x] 每图配标题、单位、业务说明；布局按文档看板线框图
+- [x] 一屏适合汇报投屏；能讲清各图对应主流程哪一阶段
+- [x] 7 图均接入 `ChartInteractiveCard`（查看代码）
 
 **产出：** `ContractDashboardPanel.vue` + `options/` 下各图 option 工厂 + `contractData.ts`
 
@@ -164,12 +231,12 @@ playground/vue-playground/src/demos/echarts/
 
 ### 阶段 6：收尾与同步
 
-- [ ] 更新 `tracks/echarts/roadmap.md` 勾选已完成项
-- [ ] 更新 `tracks/echarts/meta.yaml`（`notes`、`artifacts`、`updated`）
-- [ ] 更新根目录 `STATUS.md` 中 echarts 下一步
-- [ ] 运行 `npm run sync-catalog`（或 `pnpm dev` 自动同步）
-- [ ] 本地走一遍汇报路径：Dashboard → 轨道详情 → Showcase → 三个 Tab
-- [ ] 填写各笔记文末「复盘」与 `next_review`
+- [x] 更新 `tracks/echarts/roadmap.md` 勾选已完成项
+- [x] 更新 `tracks/echarts/meta.yaml`（`notes`、`artifacts`、`updated`）
+- [x] 更新根目录 `STATUS.md` 中 echarts 下一步
+- [x] 运行 `npm run sync-catalog`（或 `pnpm dev` 自动同步）
+- [x] 本地走一遍汇报路径：Dashboard → 轨道详情 → Showcase → 三个 Tab
+- [x] 填写各笔记文末「复盘」与 `next_review`
 
 **产出：** 元数据、索引、全局状态与文档闭环。
 
@@ -184,17 +251,18 @@ playground/vue-playground/src/demos/echarts/
 | 2 业务分析 | 30 min | 1.5h |
 | 3 框架搭建 | 45 min | 2.25h |
 | 4 基础图表 | 45 min | 3h |
-| 5 合同看板（7 图） | 90 min | 4.25h |
-| 6 收尾同步 | 15 min | 4.5h |
+| 4.5 交互试点（Tab 2 单图） | 45–60 min | 3.75–4h |
+| 5 合同看板（7 图） | 90 min | 5.25–5.5h |
+| 6 收尾同步 | 15 min | 5.5–5.75h |
 
-**目标：** 约半天（4–5h）；时间紧时 Tab 2 可去掉散点图，Tab 3 保持 7 图不砍。
+**目标：** 核心汇报约半天（4–5h）；含阶段 4.5 交互试点约 5.5–6h。时间紧时 Tab 2 可去掉散点图，Tab 3 保持 7 图不砍；**阶段 4.5 可整段延后**，不影响阶段 5 合同看板交付。
 
 ## 六、与知识库 roadmap 的关系
 
 本次任务以**工作汇报交付**为主，同步推进 `roadmap.md` 各阶段：
 
 - 阶段一（基础图表）→ 对应工作计划阶段 4
-- 阶段二（交互 tooltip/legend 等）→ 在基础图表与合同看板中一并体现
+- 阶段二（交互 tooltip/legend 等）→ 在基础图表与合同看板中一并体现；阶段 4.5 的「查看代码 / 编辑数据」为**额外试点**，不替代 tooltip 等内置交互
 - 阶段三（Vue 集成 / 多图表）→ 对应演示中心框架与 composable
 
 任务完成后将 `roadmap.md` 勾选情况与 `meta.yaml` mastery 对齐。
@@ -208,7 +276,9 @@ playground/vue-playground/src/demos/echarts/
 ## 八、执行顺序（给实践 Agent 的 Brief）
 
 ```text
-阶段 0 → 1（文档）→ 2（文档）→ 3（骨架）→ 4（Tab 2）→ 5（Tab 3）→ 6（收尾）
+阶段 0 → 1（文档）→ 2（文档）→ 3（骨架）→ 4（Tab 2 四图）
+  → 4.5（Tab 2 柱状图：查看代码 + 编辑数据试点，可延后）
+  → 5（Tab 3 七图）→ 6（收尾）
 ```
 
-**当前进度：** 阶段 0 ✅ · 阶段 1 ✅ · 阶段 2 ✅ → **下一步：阶段 3 演示中心框架搭建**
+**当前进度：** 阶段 0–6 ✅ 全部完成

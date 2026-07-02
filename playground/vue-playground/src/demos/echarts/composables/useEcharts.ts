@@ -1,4 +1,5 @@
 import {
+  nextTick,
   onMounted,
   onBeforeUnmount,
   watch,
@@ -9,8 +10,18 @@ import {
 import * as echarts from 'echarts';
 import type { ECharts, EChartsOption, SetOptionOpts } from 'echarts';
 
+export interface EchartsLoadingOpts {
+  text?: string;
+  color?: string;
+  textColor?: string;
+  maskColor?: string;
+  zlevel?: number;
+}
+
 export interface UseEchartsReturn {
-  setOption: (option: EChartsOption, opts?: SetOptionOpts) => void;
+  setOption: (option: EChartsOption, opts?: SetOptionOpts) => boolean;
+  showLoading: (opts?: EchartsLoadingOpts) => void;
+  hideLoading: () => void;
   resize: () => void;
   dispose: () => void;
   getInstance: () => ECharts | null;
@@ -19,37 +30,77 @@ export interface UseEchartsReturn {
 /**
  * ECharts 在 Vue 中的生命周期封装
  *
- * init → setOption → resize（窗口/TAB 切换）→ dispose（防内存泄漏）
- * 传入 option 时自动 watch，数据变化会触发 setOption（Tab 2 编辑数据依赖此能力）
+ * init → setOption → resize（窗口/TAB/容器变化）→ dispose
+ * 容器宽高为 0 时通过 ResizeObserver 延迟 init
  */
 export const useEcharts = (
   containerRef: Ref<HTMLElement | null>,
   option?: MaybeRefOrGetter<EChartsOption | undefined>,
 ): UseEchartsReturn => {
   let chartInstance: ECharts | null = null;
+  let resizeObserver: ResizeObserver | null = null;
+  let isFirstApply = true;
 
-  const initChart = () => {
-    if (!containerRef.value || chartInstance) return;
-
-    chartInstance = echarts.init(containerRef.value);
-    const initialOption = option ? toValue(option) : undefined;
-    if (initialOption) {
-      chartInstance.setOption(initialOption);
-    }
+  const canInit = (): boolean => {
+    if (!containerRef.value) return false;
+    const { clientWidth, clientHeight } = containerRef.value;
+    return clientWidth > 0 && clientHeight > 0;
   };
 
-  const setOption = (nextOption: EChartsOption, opts?: SetOptionOpts) => {
-    if (!chartInstance) return;
-    chartInstance.setOption(nextOption, opts);
+  const tryInitChart = (): boolean => {
+    if (chartInstance) return true;
+    if (!canInit()) return false;
+    chartInstance = echarts.init(containerRef.value!);
+    return true;
+  };
+
+  const scheduleResize = () => {
+    window.requestAnimationFrame(() => {
+      chartInstance?.resize();
+    });
+  };
+
+  const applyOption = async () => {
+    if (!tryInitChart()) return;
+
+    const nextOption = option ? toValue(option) : undefined;
+    if (!nextOption || !chartInstance) return;
+
+    chartInstance.setOption(nextOption, { notMerge: isFirstApply });
+    isFirstApply = false;
+
+    await nextTick();
+    scheduleResize();
+  };
+
+  const setOption = (nextOption: EChartsOption, opts?: SetOptionOpts): boolean => {
+    if (!tryInitChart()) return false;
+    chartInstance!.setOption(nextOption, opts);
+    scheduleResize();
+    return true;
+  };
+
+  const showLoading = (opts?: EchartsLoadingOpts) => {
+    if (!tryInitChart()) return;
+    chartInstance?.showLoading(opts);
+  };
+
+  const hideLoading = () => {
+    chartInstance?.hideLoading();
   };
 
   const resize = () => {
-    chartInstance?.resize();
+    if (!chartInstance) {
+      void applyOption();
+      return;
+    }
+    chartInstance.resize();
   };
 
   const dispose = () => {
     chartInstance?.dispose();
     chartInstance = null;
+    isFirstApply = true;
   };
 
   const handleWindowResize = () => {
@@ -57,16 +108,27 @@ export const useEcharts = (
   };
 
   onMounted(() => {
-    initChart();
+    void applyOption();
     window.addEventListener('resize', handleWindowResize);
 
+    if (containerRef.value) {
+      resizeObserver = new ResizeObserver(() => {
+        if (!chartInstance && canInit()) {
+          void applyOption();
+          return;
+        }
+        if (chartInstance) {
+          scheduleResize();
+        }
+      });
+      resizeObserver.observe(containerRef.value);
+    }
+
     if (option) {
-      // deep: true 使 reactive mock 深层字段变化也能更新图表
       watch(
         () => toValue(option),
-        (nextOption) => {
-          if (!chartInstance || !nextOption) return;
-          chartInstance.setOption(nextOption);
+        () => {
+          void applyOption();
         },
         { deep: true },
       );
@@ -74,12 +136,15 @@ export const useEcharts = (
   });
 
   onBeforeUnmount(() => {
+    resizeObserver?.disconnect();
     window.removeEventListener('resize', handleWindowResize);
     dispose();
   });
 
   return {
     setOption,
+    showLoading,
+    hideLoading,
     resize,
     dispose,
     getInstance: () => chartInstance,

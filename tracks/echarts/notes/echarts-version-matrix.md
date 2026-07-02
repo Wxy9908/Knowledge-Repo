@@ -46,7 +46,7 @@ const option: EChartsOption = { /* ... */ };
 chart.setOption(option);
 ```
 
-> 当前 `BarBasic.vue` 为占位页，尚未引入 ECharts；Showcase 搭建后恢复。
+> Showcase 已搭建，基础图表见 Tab 2；完整引入方式见 `EchartsShowcase.vue` 与各 `Basic*Chart.vue`。
 
 首版 Showcase 沿用**全量引入**，优先保证功能覆盖与开发效率；生产环境可按需改为按需引入（见下文 tree-shaking）。
 
@@ -200,6 +200,6 @@ echarts.use([
 
 ## 复盘
 
-- 能否讲清楚：4 / 5 / 6 最大差异是什么？本 Demo 为什么选 6.1？
+- 能否讲清楚：4 / 5 / 6 最大差异是什么？本 Demo 为什么选 6.1？ → **能**（6.x 与 Vue 3 + Vite 生态匹配，Tab 1 已说明）
 - 何时使用：汇报前技术选型、老项目评估升级、Showcase Tab 1 文案
-- 沉淀去向：`VersionPanel.vue`、团队内合同平台技术选型讨论
+- 沉淀去向：`VersionPanel.vue`、选型结论 **ECharts 6.1.x**

@@ -1,6 +1,6 @@
 # ECharts 基础
 
-> tags: echarts, visualization | updated: 2026-06-30 | mastery: learning
+> tags: echarts, visualization | updated: 2026-07-01 | mastery: practiced
 
 ## 是什么
 
@@ -38,9 +38,9 @@ chart.setOption({
 
 ## 动手
 
-本地：`cd playground/vue-playground && pnpm dev` → 打开 `/demos/echarts/bar-basic`（当前为占位页）
+本地：`cd playground/vue-playground && pnpm dev` → 打开 `/demos/echarts/showcase` → Tab「基础图表」
 
-代码：`playground/vue-playground/src/demos/echarts/BarBasic.vue`（阶段 3 起搭建 Showcase）
+代码：`playground/vue-playground/src/demos/echarts/EchartsShowcase.vue`、`components/basic/BasicBarChart.vue`
 
 ## 踩坑
 
@@ -50,5 +50,6 @@ chart.setOption({
 
 ## 复盘
 
-- 能否讲清楚：init → setOption → dispose 生命周期
-- 何时使用：Dashboard、报表、大屏数据展示
+- 能否讲清楚：init → setOption → dispose 生命周期 → **能**（`useEcharts` composable）
+- 何时使用：Dashboard、报表、大屏；本仓库入口 `/demos/echarts/showcase`
+- 沉淀代码：`EchartsShowcase.vue`、`useEcharts.ts`、`ChartInteractiveCard.vue`

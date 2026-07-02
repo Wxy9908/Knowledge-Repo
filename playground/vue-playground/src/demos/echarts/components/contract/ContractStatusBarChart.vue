@@ -1,14 +1,26 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useEcharts } from '../../composables/useEcharts';
-import { buildStatusBarOption } from '../../options/contract/statusBarOption';
+import { watch } from 'vue';
+import type { EChartsOption } from 'echarts';
+import { useAsyncContractChart } from '../../composables/useAsyncContractChart';
+import { fetchContractChartData } from '../../mock/contractApi';
+import { buildEmptyStatusBarOption, buildStatusBarOption, setStatusBarOption } from '../../options/contract/statusBarOption';
 import type { ShowcasePanelExpose } from '../../types/panel';
 
 defineOptions({ name: 'ContractStatusBarChart' });
 
-const chartRef = ref<HTMLElement | null>(null);
-const option = computed(() => buildStatusBarOption());
-const { resize } = useEcharts(chartRef, option);
+const emit = defineEmits<{
+  optionChange: [option: EChartsOption];
+}>();
+
+const { chartRef, resize, option } = useAsyncContractChart({
+  buildEmptyOption: buildEmptyStatusBarOption,
+  setDataOption: setStatusBarOption,
+  buildOption: buildStatusBarOption,
+  fetchData: () => fetchContractChartData('status'),
+  emptyData: [],
+});
+
+watch(option, (nextOption) => emit('optionChange', nextOption), { immediate: true, deep: true });
 
 defineExpose<ShowcasePanelExpose>({ resizeCharts: resize });
 </script>

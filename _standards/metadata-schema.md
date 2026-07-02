@@ -17,7 +17,7 @@ notes:                    # 可选，笔记索引
     title: 标题
 artifacts:                # 可选，可运行 demo（路由在 playground）
   - type: demo
-    route: /demos/echarts/bar-basic
+    route: /demos/echarts/showcase
     title: 显示标题
     description: 简短说明
 related: [other-track]

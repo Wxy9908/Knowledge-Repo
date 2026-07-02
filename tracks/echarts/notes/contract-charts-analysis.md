@@ -298,6 +298,6 @@
 
 ## 复盘
 
-- 能否讲清楚：每张图对应主流程哪一阶段、解决什么业务问题？
-- 何时使用：开发 `ContractDashboardPanel.vue`、编写 `contractData.js`、汇报排练前
-- 沉淀去向：`playground/.../options/` 各图 option 工厂、`task.md` 阶段 5 验收依据
+- 能否讲清楚：每张图对应主流程哪一阶段、解决什么业务问题？ → **能**（7 图 + KPI 已落地 Tab 3）
+- 何时使用：开发 `ContractDashboardPanel.vue`、编写 mock、汇报排练前
+- 沉淀去向：`options/contract/`、`mock/contractAggregates.ts`、`ContractDashboardPanel.vue`
