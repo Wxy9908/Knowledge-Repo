@@ -63,7 +63,7 @@ const handleCopy = async () => {
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
-  background: #0d1117;
+  background: var(--bg);
 }
 
 .code-snippet-toolbar {

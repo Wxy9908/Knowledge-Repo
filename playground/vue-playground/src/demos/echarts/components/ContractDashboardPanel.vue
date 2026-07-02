@@ -119,12 +119,12 @@ defineExpose<ShowcasePanelExpose>({ resizeCharts });
 <template>
   <div class="contract-dashboard">
     <template v-if="initialized">
-      <AsyncDynamicDataDemo
+      <!-- <AsyncDynamicDataDemo
         ref="asyncDemoRef"
         class="async-demo-row"
         :active="active"
         :reload-key="reloadKey"
-      />
+      /> -->
 
       <div class="dashboard-toolbar">
         <span class="dashboard-toolbar-hint">
@@ -414,10 +414,10 @@ defineExpose<ShowcasePanelExpose>({ resizeCharts });
   height: 20px;
 }
 
-.kpi-icon.total { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-.kpi-icon.sign { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.kpi-icon.total { background: var(--accent-dim); color: var(--accent); }
+.kpi-icon.sign { background: rgba(34, 197, 94, 0.1); color: var(--success); }
 .kpi-icon.active { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
-.kpi-icon.pending { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+.kpi-icon.pending { background: rgba(245, 158, 11, 0.1); color: var(--warn); }
 
 .kpi-content .label {
   color: var(--muted);

@@ -11,6 +11,19 @@
   --danger: #ef4444;
 }
 
+body.light-mode {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --accent: #3b82f6;
+  --accent-dim: #3b82f61a;
+  --success: #10b981;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -18,6 +31,11 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.app-header, .stat-card, .track-card, .panel, .tab-bar, .tab-btn, .back-link, .chart-card {
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 a { color: var(--accent); text-decoration: none; }
@@ -32,6 +50,17 @@ a:hover { text-decoration: underline; }
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border);
   background: var(--surface);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
 }
 
 .brand {

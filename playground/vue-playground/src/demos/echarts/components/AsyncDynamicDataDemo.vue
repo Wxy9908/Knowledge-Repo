@@ -8,7 +8,9 @@
  */
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
-import type { ECharts } from 'echarts';
+import type { ECharts, EChartsOption } from 'echarts';
+import { getChartBaseStyle } from '../utils/chartBase';
+import { useTheme } from '../../../composables/useTheme';
 
 defineOptions({ name: 'AsyncDynamicDataDemo' });
 
@@ -23,11 +25,13 @@ const props = withDefaults(
   },
 );
 
+const { theme } = useTheme();
 const chartRef = ref<HTMLElement | null>(null);
 
 let chartInstance: ECharts | null = null;
 let loadToken = 0;
 let hasStarted = false;
+let currentData: AsyncBarPayload | null = null;
 
 interface AsyncBarPayload {
   categories: string[];
@@ -50,31 +54,45 @@ const canInitChart = (): boolean => {
   return clientWidth > 0 && clientHeight > 0;
 };
 
-const initChart = (): boolean => {
-  if (chartInstance) return true;
-  if (!canInitChart()) return false;
-
-  chartInstance = echarts.init(chartRef.value!);
-  chartInstance.setOption({
+const getBaseOption = (): EChartsOption => {
+  const base = getChartBaseStyle();
+  return {
     title: {
       text: '异步数据加载示例',
+      textStyle: { ...base.textStyle, fontSize: 14, fontWeight: 600, color: base.colors.text },
     },
-    tooltip: {},
+    tooltip: base.tooltipStyle,
     legend: {
       data: ['签约量'],
+      bottom: 0,
+      textStyle: base.textStyle,
     },
     xAxis: {
       data: [],
+      axisLabel: base.textStyle,
+      axisLine: base.axisLineStyle,
     },
-    yAxis: {},
+    yAxis: {
+      axisLabel: base.textStyle,
+      splitLine: base.splitLineStyle,
+    },
     series: [
       {
         name: '签约量',
         type: 'bar',
         data: [],
+        itemStyle: { borderRadius: [4, 4, 0, 0] },
       },
     ],
-  });
+  };
+};
+
+const initChart = (): boolean => {
+  if (chartInstance) return true;
+  if (!canInitChart()) return false;
+
+  chartInstance = echarts.init(chartRef.value!);
+  chartInstance.setOption(getBaseOption());
   return true;
 };
 
@@ -82,6 +100,7 @@ const loadAsyncData = async () => {
   if (!chartInstance) return;
 
   const token = ++loadToken;
+  const base = getChartBaseStyle();
 
   chartInstance.setOption({
     xAxis: {
@@ -98,8 +117,8 @@ const loadAsyncData = async () => {
   chartInstance.showLoading({
     text: '加载中…',
     color: '#3b82f6',
-    textColor: '#8b9cb3',
-    maskColor: 'rgba(15, 20, 25, 0.72)',
+    textColor: base.colors.muted,
+    maskColor: base.colors.theme === 'light' ? 'rgba(248, 250, 252, 0.72)' : 'rgba(15, 20, 25, 0.72)',
   });
 
   try {
@@ -107,20 +126,34 @@ const loadAsyncData = async () => {
     if (token !== loadToken || !chartInstance) return;
 
     chartInstance.hideLoading();
-    chartInstance.setOption({
-      xAxis: {
-        data: data.categories,
-      },
-      series: [
-        {
-          name: '签约量',
-          data: data.values,
-        },
-      ],
-    });
+    currentData = data;
+    applyData(data);
   } catch {
     if (token !== loadToken || !chartInstance) return;
     chartInstance.hideLoading();
+  }
+};
+
+const applyData = (data: AsyncBarPayload) => {
+  if (!chartInstance) return;
+  chartInstance.setOption({
+    xAxis: {
+      data: data.categories,
+    },
+    series: [
+      {
+        name: '签约量',
+        data: data.values,
+      },
+    ],
+  });
+};
+
+const updateTheme = () => {
+  if (!chartInstance) return;
+  chartInstance.setOption(getBaseOption());
+  if (currentData) {
+    applyData(currentData);
   }
 };
 
@@ -131,6 +164,7 @@ const resizeCharts = () => {
 const disposeChart = () => {
   chartInstance?.dispose();
   chartInstance = null;
+  currentData = null;
 };
 
 const handleWindowResize = () => {
@@ -168,6 +202,10 @@ watch(
     void loadAsyncData();
   },
 );
+
+watch(theme, () => {
+  updateTheme();
+});
 
 onMounted(() => {
   window.addEventListener('resize', handleWindowResize);

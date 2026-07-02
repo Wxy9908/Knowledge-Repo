@@ -1,46 +1,59 @@
 import type { EChartsOption } from 'echarts';
 import type { StatusDistributionItem } from '../../mock/contractAggregates';
+import { getChartBaseStyle } from '../../utils/chartBase';
 
 const PRIMARY = '#3b82f6';
+const SERIES_ID = 'contract-status-count';
 
-const TEXT_STYLE = {
-  fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
-  color: '#8b9cb3',
+const BAR_ANIMATION = {
+  animationDuration: 1000,
+  animationDurationUpdate: 1000,
+  animationEasingUpdate: 'cubicOut' as const,
 };
 
-const createStatusBarOption = (data: StatusDistributionItem[]): EChartsOption => ({
-  color: [PRIMARY],
-  textStyle: TEXT_STYLE,
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: { type: 'shadow' },
-    backgroundColor: 'rgba(26, 35, 50, 0.9)',
-    borderColor: '#2d3a4f',
-    textStyle: { color: '#e7ecf3', fontSize: 12 },
-  },
-  grid: { left: 48, right: 16, top: 24, bottom: 48 },
-  xAxis: {
-    type: 'category',
-    data: data.map((item) => item.label),
-    axisLabel: { ...TEXT_STYLE, fontSize: 10, rotate: 20 },
-    axisLine: { lineStyle: { color: '#2d3a4f' } },
-  },
-  yAxis: {
-    type: 'value',
-    name: '份',
-    nameTextStyle: TEXT_STYLE,
-    axisLabel: TEXT_STYLE,
-    splitLine: { lineStyle: { color: '#2d3a4f', type: 'dashed' } },
-  },
-  series: [
-    {
-      name: '合同数量',
-      type: 'bar',
-      data: data.map((item) => item.count),
-      itemStyle: { borderRadius: [4, 4, 0, 0] },
+const toStatusBarData = (data: StatusDistributionItem[]) =>
+  data.map((item) => ({
+    name: item.label,
+    value: item.count,
+  }));
+
+const createStatusBarOption = (data: StatusDistributionItem[] = []): EChartsOption => {
+  const base = getChartBaseStyle();
+  
+  return {
+    color: [PRIMARY],
+    textStyle: base.textStyle,
+    tooltip: {
+      ...base.tooltipStyle,
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
     },
-  ],
-});
+    grid: { left: 48, right: 16, top: 24, bottom: 48 },
+    xAxis: {
+      type: 'category',
+      data: data.map((item) => item.label),
+      axisLabel: { ...base.textStyle, fontSize: 10, rotate: 20 },
+      axisLine: base.axisLineStyle,
+    },
+    yAxis: {
+      type: 'value',
+      name: '份',
+      nameTextStyle: base.textStyle,
+      axisLabel: base.textStyle,
+      splitLine: base.splitLineStyle,
+    },
+    series: [
+      {
+        id: SERIES_ID,
+        name: '合同数量',
+        type: 'bar',
+        ...BAR_ANIMATION,
+        data: toStatusBarData(data),
+        itemStyle: { borderRadius: [4, 4, 0, 0] },
+      },
+    ],
+  };
+};
 
 export const buildEmptyStatusBarOption = (): EChartsOption => createStatusBarOption([]);
 
@@ -50,8 +63,10 @@ export const setStatusBarOption = (data: StatusDistributionItem[]): EChartsOptio
   },
   series: [
     {
+      id: SERIES_ID,
       name: '合同数量',
-      data: data.map((item) => item.count),
+      ...BAR_ANIMATION,
+      data: toStatusBarData(data),
     },
   ],
 });

@@ -260,11 +260,12 @@ defineExpose<ShowcasePanelExpose>({ resizeCharts });
 .data-table th {
   color: var(--muted);
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg);
+  opacity: 0.8;
 }
 
 .data-table tr:hover td {
-  background: rgba(255, 255, 255, 0.01);
+  background: var(--accent-dim);
 }
 
 .muted {

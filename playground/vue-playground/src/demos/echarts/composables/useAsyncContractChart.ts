@@ -14,12 +14,17 @@ import {
   zeroDataPatch,
 } from '../utils/chartAnimation';
 import { useEcharts, type EchartsLoadingOpts } from './useEcharts';
+import { getThemeColors } from '../utils/themeColors';
+import { useTheme } from '../../../composables/useTheme';
 
-const LOADING_OPTS: EchartsLoadingOpts = {
-  text: '加载中…',
-  color: '#3b82f6',
-  textColor: '#8b9cb3',
-  maskColor: 'rgba(15, 20, 25, 0.72)',
+const getLoadingOpts = (): EchartsLoadingOpts => {
+  const colors = getThemeColors();
+  return {
+    text: '加载中…',
+    color: '#3b82f6',
+    textColor: colors.muted,
+    maskColor: colors.theme === 'light' ? 'rgba(248, 250, 252, 0.72)' : 'rgba(15, 20, 25, 0.72)',
+  };
 };
 
 export interface UseAsyncContractChartConfig<T> {
@@ -29,6 +34,7 @@ export interface UseAsyncContractChartConfig<T> {
   fetchData: () => Promise<T>;
   emptyData: T;
   hasData?: (data: T) => boolean;
+  useZeroDataTransition?: boolean;
 }
 
 const defaultHasData = <T>(data: T): boolean => {
@@ -44,9 +50,11 @@ const defaultHasData = <T>(data: T): boolean => {
  */
 export const useAsyncContractChart = <T>(config: UseAsyncContractChartConfig<T>) => {
   const reloadKey = inject(DASHBOARD_RELOAD_KEY, ref(0));
+  const { theme } = useTheme();
   const chartRef = ref<HTMLElement | null>(null);
   const chartData = ref<T | null>(null);
   const hasData = config.hasData ?? defaultHasData;
+  const useZeroDataTransition = config.useZeroDataTransition ?? true;
   let loadToken = 0;
   let skeletonReady = false;
 
@@ -74,6 +82,11 @@ export const useAsyncContractChart = <T>(config: UseAsyncContractChartConfig<T>)
       return;
     }
 
+    if (!useZeroDataTransition) {
+      setOption({ ...UPDATE_ANIMATION, ...dataPatch });
+      return;
+    }
+
     setOption(zeroDataPatch(dataPatch));
     await waitForChartPaint();
     setOption({ ...UPDATE_ANIMATION, ...dataPatch });
@@ -86,7 +99,7 @@ export const useAsyncContractChart = <T>(config: UseAsyncContractChartConfig<T>)
 
     setOption(config.setDataOption(config.emptyData));
     chartData.value = null;
-    showLoading(LOADING_OPTS);
+    showLoading(getLoadingOpts());
 
     try {
       const data = await config.fetchData();
@@ -109,6 +122,15 @@ export const useAsyncContractChart = <T>(config: UseAsyncContractChartConfig<T>)
   watch(reloadKey, (value) => {
     if (value === 0) return;
     void loadData();
+  });
+
+  // 监听主题变化，更新图表配置
+  watch(theme, () => {
+    if (chartData.value !== null) {
+      setOption(config.buildOption(chartData.value));
+    } else {
+      setOption(config.buildEmptyOption());
+    }
   });
 
   return {

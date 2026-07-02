@@ -32,22 +32,6 @@ const randomBetween = (min: number, max: number) =>
 
 const delayInRange = ({ min, max }: DelayRange) => wait(randomBetween(min, max));
 
-/**
- * 趋势接口 mock：在聚合基准上叠加随机波动
- * 每次刷新数值不同，便于演示 setOption 数据过渡动画
- */
-const getDynamicMonthlySignAmount = (): MonthlySignItem[] => {
-  const base = getMonthlySignAmount();
-
-  return base.map((item) => {
-    const jitter = 0.7 + Math.random() * 0.6;
-    return {
-      month: item.month,
-      amount: Math.round(item.amount * jitter * 10) / 10,
-    };
-  });
-};
-
 /** KPI 接口：轻量聚合，通常最快返回 */
 const KPI_DELAY: DelayRange = { min: 320, max: 580 };
 
@@ -56,8 +40,8 @@ const KPI_DELAY: DelayRange = { min: 320, max: 580 };
  * 饼图、折线较快；漏斗、到期分布较慢
  */
 const CHART_DELAYS: Record<ContractChartKey, DelayRange> = {
-  typePie: { min: 800, max: 1200 },
-  trend: { min: 1020, max: 2250 },
+  typePie: { min: 1000, max: 1200 },
+  trend: { min: 1020, max: 1550 },
   status: { min: 750, max: 1100 },
   dept: { min: 900, max: 1300 },
   framework: { min: 1050, max: 1450 },
@@ -78,7 +62,7 @@ export type ContractChartDataMap = {
 const CHART_DATA_RESOLVERS: {
   [K in ContractChartKey]: () => ContractChartDataMap[K];
 } = {
-  trend: getDynamicMonthlySignAmount,
+  trend: getMonthlySignAmount,
   typePie: getTypeDistribution,
   status: getStatusDistribution,
   dept: getDeptAmountRanking,

@@ -18,6 +18,7 @@ const { chartRef, resize, option } = useAsyncContractChart({
   buildOption: buildStatusBarOption,
   fetchData: () => fetchContractChartData('status'),
   emptyData: [],
+  useZeroDataTransition: false,
 });
 
 watch(option, (nextOption) => emit('optionChange', nextOption), { immediate: true, deep: true });
