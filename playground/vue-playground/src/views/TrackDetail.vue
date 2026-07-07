@@ -44,6 +44,16 @@ const handleBack = () => router.push('/');
     <h1 class="page-title">{{ track.title }}</h1>
     <p class="page-subtitle">{{ track.id }} · {{ track.category }} · {{ track.depth }}</p>
 
+    <div v-if="track.schedule" class="panel schedule-cta">
+      <h2>学习计划</h2>
+      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 0.75rem">
+        {{ track.schedule.subtitle ?? track.schedule.title }} · 共 {{ track.schedule.totalDays }} 天 · 支持打卡与薄弱点巩固
+      </p>
+      <RouterLink :to="track.schedule.route" class="schedule-link">
+        打开 {{ track.schedule.totalDays }} 天学习计划 →
+      </RouterLink>
+    </div>
+
     <div class="panel">
       <h2>元数据</h2>
       <ul class="detail-list">
@@ -97,3 +107,22 @@ const handleBack = () => router.push('/');
     <p>未找到轨道：{{ id }}</p>
   </div>
 </template>
+
+<style scoped>
+.schedule-cta {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+.schedule-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #fff !important;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+.schedule-link:hover {
+  opacity: 0.9;
+}
+</style>

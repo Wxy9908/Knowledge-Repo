@@ -1,0 +1,28 @@
+id: flowable
+depth: standard
+category: tech-learning
+title: Flowable 流程对接（前端）
+status: planned
+tags: [flowable, bpmn, workflow, vue, frontend-integration]
+audience: frontend
+started: null
+updated: 2026-07-03
+last_reviewed: null
+next_review: 2026-08-15
+mastery: 0
+prerequisites: [ai-coding]
+related: [ai-coding, fullstack-transition]
+notes:
+  - path: notes/bpmn-basics.md
+    title: BPMN 阅读入门（前端向）
+  - path: notes/flowable-architecture.md
+    title: 流程术语与接口对接要点
+  - path: notes/api-contract-checklist.md
+    title: 审批流接口对接清单
+  - path: schedule.md
+    title: 21 天学习计划（Markdown 版）
+artifacts:
+  - type: schedule
+    route: /tracks/flowable/schedule
+    title: 21 天学习计划
+    description: 每日任务 · 资源链接 · 自测打卡 · 薄弱点次日巩固

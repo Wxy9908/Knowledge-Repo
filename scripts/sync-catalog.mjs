@@ -9,8 +9,92 @@ const TRACKS_DIR = path.join(ROOT, 'tracks');
 const CATALOG_YAML = path.join(ROOT, 'catalog.yaml');
 const OUT_DIR = path.join(ROOT, 'playground', 'vue-playground', 'src', 'generated');
 const OUT_FILE = path.join(OUT_DIR, 'catalog.json');
+const SCHEDULES_DIR = path.join(OUT_DIR, 'schedules');
 
 const readYaml = (filePath) => parse(fs.readFileSync(filePath, 'utf8'));
+
+const loadSchedule = (trackDir, trackId) => {
+  const schedulePath = path.join(trackDir, 'schedule.yaml');
+  if (!fs.existsSync(schedulePath)) return null;
+  const data = readYaml(schedulePath);
+  return { ...data, trackId };
+};
+
+const writeScheduleJson = (trackId, schedule) => {
+  fs.mkdirSync(SCHEDULES_DIR, { recursive: true });
+  const outPath = path.join(SCHEDULES_DIR, `${trackId}.json`);
+  fs.writeFileSync(outPath, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
+  return outPath;
+};
+
+const writeScheduleMarkdown = (trackDir, schedule) => {
+  const lines = [
+    `# ${schedule.title}`,
+    '',
+    `> ${schedule.subtitle ?? ''} · ${schedule.hoursPerDay ?? ''}`,
+    '',
+    '**平台打开（推荐）**：Dashboard → Flowable 轨道 → [21 天学习计划](/tracks/flowable/schedule)',
+    '',
+    '---',
+    '',
+  ];
+
+  for (const phase of schedule.phases ?? []) {
+    lines.push(`## ${phase.name}（Day ${phase.dayRange[0]}–${phase.dayRange[1]}）`);
+    if (phase.goal) lines.push(`> ${phase.goal}`);
+    lines.push('');
+  }
+
+  lines.push('---', '', '## 每日清单', '');
+
+  for (const day of schedule.days ?? []) {
+    const phase = (schedule.phases ?? []).find((p) => p.id === day.phase);
+    lines.push(`### Day ${day.day} · ${day.title}`);
+    lines.push(`- **阶段**：${phase?.name ?? day.phase}`);
+    lines.push(`- **时长**：${day.duration}`);
+    if (day.objectives?.length) {
+      lines.push('- **目标**：');
+      day.objectives.forEach((o) => lines.push(`  - ${o}`));
+    }
+    if (day.resources?.length) {
+      lines.push('- **资源**：');
+      day.resources.forEach((r) => {
+        const req = r.required ? '【必读】' : '';
+        if (r.url.startsWith('http')) lines.push(`  - ${req}[${r.title}](${r.url})`);
+        else lines.push(`  - ${req}${r.title} \`${r.url}\``);
+      });
+    }
+    if (day.tasks?.length) {
+      lines.push('- **任务**：');
+      day.tasks.forEach((t) => lines.push(`  - [ ] ${t.text}`));
+    }
+    const questions = day.selfTest?.questions ?? [];
+    const practical = day.selfTest?.practical ?? [];
+    if (questions.length || practical.length) {
+      lines.push('- **自测**：');
+      questions.forEach((q) => lines.push(`  - [ ] ${q.text}`));
+      practical.forEach((p) => lines.push(`  - [ ] （实操）${p.text}`));
+    }
+    lines.push('');
+  }
+
+  lines.push(
+    '---',
+    '',
+    '## 定制化说明',
+    '',
+    '在平台学习计划页中：',
+    '',
+    '1. 自测项可标记 **掌握 / 不熟 / 跳过**',
+    '2. 标记「不熟」的项会在 **后续聚焦日** 自动生成「针对性巩固」区块',
+    '3. 打卡后可在「明日预告」看到将巩固的内容',
+    '4. 进度保存在浏览器 localStorage，可随时跳天学习',
+    '',
+  );
+
+  const mdPath = path.join(trackDir, 'schedule.md');
+  fs.writeFileSync(mdPath, lines.join('\n'), 'utf8');
+};
 
 const listNoteFiles = (trackDir) => {
   const notesDir = path.join(trackDir, 'notes');
@@ -69,7 +153,27 @@ const main = () => {
     const meta = readYaml(metaPath);
     const noteFiles = listNoteFiles(trackDir);
     const units = listUnits(trackDir);
-    return { ...meta, id: meta.id || id, noteFiles, units, unitCount: units.length, noteCount: noteFiles.length };
+    const schedule = loadSchedule(trackDir, id);
+    let scheduleSummary = null;
+    if (schedule) {
+      writeScheduleJson(id, schedule);
+      writeScheduleMarkdown(trackDir, schedule);
+      scheduleSummary = {
+        route: `/tracks/${id}/schedule`,
+        title: schedule.title,
+        totalDays: schedule.totalDays,
+        subtitle: schedule.subtitle,
+      };
+    }
+    return {
+      ...meta,
+      id: meta.id || id,
+      noteFiles,
+      units,
+      unitCount: units.length,
+      noteCount: noteFiles.length,
+      schedule: scheduleSummary,
+    };
   }).filter(Boolean);
 
   const output = {
@@ -85,7 +189,8 @@ const main = () => {
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(output, null, 2) + '\n', 'utf8');
-  console.log(`[sync-catalog] wrote ${tracks.length} tracks`);
+  const scheduleCount = tracks.filter((t) => t.schedule).length;
+  console.log(`[sync-catalog] wrote ${tracks.length} tracks, ${scheduleCount} schedules`);
 };
 
 main();

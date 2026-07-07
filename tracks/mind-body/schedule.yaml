@@ -1,0 +1,524 @@
+title: 身心修炼 · 28 天温和计划
+subtitle: 觉察优先 · 微行动 · 无评判复盘 · 弹性节奏
+totalDays: 28
+hoursPerDay: "~15–20min（可视状态增减）"
+audience: personal
+flexible: true
+
+phases:
+  - id: phase-awareness
+    name: 觉察期
+    dayRange: [1, 7]
+    goal: 看见四象限信号，不急着改变
+  - id: phase-rhythm
+    name: 节律期
+    dayRange: [8, 14]
+    goal: 建立睡眠、活动、饮食的微小节律
+  - id: phase-emotion
+    name: 情绪期
+    dayRange: [15, 21]
+    goal: 命名情绪，扩充应对工具箱
+  - id: phase-integration
+    name: 整合期
+    dayRange: [22, 28]
+    goal: 选定 1–2 个要保留的微习惯
+
+tagLabels:
+  body-scan: 身体扫描
+  emotion-name: 情绪命名
+  thought-notice: 念头觉察
+  connection: 关系连接
+  sleep: 睡眠节律
+  movement: 身体活动
+  nourishment: 饮食关照
+  breath: 呼吸锚定
+  self-compassion: 自我慈悲
+  boundary: 边界与需求
+  coping: 应对策略
+  review: 周复盘
+  habit: 习惯整合
+
+reinforcementLibrary:
+  body-scan:
+    title: 巩固 · 身体扫描
+    duration: 10min
+    tasks:
+      - 闭眼 3 分钟，从头顶到脚趾扫描一遍，只命名感受不评判
+      - 写下今天身体最明显的 1 个信号
+  emotion-name:
+    title: 巩固 · 情绪命名
+    duration: 10min
+    tasks:
+      - 用「我感到 ___，强度大约 ___/10」句式描述此刻
+      - 查情绪轮谱，看能否找到更精确的词
+  sleep:
+    title: 巩固 · 睡眠微节律
+    duration: 15min
+    tasks:
+      - 记录昨晚入睡/醒来时间与质量
+      - 今晚只改一件事（如提前 15 分钟关屏）
+
+days:
+  - day: 1
+    phase: phase-awareness
+    title: 开轨 · 只觉察不改变
+    duration: 20min
+    objectives:
+      - 理解四象限框架
+      - 完成首次打卡
+    tasks:
+      - id: d1-t1
+        text: 阅读 notes/framework.md 前半部分（四象限表）
+        tags: [body-scan, emotion-name]
+      - id: d1-t2
+        text: 填写 notes/intake.md 你愿意分享的部分
+        tags: [connection]
+      - id: d1-t3
+        text: 完成 notes/daily-checkin.md 今日段落
+        tags: [body-scan, emotion-name, thought-notice]
+    selfTest:
+      questions:
+        - id: d1-q1
+          text: 四象限分别是什么？各举一个你今天的信号。
+          tags: [body-scan, emotion-name]
+
+  - day: 2
+    phase: phase-awareness
+    title: 身体信号 · 它在说什么
+    duration: 15min
+    objectives:
+      - 学会用身体作为情绪的早期雷达
+    tasks:
+      - id: d2-t1
+        text: 做 3 分钟身体扫描，记录 2 个有感觉的部位
+        tags: [body-scan]
+      - id: d2-t2
+        text: 问自己：这个部位的感觉，像哪种情绪？（紧=焦虑？沉=低落？）
+        tags: [body-scan, emotion-name]
+      - id: d2-t3
+        text: 今日微行动：散步或拉伸 5 分钟
+        tags: [movement]
+
+  - day: 3
+    phase: phase-awareness
+    title: 情绪命名 · 从模糊到清晰
+    duration: 15min
+    objectives:
+      - 把「不舒服」细化成具体情绪词
+    tasks:
+      - id: d3-t1
+        text: 写下今天 predominant 情绪，尝试换 3 个更精确的同义词
+        tags: [emotion-name]
+      - id: d3-t2
+        text: 记录：这个情绪第一次出现的大概时刻与情境
+        tags: [emotion-name, thought-notice]
+      - id: d3-t3
+        text: 完成今日打卡
+        tags: [emotion-name]
+
+  - day: 4
+    phase: phase-awareness
+    title: 念头觉察 · 想法不是事实
+    duration: 15min
+    objectives:
+      - 区分「想法」与「事实」
+    tasks:
+      - id: d4-t1
+        text: 写下脑中反复转的一句话，前面加上「我注意到我在想…」
+        tags: [thought-notice]
+      - id: d4-t2
+        text: 问：若最好的朋友这样想，我会怎么回应他？
+        tags: [thought-notice, self-compassion]
+      - id: d4-t3
+        text: 今日微行动：一件让你稍微分心 10 分钟的事（音乐/走路/洗澡）
+        tags: [coping]
+
+  - day: 5
+    phase: phase-awareness
+    title: 关系连接 · 与自己与他人
+    duration: 15min
+    objectives:
+      - 觉察今天的连接感或孤立感
+    tasks:
+      - id: d5-t1
+        text: 今天与谁有过真实交流？若没有，与自己说过话吗？
+        tags: [connection]
+      - id: d5-t2
+        text: 可选：给一个人发一句不需要回复的真诚问候
+        tags: [connection]
+      - id: d5-t3
+        text: 打卡时多写一行：今天对自己友善吗？（1–10）
+        tags: [self-compassion, connection]
+
+  - day: 6
+    phase: phase-awareness
+    title: 周中小复盘
+    duration: 20min
+    objectives:
+      - 回顾前 5 天，找规律不找对错
+    tasks:
+      - id: d6-t1
+        text: 翻读本周打卡，哪象限写得最敷衍？说明什么？
+        tags: [review]
+      - id: d6-t2
+        text: 写下：这周稍微好了一点的一件小事
+        tags: [review, self-compassion]
+      - id: d6-t3
+        text: 与 AI 对话 5 分钟，整理进 session-log.md
+        tags: [connection]
+
+  - day: 7
+    phase: phase-awareness
+    title: 觉察期收官 · 承诺一件小事
+    duration: 15min
+    objectives:
+      - 为节律期选一个不费劲的微行动
+    tasks:
+      - id: d7-t1
+        text: 从本周中选一个最容易坚持的微行动
+        tags: [habit]
+      - id: d7-t2
+        text: 写下「觉察期我看见了 ___」
+        tags: [review]
+      - id: d7-t3
+        text: 完成今日打卡
+        tags: [review]
+
+  - day: 8
+    phase: phase-rhythm
+    title: 睡眠快照
+    duration: 15min
+    objectives:
+      - 记录睡眠基线，不急于大改
+    tasks:
+      - id: d8-t1
+        text: 记录近 3 天入睡时间、醒来时间、主观质量（1–10）
+        tags: [sleep]
+      - id: d8-t2
+        text: 睡前 30 分钟，只做一件事：减屏光或减信息量
+        tags: [sleep]
+      - id: d8-t3
+        text: 打卡时填写睡眠行
+        tags: [sleep]
+
+  - day: 9
+    phase: phase-rhythm
+    title: 起床锚点
+    duration: 15min
+    objectives:
+      - 建立温和的起床仪式（不追求完美）
+    tasks:
+      - id: d9-t1
+        text: 起床后 5 分钟内：喝水 + 拉开窗帘/开灯
+        tags: [sleep, movement]
+      - id: d9-t2
+        text: 写下：什么让起床难？（晚睡/冷/没动力/其他）
+        tags: [sleep, thought-notice]
+      - id: d9-t3
+        text: 今日打卡
+        tags: [sleep]
+
+  - day: 10
+    phase: phase-rhythm
+    title: 身体活动 · 动比不动好
+    duration: 15min
+    objectives:
+      - 找到最低门槛的活动形式
+    tasks:
+      - id: d10-t1
+        text: 散步/拉伸/爬楼梯 10 分钟，选最不难的一种
+        tags: [movement]
+      - id: d10-t2
+        text: 活动后记录：精力变化（升/降/不变）
+        tags: [movement, body-scan]
+      - id: d10-t3
+        text: 打卡
+        tags: [movement]
+
+  - day: 11
+    phase: phase-rhythm
+    title: 饮食关照 · 不节食不大补
+    duration: 15min
+    objectives:
+      - 觉察饮食与精力、情绪的关系
+    tasks:
+      - id: d11-t1
+        text: 记录今天三餐是否按时、有无跳过
+        tags: [nourishment]
+      - id: d11-t2
+        text: 今天多喝一杯水，或多吃一份蔬果，二选一
+        tags: [nourishment]
+      - id: d11-t3
+        text: 问：饥饿时吃的是身体需要还是情绪需要？
+        tags: [nourishment, emotion-name]
+
+  - day: 12
+    phase: phase-rhythm
+    title: 久坐打断
+    duration: 15min
+    objectives:
+      - 学习/工作中插入微休息
+    tasks:
+      - id: d12-t1
+        text: 每 45–60 分钟站起来 2 分钟（设提醒）
+        tags: [movement, body-scan]
+      - id: d12-t2
+        text: 肩颈滚动 5 次，记录紧绷度变化
+        tags: [body-scan]
+      - id: d12-t3
+        text: 打卡
+        tags: [movement]
+
+  - day: 13
+    phase: phase-rhythm
+    title: 节律期复盘
+    duration: 20min
+    objectives:
+      - 看睡眠/活动/饮食哪块改动最有效
+    tasks:
+      - id: d13-t1
+        text: 回顾 Day 8–12，标出「做了之后感觉好一点」的项
+        tags: [review]
+      - id: d13-t2
+        text: 与 AI 对话：下周节律只保留 1 个改动
+        tags: [review, connection]
+      - id: d13-t3
+        text: 更新 session-log.md
+        tags: [review]
+
+  - day: 14
+    phase: phase-rhythm
+    title: 节律期收官 · 选定一个锚
+    duration: 15min
+    objectives:
+      - 确定一个要带进情绪期的身体锚点
+    tasks:
+      - id: d14-t1
+        text: 写下：我选定的节律锚点是 ___（如固定起床喝水）
+        tags: [habit, sleep]
+      - id: d14-t2
+        text: 完成今日打卡 + 简短周复盘
+        tags: [review]
+
+  - day: 15
+    phase: phase-emotion
+    title: 情绪强度尺
+    duration: 15min
+    objectives:
+      - 用 0–10 量化情绪，便于追踪变化
+    tasks:
+      - id: d15-t1
+        text: 今天 3 个时刻自评情绪强度并记录
+        tags: [emotion-name]
+      - id: d15-t2
+        text: 找规律：什么时段/情境强度最高？
+        tags: [emotion-name, thought-notice]
+      - id: d15-t3
+        text: 打卡
+        tags: [emotion-name]
+
+  - day: 16
+    phase: phase-emotion
+    title: 呼吸锚定 · 90 秒
+    duration: 15min
+    objectives:
+      - 掌握一个可随时用的 calming 技巧
+    tasks:
+      - id: d16-t1
+        text: 练习 4-6 呼吸（吸 4 拍呼 6 拍）3 轮，约 90 秒
+        tags: [breath]
+      - id: d16-t2
+        text: 在情绪偏高时试一次，记录前后强度差
+        tags: [breath, coping]
+      - id: d16-t3
+        text: 写下：呼吸后身体哪里的感觉变了？
+        tags: [breath, body-scan]
+
+  - day: 17
+    phase: phase-emotion
+    title: 自我慈悲一句
+    duration: 15min
+    objectives:
+      - 减少内在批评的声音
+    tasks:
+      - id: d17-t1
+        text: 写下今天自我批评最狠的一句话
+        tags: [self-compassion, thought-notice]
+      - id: d17-t2
+        text: 改写成你会对好友说的版本
+        tags: [self-compassion]
+      - id: d17-t3
+        text: 睡前读一遍改写版
+        tags: [self-compassion]
+
+  - day: 18
+    phase: phase-emotion
+    title: 需求与边界
+    duration: 15min
+    objectives:
+      - 练习识别「我需要什么」
+    tasks:
+      - id: d18-t1
+        text: 写下今天一次想说「不」或没说出口的时刻
+        tags: [boundary]
+      - id: d18-t2
+        text: 完成句式：「我需要 ___，因为 ___」
+        tags: [boundary, connection]
+      - id: d18-t3
+        text: 可选：在小事上练习一次温和拒绝或延迟回复
+        tags: [boundary]
+
+  - day: 19
+    phase: phase-emotion
+    title: 应对工具箱
+    duration: 20min
+    objectives:
+      - 列出个人有效的 calming 方法
+    tasks:
+      - id: d19-t1
+        text: 列出 5 个对你曾经有用过的应对（散步、音乐、倾诉…）
+        tags: [coping]
+      - id: d19-t2
+        text: 标出 2 个不健康但常用的（刷手机到凌晨等），只觉察不批判
+        tags: [coping, thought-notice]
+      - id: d19-t3
+        text: 选 1 个健康工具今天用一次
+        tags: [coping]
+
+  - day: 20
+    phase: phase-emotion
+    title: 情绪期复盘
+    duration: 20min
+    objectives:
+      - 整合情绪工具
+    tasks:
+      - id: d20-t1
+        text: 回顾 Day 15–19，哪个工具最顺手？
+        tags: [review, coping]
+      - id: d20-t2
+        text: 与 AI 对话整理进 session-log.md
+        tags: [review, connection]
+      - id: d20-t3
+        text: 打卡
+        tags: [review]
+
+  - day: 21
+    phase: phase-emotion
+    title: 情绪期收官
+    duration: 15min
+    objectives:
+      - 带走一个情绪应对默认项
+    tasks:
+      - id: d21-t1
+        text: 写下：情绪偏高时我的第一步是 ___
+        tags: [habit, coping]
+      - id: d21-t2
+        text: 完成今日打卡
+        tags: [habit]
+
+  - day: 22
+    phase: phase-integration
+    title: 习惯清单 · 只留 2 个
+    duration: 20min
+    objectives:
+      - 从 28 天练习中筛选可长期坚持的
+    tasks:
+      - id: d22-t1
+        text: 列出你想保留的 5 个微习惯，再删到只剩 2 个
+        tags: [habit]
+      - id: d22-t2
+        text: 每个习惯绑定一个已有锚点（如刷牙后喝水）
+        tags: [habit]
+      - id: d22-t3
+        text: 写入 notes/framework.md 末尾或自建 habits.md
+        tags: [habit]
+
+  - day: 23
+    phase: phase-integration
+    title: 压力预案
+    duration: 15min
+    objectives:
+      - 为高压日准备简化版修炼
+    tasks:
+      - id: d23-t1
+        text: 写「极简版」：只打卡 3 行 + 呼吸 90 秒
+        tags: [coping, habit]
+      - id: d23-t2
+        text: 想象明天很忙，演练极简版一次
+        tags: [coping]
+
+  - day: 24
+    phase: phase-integration
+    title: 关系维护
+    duration: 15min
+    objectives:
+      - 把连接纳入日常修炼
+    tasks:
+      - id: d24-t1
+        text: 列出 3 个可求助的人或资源（含专业热线）
+        tags: [connection]
+      - id: d24-t2
+        text: 今天做一件小的联结行动
+        tags: [connection]
+
+  - day: 25
+    phase: phase-integration
+    title: 与学习的平衡
+    duration: 15min
+    objectives:
+      - 技术轨道与身心轨道如何共存
+    tasks:
+      - id: d25-t1
+        text: 回顾：学得很累的日子，身心打卡是否被跳过？无评判记录
+        tags: [review, thought-notice]
+      - id: d25-t2
+        text: 定一条规则：如「再忙也完成 3 行打卡」
+        tags: [habit]
+
+  - day: 26
+    phase: phase-integration
+    title: 全周期复盘
+    duration: 25min
+    objectives:
+      - 看见 28 天的变化（哪怕很小）
+    tasks:
+      - id: d26-t1
+        text: 通读 daily-checkin.md，标 3 个积极片段
+        tags: [review, self-compassion]
+      - id: d26-t2
+        text: 与 AI 做 10 分钟总结对话
+        tags: [review, connection]
+      - id: d26-t3
+        text: 更新 session-log.md
+        tags: [review]
+
+  - day: 27
+    phase: phase-integration
+    title: 下月意图
+    duration: 15min
+    objectives:
+      - 设定可持续的下一段修炼重点
+    tasks:
+      - id: d27-t1
+        text: 写下：下个月我只深耕一个象限：___
+        tags: [habit]
+      - id: d27-t2
+        text: 设置 next_review 提醒（meta 或日历）
+        tags: [habit]
+
+  - day: 28
+    phase: phase-integration
+    title: 毕业不是结束
+    duration: 20min
+    objectives:
+      - 庆祝坚持，规划循环
+    tasks:
+      - id: d28-t1
+        text: 写一段给 28 天前自己的话
+        tags: [self-compassion, review]
+      - id: d28-t2
+        text: 决定：续跑第二轮 / 降为每周 3 次维护 / 暂停并设复开条件
+        tags: [habit]
+      - id: d28-t3
+        text: 完成最后一次打卡，在 session-log 写开轨总结
+        tags: [review]

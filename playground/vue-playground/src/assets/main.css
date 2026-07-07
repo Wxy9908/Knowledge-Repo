@@ -102,6 +102,7 @@ a:hover { text-decoration: underline; }
 .badge-standard { background: #3b82f622; color: var(--accent); }
 .badge-deep { background: #a855f722; color: #c084fc; }
 .badge-work { background: #f59e0b22; color: var(--warn); }
+.badge-wellbeing { background: #ec489922; color: #f472b6; }
 
 .card-grid {
   display: grid;

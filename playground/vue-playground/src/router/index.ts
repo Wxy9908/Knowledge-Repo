@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '@/views/Dashboard.vue';
 import TrackDetail from '@/views/TrackDetail.vue';
+import StudySchedule from '@/views/StudySchedule.vue';
 import DemoIndex from '@/views/DemoIndex.vue';
 import { demoRegistry } from '@/demos/registry';
 import { useUserStore } from '@/demos/ai-coding/stores/user';
@@ -17,6 +18,7 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'dashboard', component: Dashboard },
     { path: '/tracks/:id', name: 'track-detail', component: TrackDetail, props: true },
+    { path: '/tracks/:id/schedule', name: 'track-schedule', component: StudySchedule, props: true },
     { path: '/demos', name: 'demos', component: DemoIndex },
     { path: '/login', name: 'login', component: () => import('@/demos/ai-coding/LoginView.vue') },
     ...demoRoutes,

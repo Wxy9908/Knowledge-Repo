@@ -15,6 +15,7 @@ const depthClass = (depth: string): string => `badge badge-${depth}`;
     <div class="meta-row">
       <span :class="depthClass(track.depth)">{{ track.depth }}</span>
       <span v-if="track.category === 'work-assignment'" class="badge badge-work">任务</span>
+      <span v-if="track.category === 'personal-wellbeing'" class="badge badge-wellbeing">身心</span>
       <span class="badge" style="background:#ffffff11;color:var(--muted)">{{ track.status }}</span>
       <span v-if="track.mastery != null" class="badge" style="background:#ffffff11;color:var(--muted)">
         mastery {{ Math.round(track.mastery * 100) }}%
@@ -25,6 +26,7 @@ const depthClass = (depth: string): string => `badge badge-${depth}`;
     </div>
     <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted)">
       {{ track.noteCount }} 笔记 · {{ track.unitCount }} 单元
+      <span v-if="track.schedule"> · {{ track.schedule.totalDays }} 天计划</span>
       <span v-if="track.next_review"> · 复习 {{ track.next_review }}</span>
     </p>
   </RouterLink>

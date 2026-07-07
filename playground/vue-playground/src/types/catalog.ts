@@ -16,6 +16,13 @@ export interface CatalogArtifact {
   description?: string;
 }
 
+export interface CatalogScheduleSummary {
+  route: string;
+  title: string;
+  totalDays: number;
+  subtitle?: string;
+}
+
 export interface CatalogTrack {
   id: string;
   depth: string;
@@ -36,6 +43,7 @@ export interface CatalogTrack {
   units?: CatalogUnit[];
   unitCount?: number;
   noteCount?: number;
+  schedule?: CatalogScheduleSummary | null;
 }
 
 export interface CatalogStats {

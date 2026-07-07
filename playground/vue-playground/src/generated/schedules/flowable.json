@@ -1,0 +1,1598 @@
+{
+  "title": "Flowable 前端对接 · 21 天学习计划",
+  "subtitle": "弹性节奏 · 打卡自测 · 薄弱点次日巩固",
+  "totalDays": 21,
+  "hoursPerDay": "~1h（可视情况增减）",
+  "audience": "frontend",
+  "flexible": true,
+  "phases": [
+    {
+      "id": "phase-0",
+      "name": "概念期",
+      "dayRange": [
+        1,
+        5
+      ],
+      "goal": "看懂 BPMN、搞清术语、明确前后端分工"
+    },
+    {
+      "id": "phase-1",
+      "name": "接口期",
+      "dayRange": [
+        6,
+        10
+      ],
+      "goal": "搞懂审批流 API 契约，Mock/Postman 走通"
+    },
+    {
+      "id": "phase-2",
+      "name": "实战期",
+      "dayRange": [
+        11,
+        19
+      ],
+      "goal": "Vue 发起/待办/审批/时间线页面"
+    },
+    {
+      "id": "phase-3",
+      "name": "通关期",
+      "dayRange": [
+        20,
+        21
+      ],
+      "goal": "模拟对接 + 综合自测"
+    }
+  ],
+  "tagLabels": {
+    "concept-why": "为什么用流程引擎",
+    "bpmn-basic": "BPMN 基础元素",
+    "bpmn-gateway": "网关与分支",
+    "bpmn-task": "用户任务",
+    "terminology": "核心术语",
+    "boundary": "前后端职责",
+    "business-key": "businessKey",
+    "api-overview": "接口全景",
+    "api-start": "发起接口",
+    "variables": "流程变量",
+    "api-todo": "待办接口",
+    "api-complete": "审批接口",
+    "api-history": "审批历史",
+    "api-detail": "详情接口",
+    "api-state": "状态映射",
+    "api-checklist": "联调清单",
+    "vue-setup": "项目骨架",
+    "mock": "Mock 数据",
+    "vue-start-form": "发起页",
+    "vue-todo-list": "待办列表",
+    "vue-approve": "审批操作",
+    "vue-detail": "详情页",
+    "vue-timeline": "时间线",
+    "vue-tabs": "Tab 导航",
+    "vue-error-states": "边界态",
+    "vue-polish": "体验打磨",
+    "integration": "模拟对接",
+    "final-review": "综合复盘"
+  },
+  "reinforcementLibrary": {
+    "concept-why": {
+      "title": "巩固 · 流程引擎价值",
+      "duration": "15min",
+      "tasks": [
+        "不查资料，重写「为什么审批不用 if/else 硬写」三点理由",
+        "找一个你经历过的审批场景，口述若用流程引擎有什么好处"
+      ]
+    },
+    "bpmn-basic": {
+      "title": "巩固 · BPMN 元素识别",
+      "duration": "20min",
+      "tasks": [
+        "打开 bpmn.io，只拖 4 种元素各一个，口述各自含义",
+        "重看 Day 2 笔记，补画一张仅含开始-任务-结束的极简图"
+      ],
+      "resources": [
+        {
+          "title": "bpmn.io 在线建模",
+          "url": "https://bpmn.io/"
+        }
+      ]
+    },
+    "bpmn-gateway": {
+      "title": "巩固 · 网关与分支",
+      "duration": "20min",
+      "tasks": [
+        "手绘「同意 / 驳回」两条路径，标出排他网关位置",
+        "回答：驳回后流程是结束还是回到提交人？（与后端确认的一般规则）"
+      ]
+    },
+    "bpmn-task": {
+      "title": "巩固 · 用户任务",
+      "duration": "15min",
+      "tasks": [
+        "解释：用户任务和「服务任务」对前端有什么区别？",
+        "列出待办列表里必须展示的 3 个字段及原因"
+      ]
+    },
+    "terminology": {
+      "title": "巩固 · 四术语辨析",
+      "duration": "15min",
+      "tasks": [
+        "各用一句话 + 一个例子解释：流程定义、流程实例、用户任务、流程变量",
+        "完成一次「术语填空」自测（见当日自测区）"
+      ]
+    },
+    "boundary": {
+      "title": "巩固 · 职责边界",
+      "duration": "15min",
+      "tasks": [
+        "列出 3 件「后端主责你不必做」的事",
+        "列出 3 件「前端主责」的事"
+      ]
+    },
+    "business-key": {
+      "title": "巩固 · businessKey",
+      "duration": "15min",
+      "tasks": [
+        "画图：业务单 id 如何关联流程实例",
+        "说明从待办跳详情时应带 taskId 还是 businessKey"
+      ]
+    },
+    "api-overview": {
+      "title": "巩固 · 接口全景",
+      "duration": "20min",
+      "tasks": [
+        "不看文档，写出审批流至少 5 个接口及其用途",
+        "对照 Day 6 资源查漏补缺"
+      ]
+    },
+    "api-start": {
+      "title": "巩固 · 发起接口",
+      "duration": "20min",
+      "tasks": [
+        "列出请假发起应传的字段及哪些可能进流程变量",
+        "用 Postman 或 Mock 再模拟一次发起请求"
+      ]
+    },
+    "variables": {
+      "title": "巩固 · 流程变量",
+      "duration": "15min",
+      "tasks": [
+        "解释：表单字段 vs 流程变量 vs 业务表字段",
+        "举例：days > 3 分支依赖哪个变量、谁负责在发起时传入"
+      ]
+    },
+    "api-todo": {
+      "title": "巩固 · 待办接口",
+      "duration": "20min",
+      "tasks": [
+        "说明待办为空时前端 vs 后端各查什么",
+        "确认列表项里 taskId 字段名（与后端对齐话术写一条）"
+      ]
+    },
+    "api-complete": {
+      "title": "巩固 · 审批接口",
+      "duration": "20min",
+      "tasks": [
+        "写出同意/驳回请求体差异（字段名以你们 Mock 为准）",
+        "复述：taskId 过期或被他人处理时前端如何提示"
+      ]
+    },
+    "api-history": {
+      "title": "巩固 · 历史接口",
+      "duration": "20min",
+      "tasks": [
+        "画出时间线 UI 需要的最小字段列表",
+        "对比：历史接口 vs 详情接口是否可合并请求"
+      ]
+    },
+    "api-detail": {
+      "title": "巩固 · 详情接口",
+      "duration": "15min",
+      "tasks": [
+        "列出详情页三个区块：业务信息 / 流程状态 / 操作按钮",
+        "说明审批后应用刷新还是乐观更新"
+      ]
+    },
+    "api-state": {
+      "title": "巩固 · 状态映射",
+      "duration": "20min",
+      "tasks": [
+        "重做「业务状态 ↔ 展示文案 ↔ 按钮显隐」对照表",
+        "专门练驳回后的状态与可编辑规则"
+      ]
+    },
+    "api-checklist": {
+      "title": "巩固 · 联调清单",
+      "duration": "15min",
+      "tasks": [
+        "重读 notes/api-contract-checklist.md（若已创建则对照）",
+        "准备 5 个联调时要问后端的问题"
+      ]
+    },
+    "vue-setup": {
+      "title": "巩固 · 项目骨架",
+      "duration": "20min",
+      "tasks": [
+        "确认路由、类型定义、api 模块分层清晰",
+        "检查 Mock 数据是否覆盖主流程"
+      ]
+    },
+    "mock": {
+      "title": "巩固 · Mock 走通",
+      "duration": "20min",
+      "tasks": [
+        "在 Network 面板确认发起→待办→审批→历史 四条请求顺序"
+      ]
+    },
+    "vue-start-form": {
+      "title": "巩固 · 发起页",
+      "duration": "25min",
+      "tasks": [
+        "补全表单校验与 loading/error 态",
+        "自测空提交、网络失败两种边界"
+      ]
+    },
+    "vue-todo-list": {
+      "title": "巩固 · 待办列表",
+      "duration": "25min",
+      "tasks": [
+        "补空状态文案与刷新机制",
+        "确认点击行能带上正确 taskId 进入审批"
+      ]
+    },
+    "vue-approve": {
+      "title": "巩固 · 审批操作",
+      "duration": "25min",
+      "tasks": [
+        "驳回时意见是否必填？与产品规则对齐并实现",
+        "审批成功后列表项消失或状态更新是否正确"
+      ]
+    },
+    "vue-detail": {
+      "title": "巩固 · 详情页",
+      "duration": "20min",
+      "tasks": [
+        "业务字段只读展示是否完整",
+        "当前节点/状态是否有清晰标识"
+      ]
+    },
+    "vue-timeline": {
+      "title": "巩固 · 时间线",
+      "duration": "25min",
+      "tasks": [
+        "按时间倒序/正序与后端约定一致",
+        "缺字段时是否有占位而非布局崩溃"
+      ]
+    },
+    "vue-tabs": {
+      "title": "巩固 · Tab 切换",
+      "duration": "20min",
+      "tasks": [
+        "待办/已办/我发起的数据源是否分离清晰",
+        "切换 Tab 是否重复请求、有无缓存策略"
+      ]
+    },
+    "vue-error-states": {
+      "title": "巩固 · 边界态",
+      "duration": "20min",
+      "tasks": [
+        "逐条过：无权限、任务已处理、网络错误、空列表"
+      ]
+    },
+    "vue-polish": {
+      "title": "巩固 · 体验",
+      "duration": "20min",
+      "tasks": [
+        "走一遍 UI Pass：间距、按钮层级、loading 一致性"
+      ]
+    },
+    "integration": {
+      "title": "巩固 · 端到端",
+      "duration": "30min",
+      "tasks": [
+        "不看笔记完整演示一遍主流程",
+        "记录仍不确定的一个联调点并写成问题"
+      ]
+    },
+    "final-review": {
+      "title": "巩固 · 综合",
+      "duration": "30min",
+      "tasks": [
+        "重做错题/标「不熟」的自测项",
+        "更新个人「审批流对接速查」5 条"
+      ]
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "phase": "phase-0",
+      "title": "工作流解决什么问题",
+      "duration": "45min",
+      "objectives": [
+        "理解审批类业务为何常用流程引擎",
+        "能对比 if/else 硬编码的局限"
+      ],
+      "resources": [
+        {
+          "title": "Camunda — What is BPMN?",
+          "url": "https://camunda.com/bpmn/",
+          "type": "article",
+          "required": true
+        },
+        {
+          "title": "Flowable 开源文档首页",
+          "url": "https://www.flowable.com/open-source/docs/",
+          "type": "docs",
+          "required": false
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d1-t1",
+          "text": "阅读 Camunda BPMN 页「Introduction」部分（不必学建模深度）",
+          "tags": [
+            "concept-why"
+          ]
+        },
+        {
+          "id": "d1-t2",
+          "text": "写下你经历过的一个审批场景（请假/报销/工单均可）",
+          "tags": [
+            "concept-why"
+          ]
+        },
+        {
+          "id": "d1-t3",
+          "text": "对比：该场景用 if/else 写 vs 用流程引擎，各 3 个优缺点",
+          "tags": [
+            "concept-why"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d1-q1",
+            "text": "流程引擎最适合解决哪类问题？举 2 个例子。",
+            "tags": [
+              "concept-why"
+            ]
+          },
+          {
+            "id": "d1-q2",
+            "text": "「会读流程图」和「会搭流程」对前端来说为何不同？",
+            "tags": [
+              "concept-why",
+              "boundary"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d1-p1",
+            "text": "30 秒向同事解释「我学 Flowable 是为了对接，不是为了替后端搭流程」",
+            "tags": [
+              "concept-why",
+              "boundary"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 2,
+      "phase": "phase-0",
+      "title": "BPMN 基础元素（阅读向）",
+      "duration": "50min",
+      "objectives": [
+        "识别开始/结束事件、用户任务、顺序流",
+        "能在 bpmn.io 打开示例图并读懂走向"
+      ],
+      "resources": [
+        {
+          "title": "bpmn.io — 在线建模",
+          "url": "https://bpmn.io/",
+          "type": "tool",
+          "required": true
+        },
+        {
+          "title": "Camunda BPMN 2.0 Tutorial",
+          "url": "https://camunda.com/bpmn/reference/",
+          "type": "article",
+          "required": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d2-t1",
+          "text": "打开 bpmn.io，新建图：开始 → 用户任务 → 结束",
+          "tags": [
+            "bpmn-basic"
+          ]
+        },
+        {
+          "id": "d2-t2",
+          "text": "对照 Reference，记录 5 个最常见元素的图标与含义",
+          "tags": [
+            "bpmn-basic"
+          ]
+        },
+        {
+          "id": "d2-t3",
+          "text": "笔记写入 tracks/flowable/notes/bpmn-basics.md（可先写骨架）",
+          "tags": [
+            "bpmn-basic"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d2-q1",
+            "text": "圆圈细边框 vs 粗边框分别代表什么事件？",
+            "tags": [
+              "bpmn-basic"
+            ]
+          },
+          {
+            "id": "d2-q2",
+            "text": "用户任务（人形图标）和服务任务对前端有何不同？",
+            "tags": [
+              "bpmn-basic",
+              "bpmn-task"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d2-p1",
+            "text": "手绘一张 3 节点的 BPMN 草图并拍照/留存",
+            "tags": [
+              "bpmn-basic"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 3,
+      "phase": "phase-0",
+      "title": "网关与用户任务",
+      "duration": "55min",
+      "objectives": [
+        "读懂排他网关（同意/驳回分支）",
+        "理解用户任务节点即「待办产生的位置」"
+      ],
+      "resources": [
+        {
+          "title": "Camunda — Exclusive Gateway",
+          "url": "https://camunda.com/bpmn/reference/#gateways",
+          "type": "article",
+          "required": true
+        },
+        {
+          "title": "bpmn.io 示例流程（可导入练习）",
+          "url": "https://demo.bpmn.io/",
+          "type": "tool",
+          "required": false
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d3-t1",
+          "text": "在 bpmn.io 画：提交 → 审批 → 网关 →（同意/驳回）→ 两个结束",
+          "tags": [
+            "bpmn-gateway",
+            "bpmn-task"
+          ]
+        },
+        {
+          "id": "d3-t2",
+          "text": "标出：哪个节点会产生「经理的待办」",
+          "tags": [
+            "bpmn-task"
+          ]
+        },
+        {
+          "id": "d3-t3",
+          "text": "思考：驳回后是「结束流程」还是「回到提交人」— 两种产品规则",
+          "tags": [
+            "bpmn-gateway"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d3-q1",
+            "text": "排他网关和多路分支在前端展示上有何影响？",
+            "tags": [
+              "bpmn-gateway"
+            ]
+          },
+          {
+            "id": "d3-q2",
+            "text": "一个流程实例在同一时刻可以有多个待办任务吗？",
+            "tags": [
+              "bpmn-task",
+              "terminology"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d3-p1",
+            "text": "解读一张含网关的请假流程图，口述两条路径",
+            "tags": [
+              "bpmn-gateway"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 4,
+      "phase": "phase-0",
+      "title": "核心术语四件套",
+      "duration": "50min",
+      "objectives": [
+        "辨析流程定义、流程实例、用户任务、流程变量",
+        "避免与「业务单」混用"
+      ],
+      "resources": [
+        {
+          "title": "Flowable — Process Instance",
+          "url": "https://www.flowable.com/open-source/docs/bpmn/ch02-GettingStarted/#process-definitions-and-process-instances",
+          "type": "docs",
+          "required": true
+        },
+        {
+          "title": "本轨道 roadmap — 能力地图",
+          "url": "./roadmap.md",
+          "type": "internal",
+          "required": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d4-t1",
+          "text": "为四个术语各写一个定义 + 一个请假例子",
+          "tags": [
+            "terminology"
+          ]
+        },
+        {
+          "id": "d4-t2",
+          "text": "笔记写入 notes/flowable-architecture.md 术语章节",
+          "tags": [
+            "terminology"
+          ]
+        },
+        {
+          "id": "d4-t3",
+          "text": "填空练习：员工点提交后，创建了___，产生了___，等待___来处理",
+          "tags": [
+            "terminology"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d4-q1",
+            "text": "「流程定义更新部署」会影响已运行的实例吗？",
+            "tags": [
+              "terminology"
+            ]
+          },
+          {
+            "id": "d4-q2",
+            "text": "taskId 和 processInstanceId 分别用在什么 API？",
+            "tags": [
+              "terminology",
+              "api-complete"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d4-p1",
+            "text": "30 秒内不看资料解释四术语",
+            "tags": [
+              "terminology"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 5,
+      "phase": "phase-0",
+      "title": "businessKey 与前后端职责",
+      "duration": "45min",
+      "objectives": [
+        "理解业务单与流程实例的关联",
+        "明确前端主责与不必背锅的边界"
+      ],
+      "resources": [
+        {
+          "title": "Flowable REST — Start a process instance",
+          "url": "https://www.flowable.com/open-source/docs/bpmn/ch14-REST/#start-a-process-instance",
+          "type": "docs",
+          "required": false
+        },
+        {
+          "title": "本轨道 roadmap — 职责边界表",
+          "url": "./roadmap.md#前后端职责边界",
+          "type": "internal",
+          "required": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d5-t1",
+          "text": "画示意图：leaveId ↔ businessKey ↔ processInstanceId",
+          "tags": [
+            "business-key"
+          ]
+        },
+        {
+          "id": "d5-t2",
+          "text": "列出 5 条「联调时要问后端」的问题（可参考 roadmap）",
+          "tags": [
+            "boundary",
+            "api-checklist"
+          ]
+        },
+        {
+          "id": "d5-t3",
+          "text": "Phase 0 小结：在 roadmap 进度区勾选 Phase 0 项",
+          "tags": [
+            "concept-why"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d5-q1",
+            "text": "从待办点进详情，优先用 businessKey 还是 taskId？为什么？",
+            "tags": [
+              "business-key"
+            ]
+          },
+          {
+            "id": "d5-q2",
+            "text": "办理人配错了导致待办为空，是谁的问题？",
+            "tags": [
+              "boundary"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d5-p1",
+            "text": "Phase 0 通关：解读完整请假 BPMN + 解释四术语 + 职责边界",
+            "tags": [
+              "terminology",
+              "boundary",
+              "bpmn-gateway"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 6,
+      "phase": "phase-1",
+      "title": "审批流接口全景",
+      "duration": "55min",
+      "objectives": [
+        "建立发起/待办/审批/历史/详情 接口地图",
+        "理解前端通常调业务 API 而非裸调引擎"
+      ],
+      "resources": [
+        {
+          "title": "Flowable REST API 概览",
+          "url": "https://www.flowable.com/open-source/docs/bpmn/ch14-REST/",
+          "type": "docs",
+          "required": true
+        },
+        {
+          "title": "本轨道 roadmap — 典型接口清单",
+          "url": "./roadmap.md#phase-1接口期--搞懂你要调什么",
+          "type": "internal",
+          "required": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d6-t1",
+          "text": "画「页面 → 接口」矩阵：发起页/待办/详情/时间线各调什么",
+          "tags": [
+            "api-overview"
+          ]
+        },
+        {
+          "id": "d6-t2",
+          "text": "区分：业务封装 API vs Flowable 原生 REST（前端一般调哪个）",
+          "tags": [
+            "api-overview",
+            "boundary"
+          ]
+        },
+        {
+          "id": "d6-t3",
+          "text": "笔记：接口全景图写入 notes/api-contract-checklist.md 骨架",
+          "tags": [
+            "api-checklist"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d6-q1",
+            "text": "列出至少 5 个审批流相关接口语义",
+            "tags": [
+              "api-overview"
+            ]
+          },
+          {
+            "id": "d6-q2",
+            "text": "为什么多数项目不让前端直接调 Flowable REST？",
+            "tags": [
+              "api-overview",
+              "boundary"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d6-p1",
+            "text": "给「请假模块」写 1 页纸接口清单（字段可先 Mock）",
+            "tags": [
+              "api-overview"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 7,
+      "phase": "phase-1",
+      "title": "发起接口与流程变量",
+      "duration": "60min",
+      "objectives": [
+        "设计发起请求体：业务字段 + 流程变量",
+        "理解变量如何影响后续网关"
+      ],
+      "resources": [
+        {
+          "title": "Flowable — Variables",
+          "url": "https://www.flowable.com/open-source/docs/bpmn/ch02-GettingStarted/#variables",
+          "type": "docs",
+          "required": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d7-t1",
+          "text": "定义 LeaveStartDTO：days, reason, startDate 等",
+          "tags": [
+            "api-start",
+            "variables"
+          ]
+        },
+        {
+          "id": "d7-t2",
+          "text": "标注哪些字段进业务表、哪些进流程变量",
+          "tags": [
+            "variables"
+          ]
+        },
+        {
+          "id": "d7-t3",
+          "text": "写 Mock POST /api/leave 请求/响应 JSON 样例",
+          "tags": [
+            "api-start",
+            "mock"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d7-q1",
+            "text": "days > 3 分支依赖谁、在何时传入？",
+            "tags": [
+              "variables",
+              "bpmn-gateway"
+            ]
+          },
+          {
+            "id": "d7-q2",
+            "text": "发起成功后前端应跳转哪里？需要保存哪些 id？",
+            "tags": [
+              "api-start"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d7-p1",
+            "text": "用 Postman/curl 或 JSON 文件模拟一次发起",
+            "tags": [
+              "api-start",
+              "mock"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 8,
+      "phase": "phase-1",
+      "title": "待办与审批接口",
+      "duration": "60min",
+      "objectives": [
+        "搞清待办列表与 complete 任务接口",
+        "设计同意/驳回参数"
+      ],
+      "resources": [
+        {
+          "title": "Flowable REST — Tasks",
+          "url": "https://www.flowable.com/open-source/docs/bpmn/ch14-REST/#tasks",
+          "type": "docs",
+          "required": false
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d8-t1",
+          "text": "定义 TodoItem 与 CompleteTaskDTO 类型",
+          "tags": [
+            "api-todo",
+            "api-complete"
+          ]
+        },
+        {
+          "id": "d8-t2",
+          "text": "Mock GET /tasks/todo 与 POST /tasks/:id/complete",
+          "tags": [
+            "api-todo",
+            "api-complete",
+            "mock"
+          ]
+        },
+        {
+          "id": "d8-t3",
+          "text": "列出待办为空的 3 种原因及谁排查",
+          "tags": [
+            "api-todo",
+            "boundary"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d8-q1",
+            "text": "complete 接口必传字段有哪些？",
+            "tags": [
+              "api-complete"
+            ]
+          },
+          {
+            "id": "d8-q2",
+            "text": "taskId 失效时前端如何表现？",
+            "tags": [
+              "api-complete",
+              "vue-error-states"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d8-p1",
+            "text": "Mock 环境走通：查待办 → 审批一条",
+            "tags": [
+              "api-todo",
+              "api-complete",
+              "mock"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 9,
+      "phase": "phase-1",
+      "title": "详情与审批历史",
+      "duration": "55min",
+      "objectives": [
+        "设计详情合并接口或分接口策略",
+        "时间线所需字段清单"
+      ],
+      "resources": [
+        {
+          "title": "Flowable REST — History",
+          "url": "https://www.flowable.com/open-source/docs/bpmn/ch14-REST/#history",
+          "type": "docs",
+          "required": false
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d9-t1",
+          "text": "定义 LeaveDetail 与 ApprovalHistoryItem 类型",
+          "tags": [
+            "api-detail",
+            "api-history"
+          ]
+        },
+        {
+          "id": "d9-t2",
+          "text": "Mock 详情 + 历史接口 JSON",
+          "tags": [
+            "api-detail",
+            "api-history",
+            "mock"
+          ]
+        },
+        {
+          "id": "d9-t3",
+          "text": "画时间线 UI 线框（纸笔即可）",
+          "tags": [
+            "api-history",
+            "vue-timeline"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d9-q1",
+            "text": "历史记录按时间正序还是倒序展示？谁决定？",
+            "tags": [
+              "api-history"
+            ]
+          },
+          {
+            "id": "d9-q2",
+            "text": "详情里「当前节点」字段从哪来？",
+            "tags": [
+              "api-detail",
+              "terminology"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d9-p1",
+            "text": "根据 Mock 数据写出时间线组件 props 设计",
+            "tags": [
+              "api-history",
+              "vue-timeline"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 10,
+      "phase": "phase-1",
+      "title": "状态映射与联调清单",
+      "duration": "60min",
+      "objectives": [
+        "业务状态 ↔ UI 文案 ↔ 按钮显隐",
+        "完成 api-contract-checklist 笔记"
+      ],
+      "resources": [
+        {
+          "title": "本轨道 roadmap — 联调协作",
+          "url": "./roadmap.md#与后端协作说什么话",
+          "type": "internal",
+          "required": true
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d10-t1",
+          "text": "完成「状态映射表」：草稿/审批中/通过/驳回",
+          "tags": [
+            "api-state"
+          ]
+        },
+        {
+          "id": "d10-t2",
+          "text": "完善 notes/api-contract-checklist.md",
+          "tags": [
+            "api-checklist"
+          ]
+        },
+        {
+          "id": "d10-t3",
+          "text": "Phase 1 小结：Postman/Mock 完整走通主流程",
+          "tags": [
+            "mock",
+            "integration"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d10-q1",
+            "text": "驳回后按钮「重新编辑」显示条件是什么？",
+            "tags": [
+              "api-state"
+            ]
+          },
+          {
+            "id": "d10-q2",
+            "text": "联调时 5 个必问后端的问题你能脱口而出吗？",
+            "tags": [
+              "api-checklist"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d10-p1",
+            "text": "Phase 1 通关：无 UI 仅用 Mock/Postman 演示全流程",
+            "tags": [
+              "integration",
+              "api-overview"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 11,
+      "phase": "phase-2",
+      "title": "Vue 骨架与 Mock 接入",
+      "duration": "60min",
+      "objectives": [
+        "在 playground 或独立目录搭审批模块骨架",
+        "接入 Mock API 层"
+      ],
+      "resources": [
+        {
+          "title": "本库 ai-coding — 接口请求模式",
+          "url": "../ai-coding/notes/ai-coding-prompts.md",
+          "type": "internal",
+          "required": false
+        }
+      ],
+      "tasks": [
+        {
+          "id": "d11-t1",
+          "text": "创建 demos/flowable 目录结构：views, api, types, mock",
+          "tags": [
+            "vue-setup"
+          ]
+        },
+        {
+          "id": "d11-t2",
+          "text": "注册路由 /demos/flowable（或学习计划内嵌预览）",
+          "tags": [
+            "vue-setup"
+          ]
+        },
+        {
+          "id": "d11-t3",
+          "text": "接入 Day 7–9 的 Mock 数据，console 能调通",
+          "tags": [
+            "mock",
+            "vue-setup"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d11-q1",
+            "text": "api / types / views 分层职责是否清晰？",
+            "tags": [
+              "vue-setup"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d11-p1",
+            "text": "pnpm dev 启动无报错，Mock 发起接口返回 200",
+            "tags": [
+              "vue-setup",
+              "mock"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 12,
+      "phase": "phase-2",
+      "title": "发起页",
+      "duration": "75min",
+      "objectives": [
+        "请假表单 + 校验 + 提交",
+        "提交后跳转或提示"
+      ],
+      "tasks": [
+        {
+          "id": "d12-t1",
+          "text": "实现 LeaveStartForm：days, reason 等字段",
+          "tags": [
+            "vue-start-form"
+          ]
+        },
+        {
+          "id": "d12-t2",
+          "text": "loading / 成功 / 失败反馈",
+          "tags": [
+            "vue-start-form",
+            "vue-error-states"
+          ]
+        },
+        {
+          "id": "d12-t3",
+          "text": "提交成功后跳转「我发起的」或详情",
+          "tags": [
+            "vue-start-form"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d12-q1",
+            "text": "表单校验失败时是否阻止提交？",
+            "tags": [
+              "vue-start-form"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d12-p1",
+            "text": "浏览器演示：填写并提交一条请假",
+            "tags": [
+              "vue-start-form"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 13,
+      "phase": "phase-2",
+      "title": "待办列表",
+      "duration": "70min",
+      "objectives": [
+        "待办列表展示与进入审批入口"
+      ],
+      "tasks": [
+        {
+          "id": "d13-t1",
+          "text": "TodoList 组件：标题、发起人、时间",
+          "tags": [
+            "vue-todo-list"
+          ]
+        },
+        {
+          "id": "d13-t2",
+          "text": "空状态与加载态",
+          "tags": [
+            "vue-todo-list",
+            "vue-error-states"
+          ]
+        },
+        {
+          "id": "d13-t3",
+          "text": "点击进入审批页/抽屉",
+          "tags": [
+            "vue-todo-list",
+            "vue-approve"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d13-p1",
+            "text": "切换 Mock 用户能看到对应待办",
+            "tags": [
+              "vue-todo-list"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 14,
+      "phase": "phase-2",
+      "title": "审批操作",
+      "duration": "70min",
+      "objectives": [
+        "同意/驳回 + 审批意见"
+      ],
+      "tasks": [
+        {
+          "id": "d14-t1",
+          "text": "ApprovePanel：同意/驳回按钮 + comment",
+          "tags": [
+            "vue-approve"
+          ]
+        },
+        {
+          "id": "d14-t2",
+          "text": "调用 complete 接口并刷新列表",
+          "tags": [
+            "vue-approve",
+            "api-complete"
+          ]
+        },
+        {
+          "id": "d14-t3",
+          "text": "处理任务已被处理的情况",
+          "tags": [
+            "vue-approve",
+            "vue-error-states"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d14-p1",
+            "text": "完成一条同意 + 一条驳回，列表状态正确",
+            "tags": [
+              "vue-approve"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 15,
+      "phase": "phase-2",
+      "title": "详情页（业务信息）",
+      "duration": "60min",
+      "objectives": [
+        "业务字段只读展示 + 当前状态"
+      ],
+      "tasks": [
+        {
+          "id": "d15-t1",
+          "text": "LeaveDetail 页面布局",
+          "tags": [
+            "vue-detail"
+          ]
+        },
+        {
+          "id": "d15-t2",
+          "text": "展示流程状态 badge",
+          "tags": [
+            "vue-detail",
+            "api-state"
+          ]
+        },
+        {
+          "id": "d15-t3",
+          "text": "根据状态控制操作按钮显隐",
+          "tags": [
+            "vue-detail",
+            "api-state"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d15-p1",
+            "text": "三种状态（审批中/通过/驳回）展示正确",
+            "tags": [
+              "vue-detail",
+              "api-state"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 16,
+      "phase": "phase-2",
+      "title": "审批时间线",
+      "duration": "75min",
+      "objectives": [
+        "时间线组件展示历史节点"
+      ],
+      "tasks": [
+        {
+          "id": "d16-t1",
+          "text": "ApprovalTimeline 组件",
+          "tags": [
+            "vue-timeline"
+          ]
+        },
+        {
+          "id": "d16-t2",
+          "text": "接入历史 Mock 数据",
+          "tags": [
+            "vue-timeline",
+            "api-history"
+          ]
+        },
+        {
+          "id": "d16-t3",
+          "text": "与详情页组合布局",
+          "tags": [
+            "vue-timeline",
+            "vue-detail"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d16-p1",
+            "text": "多级审批后时间线节点数正确",
+            "tags": [
+              "vue-timeline"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 17,
+      "phase": "phase-2",
+      "title": "我发起的 / 已办 Tab",
+      "duration": "60min",
+      "objectives": [
+        "Tab 切换与列表复用"
+      ],
+      "tasks": [
+        {
+          "id": "d17-t1",
+          "text": "Tab：待办 / 已办 / 我发起的",
+          "tags": [
+            "vue-tabs"
+          ]
+        },
+        {
+          "id": "d17-t2",
+          "text": "列表组件 props 复用",
+          "tags": [
+            "vue-tabs",
+            "vue-todo-list"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d17-p1",
+            "text": "三个 Tab 数据互不串",
+            "tags": [
+              "vue-tabs"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 18,
+      "phase": "phase-2",
+      "title": "边界态与错误处理",
+      "duration": "55min",
+      "objectives": [
+        "空、错、无权限、已处理等状态"
+      ],
+      "tasks": [
+        {
+          "id": "d18-t1",
+          "text": "网络错误 Toast / 重试",
+          "tags": [
+            "vue-error-states"
+          ]
+        },
+        {
+          "id": "d18-t2",
+          "text": "无权限、任务不存在提示",
+          "tags": [
+            "vue-error-states"
+          ]
+        },
+        {
+          "id": "d18-t3",
+          "text": "对照 roadmap 前端踩坑表逐条自检",
+          "tags": [
+            "vue-error-states"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d18-p1",
+            "text": "故意传错 taskId，界面有友好提示",
+            "tags": [
+              "vue-error-states"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 19,
+      "phase": "phase-2",
+      "title": "体验打磨与联调复盘",
+      "duration": "60min",
+      "objectives": [
+        "UI Pass + 联调问题清单"
+      ],
+      "tasks": [
+        {
+          "id": "d19-t1",
+          "text": "走一遍 UI Pass（间距、按钮、loading 一致）",
+          "tags": [
+            "vue-polish"
+          ]
+        },
+        {
+          "id": "d19-t2",
+          "text": "写联调复盘：3 个搞清的问题 + 1 个待确认",
+          "tags": [
+            "integration"
+          ]
+        },
+        {
+          "id": "d19-t3",
+          "text": "Phase 2 通关：浏览器完整演示",
+          "tags": [
+            "integration"
+          ]
+        }
+      ],
+      "selfTest": {
+        "practical": [
+          {
+            "id": "d19-p1",
+            "text": "录制或口述 2 分钟演示主流程",
+            "tags": [
+              "integration",
+              "vue-polish"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 20,
+      "phase": "phase-3",
+      "title": "模拟对接（报销审批）",
+      "duration": "90min",
+      "objectives": [
+        "限时交付：换业务域复用模式"
+      ],
+      "tasks": [
+        {
+          "id": "d20-t1",
+          "text": "自拟报销 PRD 摘要（金额分支）",
+          "tags": [
+            "integration"
+          ]
+        },
+        {
+          "id": "d20-t2",
+          "text": "调整 Mock + 表单字段 + 网关条件说明",
+          "tags": [
+            "integration",
+            "variables"
+          ]
+        },
+        {
+          "id": "d20-t3",
+          "text": "限时完成发起→审批→时间线（可复用组件）",
+          "tags": [
+            "integration"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d20-q1",
+            "text": "换业务域时哪些代码可复用、哪些要改？",
+            "tags": [
+              "integration"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d20-p1",
+            "text": "3 小时内可演示报销主流程",
+            "tags": [
+              "integration"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "day": 21,
+      "phase": "phase-3",
+      "title": "综合自测与复盘",
+      "duration": "60min",
+      "objectives": [
+        "闭环检验 + 个人速查沉淀"
+      ],
+      "tasks": [
+        {
+          "id": "d21-t1",
+          "text": "重做所有标「不熟」的自测项",
+          "tags": [
+            "final-review"
+          ]
+        },
+        {
+          "id": "d21-t2",
+          "text": "写「审批流前端对接速查」5–10 条",
+          "tags": [
+            "final-review"
+          ]
+        },
+        {
+          "id": "d21-t3",
+          "text": "更新 meta.yaml status / mastery，schedule 打卡归档",
+          "tags": [
+            "final-review"
+          ]
+        }
+      ],
+      "selfTest": {
+        "questions": [
+          {
+            "id": "d21-q1",
+            "text": "后端说实例卡在经理节点 — 你前端如何协助排查？",
+            "tags": [
+              "final-review",
+              "terminology"
+            ]
+          },
+          {
+            "id": "d21-q2",
+            "text": "流程版本升级对已发起单据有何影响？",
+            "tags": [
+              "final-review",
+              "terminology"
+            ]
+          },
+          {
+            "id": "d21-q3",
+            "text": "为什么用 businessKey？",
+            "tags": [
+              "final-review",
+              "business-key"
+            ]
+          }
+        ],
+        "practical": [
+          {
+            "id": "d21-p1",
+            "text": "通关演示 + 更新 STATUS.md 轨道进度",
+            "tags": [
+              "final-review"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "trackId": "flowable"
+}

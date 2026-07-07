@@ -1,10 +1,11 @@
 {
   "version": 1,
-  "updated": "2026-07-02",
+  "updated": "2026-07-07",
   "tags_index": {
     "vue": [
       "ai-coding",
-      "echarts"
+      "echarts",
+      "flowable"
     ],
     "echarts": [
       "echarts"
@@ -22,7 +23,32 @@
       "fullstack-transition"
     ],
     "backend": [
-      "fullstack-transition"
+      "fullstack-transition",
+      "flowable"
+    ],
+    "flowable": [
+      "flowable"
+    ],
+    "bpmn": [
+      "flowable"
+    ],
+    "workflow": [
+      "flowable"
+    ],
+    "wellbeing": [
+      "mind-body"
+    ],
+    "mindfulness": [
+      "mind-body"
+    ],
+    "self-care": [
+      "mind-body"
+    ],
+    "psychology": [
+      "mind-body"
+    ],
+    "daily-practice": [
+      "mind-body"
     ],
     "ai": [
       "ai-coding",
@@ -37,12 +63,14 @@
   },
   "depth_index": {
     "light": [
-      "react"
+      "react",
+      "mind-body"
     ],
     "standard": [
       "fullstack-transition",
       "frontend-efficiency-tooling",
-      "echarts"
+      "echarts",
+      "flowable"
     ],
     "deep": [
       "ai-coding"
@@ -53,29 +81,116 @@
       "ai-coding",
       "echarts",
       "react",
-      "fullstack-transition"
+      "fullstack-transition",
+      "flowable"
     ],
     "work-assignment": [
       "frontend-efficiency-tooling"
+    ],
+    "personal-wellbeing": [
+      "mind-body"
     ]
   },
   "stats": {
-    "total": 5,
+    "total": 7,
     "byDepth": {
       "deep": 1,
-      "standard": 3,
-      "light": 1
+      "standard": 4,
+      "light": 2
     },
     "byCategory": {
-      "tech-learning": 4,
-      "work-assignment": 1
+      "tech-learning": 5,
+      "work-assignment": 1,
+      "personal-wellbeing": 1
     },
     "byStatus": {
-      "in_progress": 2,
-      "completed": 3
+      "in_progress": 3,
+      "completed": 3,
+      "planned": 1
     }
   },
-  "reviewReminders": [],
+  "reviewReminders": [
+    {
+      "id": "mind-body",
+      "depth": "light",
+      "category": "personal-wellbeing",
+      "title": "身心修炼 · 日常关怀",
+      "status": "in_progress",
+      "tags": [
+        "wellbeing",
+        "mindfulness",
+        "self-care",
+        "daily-practice",
+        "psychology"
+      ],
+      "audience": "personal",
+      "started": "2026-07-07",
+      "updated": "2026-07-07",
+      "last_reviewed": null,
+      "next_review": "2026-07-14",
+      "mastery": 0,
+      "prerequisites": [],
+      "related": [],
+      "notes": [
+        {
+          "path": "notes/framework.md",
+          "title": "修炼框架 · 四象限觉察"
+        },
+        {
+          "path": "notes/daily-checkin.md",
+          "title": "每日觉察打卡（模板）"
+        },
+        {
+          "path": "notes/intake.md",
+          "title": "初次了解 · 基线记录"
+        },
+        {
+          "path": "notes/session-log.md",
+          "title": "陪伴对话记录"
+        },
+        {
+          "path": "schedule.md",
+          "title": "28 天温和修炼计划（Markdown 版）"
+        }
+      ],
+      "artifacts": [
+        {
+          "type": "schedule",
+          "route": "/tracks/mind-body/schedule",
+          "title": "28 天温和修炼计划",
+          "description": "每日微练习 · 身心打卡 · 弹性节奏 · 无评判觉察"
+        }
+      ],
+      "noteFiles": [
+        {
+          "name": "daily-checkin.md",
+          "path": "notes/daily-checkin.md"
+        },
+        {
+          "name": "framework.md",
+          "path": "notes/framework.md"
+        },
+        {
+          "name": "intake.md",
+          "path": "notes/intake.md"
+        },
+        {
+          "name": "session-log.md",
+          "path": "notes/session-log.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 4,
+      "schedule": {
+        "route": "/tracks/mind-body/schedule",
+        "title": "身心修炼 · 28 天温和计划",
+        "totalDays": 28,
+        "subtitle": "觉察优先 · 微行动 · 无评判复盘 · 弹性节奏"
+      },
+      "overdue": false
+    }
+  ],
   "tracks": [
     {
       "id": "ai-coding",
@@ -171,7 +286,8 @@
         }
       ],
       "unitCount": 7,
-      "noteCount": 3
+      "noteCount": 3,
+      "schedule": null
     },
     {
       "id": "echarts",
@@ -250,7 +366,8 @@
       ],
       "units": [],
       "unitCount": 0,
-      "noteCount": 5
+      "noteCount": 5,
+      "schedule": null
     },
     {
       "id": "react",
@@ -294,7 +411,8 @@
       ],
       "units": [],
       "unitCount": 0,
-      "noteCount": 2
+      "noteCount": 2,
+      "schedule": null
     },
     {
       "id": "fullstack-transition",
@@ -346,7 +464,8 @@
       ],
       "units": [],
       "unitCount": 0,
-      "noteCount": 3
+      "noteCount": 3,
+      "schedule": null
     },
     {
       "id": "frontend-efficiency-tooling",
@@ -390,7 +509,155 @@
       ],
       "units": [],
       "unitCount": 0,
-      "noteCount": 2
+      "noteCount": 2,
+      "schedule": null
+    },
+    {
+      "id": "flowable",
+      "depth": "standard",
+      "category": "tech-learning",
+      "title": "Flowable 流程对接（前端）",
+      "status": "planned",
+      "tags": [
+        "flowable",
+        "bpmn",
+        "workflow",
+        "vue",
+        "frontend-integration"
+      ],
+      "audience": "frontend",
+      "started": null,
+      "updated": "2026-07-03",
+      "last_reviewed": null,
+      "next_review": "2026-08-15",
+      "mastery": 0,
+      "prerequisites": [
+        "ai-coding"
+      ],
+      "related": [
+        "ai-coding",
+        "fullstack-transition"
+      ],
+      "notes": [
+        {
+          "path": "notes/bpmn-basics.md",
+          "title": "BPMN 阅读入门（前端向）"
+        },
+        {
+          "path": "notes/flowable-architecture.md",
+          "title": "流程术语与接口对接要点"
+        },
+        {
+          "path": "notes/api-contract-checklist.md",
+          "title": "审批流接口对接清单"
+        },
+        {
+          "path": "schedule.md",
+          "title": "21 天学习计划（Markdown 版）"
+        }
+      ],
+      "artifacts": [
+        {
+          "type": "schedule",
+          "route": "/tracks/flowable/schedule",
+          "title": "21 天学习计划",
+          "description": "每日任务 · 资源链接 · 自测打卡 · 薄弱点次日巩固"
+        }
+      ],
+      "noteFiles": [
+        {
+          "name": "learning.md",
+          "path": "notes/learning.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 1,
+      "schedule": {
+        "route": "/tracks/flowable/schedule",
+        "title": "Flowable 前端对接 · 21 天学习计划",
+        "totalDays": 21,
+        "subtitle": "弹性节奏 · 打卡自测 · 薄弱点次日巩固"
+      }
+    },
+    {
+      "id": "mind-body",
+      "depth": "light",
+      "category": "personal-wellbeing",
+      "title": "身心修炼 · 日常关怀",
+      "status": "in_progress",
+      "tags": [
+        "wellbeing",
+        "mindfulness",
+        "self-care",
+        "daily-practice",
+        "psychology"
+      ],
+      "audience": "personal",
+      "started": "2026-07-07",
+      "updated": "2026-07-07",
+      "last_reviewed": null,
+      "next_review": "2026-07-14",
+      "mastery": 0,
+      "prerequisites": [],
+      "related": [],
+      "notes": [
+        {
+          "path": "notes/framework.md",
+          "title": "修炼框架 · 四象限觉察"
+        },
+        {
+          "path": "notes/daily-checkin.md",
+          "title": "每日觉察打卡（模板）"
+        },
+        {
+          "path": "notes/intake.md",
+          "title": "初次了解 · 基线记录"
+        },
+        {
+          "path": "notes/session-log.md",
+          "title": "陪伴对话记录"
+        },
+        {
+          "path": "schedule.md",
+          "title": "28 天温和修炼计划（Markdown 版）"
+        }
+      ],
+      "artifacts": [
+        {
+          "type": "schedule",
+          "route": "/tracks/mind-body/schedule",
+          "title": "28 天温和修炼计划",
+          "description": "每日微练习 · 身心打卡 · 弹性节奏 · 无评判觉察"
+        }
+      ],
+      "noteFiles": [
+        {
+          "name": "daily-checkin.md",
+          "path": "notes/daily-checkin.md"
+        },
+        {
+          "name": "framework.md",
+          "path": "notes/framework.md"
+        },
+        {
+          "name": "intake.md",
+          "path": "notes/intake.md"
+        },
+        {
+          "name": "session-log.md",
+          "path": "notes/session-log.md"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 4,
+      "schedule": {
+        "route": "/tracks/mind-body/schedule",
+        "title": "身心修炼 · 28 天温和计划",
+        "totalDays": 28,
+        "subtitle": "觉察优先 · 微行动 · 无评判复盘 · 弹性节奏"
+      }
     }
   ]
 }
