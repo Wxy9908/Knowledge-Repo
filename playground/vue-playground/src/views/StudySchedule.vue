@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
-import flowableSchedule from '@/generated/schedules/flowable.json';
 import StudyScheduleBody from '@/views/StudyScheduleBody.vue';
 import type { TrackSchedule } from '@/types/schedule';
 
 const props = defineProps<{ id: string }>();
 
-const scheduleMap: Record<string, TrackSchedule> = {
-  flowable: { ...(flowableSchedule as unknown as TrackSchedule), trackId: 'flowable' },
-};
+const scheduleModules = import.meta.glob<TrackSchedule>(
+  '@/generated/schedules/*.json',
+  { eager: true, import: 'default' },
+);
+
+const scheduleMap: Record<string, TrackSchedule> = Object.fromEntries(
+  Object.entries(scheduleModules).map(([filePath, data]) => {
+    const trackId = filePath.match(/\/([^/]+)\.json$/)?.[1] ?? '';
+    return [trackId, { ...data, trackId }];
+  }),
+);
 
 const schedule = computed(() => scheduleMap[props.id] ?? null);
 </script>
