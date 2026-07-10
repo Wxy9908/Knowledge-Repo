@@ -2,10 +2,10 @@ id: ai-coding
 depth: deep
 category: tech-learning
 title: AI Coding 系统学习
-status: in_progress
+status: completed
 tags: [vue, ai, prompt-engineering, cursor]
 started: 2026-03-01
-updated: 2026-05-22
+updated: 2026-07-09
 last_reviewed: 2026-05-22
 next_review: 2026-07-22
 mastery: 0.75

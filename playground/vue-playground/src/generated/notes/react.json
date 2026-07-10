@@ -1,0 +1,22 @@
+{
+  "trackId": "react",
+  "updated": "2026-07-10",
+  "notes": [
+    {
+      "slug": "react-hooks",
+      "name": "react-hooks.md",
+      "path": "notes/react-hooks.md",
+      "title": "React Hooks 要点",
+      "content": "# React Hooks 要点\r\n\r\n> tags: react, hooks | updated: 2026-06-30 | mastery: practicing\r\n\r\n## 是什么\r\n\r\nHooks 让函数组件拥有状态与副作用能力，无需 class 组件。\r\n\r\n## useState\r\n\r\n```js\r\nconst [count, setCount] = useState(0);\r\n```\r\n\r\n## useEffect（副作用）\r\n\r\n```js\r\nuseEffect(() => {\r\n  console.log('count changed', count);\r\n}, [count]); // 依赖数组：空 [] 仅挂载；省略则每次渲染\r\n```\r\n\r\n用于：请求、订阅、同步 DOM。\r\n\r\n## useMemo（缓存计算结果）\r\n\r\n```js\r\nconst result = useMemo(() => expensiveCalc(value), [value]);\r\n```\r\n\r\n父组件无关 state 更新时，避免子树重复重算。\r\n\r\n## useCallback（缓存函数引用）\r\n\r\n配合 `memo` 子组件时，稳定 `onClick` 引用可避免子组件无意义重渲染：\r\n\r\n```js\r\nconst handleClick = useCallback(() => { /* ... */ }, []);\r\nconst Button = memo(function Button({ onClick, children }) { /* ... */ });\r\n```\r\n\r\n若把变化的 `count` 传给 memo 子组件，memo 仍会放行重渲染。\r\n\r\n## useRef\r\n\r\n- 存可变值且不触发重渲染（如 `prevCountRef.current`）\r\n- 引用 DOM：`inputRef.current.focus()`\r\n- 引用子组件：`forwardRef` + `useImperativeHandle` 暴露方法\r\n\r\n## useReducer\r\n\r\n复杂 state 逻辑用 reducer 集中处理：\r\n\r\n```js\r\nconst [count, dispatch] = useReducer(countReducer, 0);\r\ndispatch({ type: 'increment' });\r\n```\r\n\r\n## useContext\r\n\r\n跨层级传值，避免 props 逐层透传。典型模式：`createContext` + `Provider` + `useContext`。\r\n\r\n示例：嵌套 `Section` 自动递增标题层级，内部 `Heading` 读取 context 渲染 `h1`~`h6`。\r\n\r\n## Props 与 children\r\n\r\n```js\r\nfunction List({ children, title, footer = <div>No footer</div> }) {\r\n  return (/* ... */);\r\n}\r\n```\r\n\r\n`children` 是特殊 prop，用于组合式布局。\r\n\r\n## 踩坑\r\n\r\n- `useEffect` 不写依赖易导致无限循环或漏更新\r\n- `useCallback`/`useMemo` 不是越多越好，有明确性能问题时再用\r\n- Context 值变化会导致所有消费组件重渲染，大状态慎放 Context\r\n\r\n## 复盘\r\n\r\n- 能否讲清楚：useEffect 依赖数组、useCallback 与 memo 配合场景\r\n- 何时使用：函数组件 + 局部状态为主流写法\r\n- 原 demo 项目已删除，要点已沉淀至此\r\n",
+      "updated": "2026-06-30"
+    },
+    {
+      "slug": "react-project-setup",
+      "name": "react-project-setup.md",
+      "path": "notes/react-project-setup.md",
+      "title": "React 项目搭建",
+      "content": "# React 项目搭建\r\n\r\n> tags: react | updated: 2026-06-30 | mastery: proficient\r\n\r\n## 是什么\r\n\r\nReact 单页应用常用 Create React App 或 Vite 脚手架。学习阶段了解目录结构即可，不必为每个知识点单独建项目。\r\n\r\n## 怎么用\r\n\r\n```bash\r\n# Vite（推荐）\r\nnpm create vite@latest my-app -- --template react\r\n\r\n# Create React App（旧项目常见）\r\nnpx create-react-app my-app\r\n```\r\n\r\n典型 `src/` 结构：\r\n\r\n```text\r\nsrc/\r\n├── App.js          # 根组件\r\n├── index.js        # 入口\r\n├── components/     # 可复用组件\r\n└── views/          # 页面级组件\r\n```\r\n\r\n## 踩坑\r\n\r\n- CRA 已不推荐用于新项目，已有 CRA 项目可继续维护\r\n- 学习 Hooks 时用一个 App 切换不同 demo 即可，不必多开项目\r\n\r\n## 复盘\r\n\r\n- 能否讲清楚：入口如何挂载 React、组件即函数\r\n- 何时使用：需要 React 生态的 SPA 时\r\n",
+      "updated": "2026-06-30"
+    }
+  ]
+}

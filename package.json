@@ -2,7 +2,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "sync-catalog": "node scripts/sync-catalog.mjs"
+    "sync-catalog": "node scripts/sync-catalog.mjs",
+    "sync-catalog:watch": "node scripts/watch-sync.mjs"
   },
   "devDependencies": {
     "yaml": "^2.8.0"

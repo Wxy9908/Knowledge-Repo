@@ -6,25 +6,25 @@ status: in_progress
 tags: [wellbeing, mindfulness, self-care, daily-practice, psychology]
 audience: personal
 started: 2026-07-07
-updated: 2026-07-07
-last_reviewed: null
-next_review: 2026-07-14
-mastery: 0
+updated: 2026-07-09
+last_reviewed: 2026-07-09
+next_review: 2026-07-16
+mastery: 0.15
 prerequisites: []
 related: []
 notes:
   - path: notes/framework.md
     title: 修炼框架 · 四象限觉察
+    platform: true
   - path: notes/daily-checkin.md
     title: 每日觉察打卡（模板）
+    platform: false
   - path: notes/intake.md
     title: 初次了解 · 基线记录
+    platform: false
   - path: notes/session-log.md
     title: 陪伴对话记录
+    platform: true
   - path: schedule.md
-    title: 28 天温和修炼计划（Markdown 版）
-artifacts:
-  - type: schedule
-    route: /tracks/mind-body/schedule
-    title: 28 天温和修炼计划
-    description: 每日微练习 · 身心打卡 · 弹性节奏 · 无评判觉察
+    title: 28 天温和修炼计划（参考，主记录在 daily-checkin）
+    platform: false

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-07",
+  "updated": "2026-07-10",
   "tags_index": {
     "vue": [
       "ai-coding",
@@ -104,8 +104,8 @@
       "personal-wellbeing": 1
     },
     "byStatus": {
-      "in_progress": 3,
-      "completed": 3,
+      "completed": 4,
+      "in_progress": 2,
       "planned": 1
     }
   },
@@ -125,40 +125,37 @@
       ],
       "audience": "personal",
       "started": "2026-07-07",
-      "updated": "2026-07-07",
-      "last_reviewed": null,
-      "next_review": "2026-07-14",
-      "mastery": 0,
+      "updated": "2026-07-09",
+      "last_reviewed": "2026-07-09",
+      "next_review": "2026-07-16",
+      "mastery": 0.15,
       "prerequisites": [],
       "related": [],
       "notes": [
         {
           "path": "notes/framework.md",
-          "title": "修炼框架 · 四象限觉察"
+          "title": "修炼框架 · 四象限觉察",
+          "platform": true
         },
         {
           "path": "notes/daily-checkin.md",
-          "title": "每日觉察打卡（模板）"
+          "title": "每日觉察打卡（模板）",
+          "platform": false
         },
         {
           "path": "notes/intake.md",
-          "title": "初次了解 · 基线记录"
+          "title": "初次了解 · 基线记录",
+          "platform": false
         },
         {
           "path": "notes/session-log.md",
-          "title": "陪伴对话记录"
+          "title": "陪伴对话记录",
+          "platform": true
         },
         {
           "path": "schedule.md",
-          "title": "28 天温和修炼计划（Markdown 版）"
-        }
-      ],
-      "artifacts": [
-        {
-          "type": "schedule",
-          "route": "/tracks/mind-body/schedule",
-          "title": "28 天温和修炼计划",
-          "description": "每日微练习 · 身心打卡 · 弹性节奏 · 无评判觉察"
+          "title": "28 天温和修炼计划（参考，主记录在 daily-checkin）",
+          "platform": false
         }
       ],
       "noteFiles": [
@@ -179,9 +176,27 @@
           "path": "notes/session-log.md"
         }
       ],
+      "syncedNotes": [
+        {
+          "slug": "framework",
+          "name": "framework.md",
+          "path": "notes/framework.md",
+          "title": "修炼框架 · 四象限觉察",
+          "updated": "2026-07-07",
+          "route": "/tracks/mind-body/notes/framework"
+        },
+        {
+          "slug": "session-log",
+          "name": "session-log.md",
+          "path": "notes/session-log.md",
+          "title": "陪伴对话记录",
+          "updated": "2026-07-10",
+          "route": "/tracks/mind-body/notes/session-log"
+        }
+      ],
       "units": [],
       "unitCount": 0,
-      "noteCount": 4,
+      "noteCount": 2,
       "schedule": {
         "route": "/tracks/mind-body/schedule",
         "title": "身心修炼 · 28 天温和计划",
@@ -197,7 +212,7 @@
       "depth": "deep",
       "category": "tech-learning",
       "title": "AI Coding 系统学习",
-      "status": "in_progress",
+      "status": "completed",
       "tags": [
         "vue",
         "ai",
@@ -205,7 +220,7 @@
         "cursor"
       ],
       "started": "2026-03-01",
-      "updated": "2026-05-22",
+      "updated": "2026-07-09",
       "last_reviewed": "2026-05-22",
       "next_review": "2026-07-22",
       "mastery": 0.75,
@@ -283,6 +298,32 @@
         {
           "name": "phase1-self-assessment.md",
           "path": "notes/phase1-self-assessment.md"
+        }
+      ],
+      "syncedNotes": [
+        {
+          "slug": "ai-coding-prompts",
+          "name": "ai-coding-prompts.md",
+          "path": "notes/ai-coding-prompts.md",
+          "title": "Prompt 模板速查",
+          "updated": "2026-06-30",
+          "route": "/tracks/ai-coding/notes/ai-coding-prompts"
+        },
+        {
+          "slug": "ai-concept",
+          "name": "ai-concept.md",
+          "path": "notes/ai-concept.md",
+          "title": "AI 概念笔记",
+          "updated": "2026-05-26",
+          "route": "/tracks/ai-coding/notes/ai-concept"
+        },
+        {
+          "slug": "phase1-self-assessment",
+          "name": "phase1-self-assessment.md",
+          "path": "notes/phase1-self-assessment.md",
+          "title": "Phase1 自评",
+          "updated": "2026-06-30",
+          "route": "/tracks/ai-coding/notes/phase1-self-assessment"
         }
       ],
       "unitCount": 7,
@@ -364,6 +405,48 @@
           "path": "notes/task.md"
         }
       ],
+      "syncedNotes": [
+        {
+          "slug": "contract-business-overview",
+          "name": "contract-business-overview.md",
+          "path": "notes/contract-business-overview.md",
+          "title": "合同业务概览",
+          "updated": "2026-07-01",
+          "route": "/tracks/echarts/notes/contract-business-overview"
+        },
+        {
+          "slug": "contract-charts-analysis",
+          "name": "contract-charts-analysis.md",
+          "path": "notes/contract-charts-analysis.md",
+          "title": "合同业务看板图表选型",
+          "updated": "2026-07-01",
+          "route": "/tracks/echarts/notes/contract-charts-analysis"
+        },
+        {
+          "slug": "echarts-basics",
+          "name": "echarts-basics.md",
+          "path": "notes/echarts-basics.md",
+          "title": "ECharts 基础",
+          "updated": "2026-07-01",
+          "route": "/tracks/echarts/notes/echarts-basics"
+        },
+        {
+          "slug": "echarts-version-matrix",
+          "name": "echarts-version-matrix.md",
+          "path": "notes/echarts-version-matrix.md",
+          "title": "ECharts 版本选型矩阵",
+          "updated": "2026-07-01",
+          "route": "/tracks/echarts/notes/echarts-version-matrix"
+        },
+        {
+          "slug": "task",
+          "name": "task.md",
+          "path": "notes/task.md",
+          "title": "ECharts 演示 Demo 工作计划",
+          "updated": "2026-07-01",
+          "route": "/tracks/echarts/notes/task"
+        }
+      ],
       "units": [],
       "unitCount": 0,
       "noteCount": 5,
@@ -407,6 +490,24 @@
         {
           "name": "react-project-setup.md",
           "path": "notes/react-project-setup.md"
+        }
+      ],
+      "syncedNotes": [
+        {
+          "slug": "react-hooks",
+          "name": "react-hooks.md",
+          "path": "notes/react-hooks.md",
+          "title": "React Hooks 要点",
+          "updated": "2026-06-30",
+          "route": "/tracks/react/notes/react-hooks"
+        },
+        {
+          "slug": "react-project-setup",
+          "name": "react-project-setup.md",
+          "path": "notes/react-project-setup.md",
+          "title": "React 项目搭建",
+          "updated": "2026-06-30",
+          "route": "/tracks/react/notes/react-project-setup"
         }
       ],
       "units": [],
@@ -462,6 +563,32 @@
           "path": "notes/fastify-tutorial.md"
         }
       ],
+      "syncedNotes": [
+        {
+          "slug": "backend-selection-with-ai",
+          "name": "backend-selection-with-ai.md",
+          "path": "notes/backend-selection-with-ai.md",
+          "title": "后端选型（含 AI）",
+          "updated": "2026-03-12",
+          "route": "/tracks/fullstack-transition/notes/backend-selection-with-ai"
+        },
+        {
+          "slug": "backend-selection",
+          "name": "backend-selection.md",
+          "path": "notes/backend-selection.md",
+          "title": "后端技术选型",
+          "updated": "2026-06-30",
+          "route": "/tracks/fullstack-transition/notes/backend-selection"
+        },
+        {
+          "slug": "fastify-tutorial",
+          "name": "fastify-tutorial.md",
+          "path": "notes/fastify-tutorial.md",
+          "title": "Fastify 新手教程",
+          "updated": "2026-03-12",
+          "route": "/tracks/fullstack-transition/notes/fastify-tutorial"
+        }
+      ],
       "units": [],
       "unitCount": 0,
       "noteCount": 3,
@@ -505,6 +632,24 @@
         {
           "name": "deliverable.md",
           "path": "notes/deliverable.md"
+        }
+      ],
+      "syncedNotes": [
+        {
+          "slug": "deliverable",
+          "name": "deliverable.html",
+          "path": "notes/deliverable.html",
+          "title": "方案汇报（HTML）",
+          "updated": "2026-06-29",
+          "route": "/tracks/frontend-efficiency-tooling/notes/deliverable"
+        },
+        {
+          "slug": "deliverable",
+          "name": "deliverable.md",
+          "path": "notes/deliverable.md",
+          "title": "方案汇报（Markdown）",
+          "updated": "2026-06-30",
+          "route": "/tracks/frontend-efficiency-tooling/notes/deliverable"
         }
       ],
       "units": [],
@@ -570,6 +715,16 @@
           "path": "notes/learning.md"
         }
       ],
+      "syncedNotes": [
+        {
+          "slug": "learning",
+          "name": "learning.md",
+          "path": "notes/learning.md",
+          "title": "learning",
+          "updated": "2026-07-03",
+          "route": "/tracks/flowable/notes/learning"
+        }
+      ],
       "units": [],
       "unitCount": 0,
       "noteCount": 1,
@@ -595,40 +750,37 @@
       ],
       "audience": "personal",
       "started": "2026-07-07",
-      "updated": "2026-07-07",
-      "last_reviewed": null,
-      "next_review": "2026-07-14",
-      "mastery": 0,
+      "updated": "2026-07-09",
+      "last_reviewed": "2026-07-09",
+      "next_review": "2026-07-16",
+      "mastery": 0.15,
       "prerequisites": [],
       "related": [],
       "notes": [
         {
           "path": "notes/framework.md",
-          "title": "修炼框架 · 四象限觉察"
+          "title": "修炼框架 · 四象限觉察",
+          "platform": true
         },
         {
           "path": "notes/daily-checkin.md",
-          "title": "每日觉察打卡（模板）"
+          "title": "每日觉察打卡（模板）",
+          "platform": false
         },
         {
           "path": "notes/intake.md",
-          "title": "初次了解 · 基线记录"
+          "title": "初次了解 · 基线记录",
+          "platform": false
         },
         {
           "path": "notes/session-log.md",
-          "title": "陪伴对话记录"
+          "title": "陪伴对话记录",
+          "platform": true
         },
         {
           "path": "schedule.md",
-          "title": "28 天温和修炼计划（Markdown 版）"
-        }
-      ],
-      "artifacts": [
-        {
-          "type": "schedule",
-          "route": "/tracks/mind-body/schedule",
-          "title": "28 天温和修炼计划",
-          "description": "每日微练习 · 身心打卡 · 弹性节奏 · 无评判觉察"
+          "title": "28 天温和修炼计划（参考，主记录在 daily-checkin）",
+          "platform": false
         }
       ],
       "noteFiles": [
@@ -649,9 +801,27 @@
           "path": "notes/session-log.md"
         }
       ],
+      "syncedNotes": [
+        {
+          "slug": "framework",
+          "name": "framework.md",
+          "path": "notes/framework.md",
+          "title": "修炼框架 · 四象限觉察",
+          "updated": "2026-07-07",
+          "route": "/tracks/mind-body/notes/framework"
+        },
+        {
+          "slug": "session-log",
+          "name": "session-log.md",
+          "path": "notes/session-log.md",
+          "title": "陪伴对话记录",
+          "updated": "2026-07-10",
+          "route": "/tracks/mind-body/notes/session-log"
+        }
+      ],
       "units": [],
       "unitCount": 0,
-      "noteCount": 4,
+      "noteCount": 2,
       "schedule": {
         "route": "/tracks/mind-body/schedule",
         "title": "身心修炼 · 28 天温和计划",

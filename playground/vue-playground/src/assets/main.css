@@ -103,11 +103,16 @@ a:hover { text-decoration: underline; }
 .badge-deep { background: #a855f722; color: #c084fc; }
 .badge-work { background: #f59e0b22; color: var(--warn); }
 .badge-wellbeing { background: #ec489922; color: #f472b6; }
+.badge-status-in-progress { background: var(--accent-dim); color: var(--accent); }
+.badge-status-completed { background: #22c55e22; color: var(--success); }
+.badge-status-planned { background: #8b9cb322; color: var(--muted); }
+.badge-status-unknown { background: #ffffff11; color: var(--muted); }
 
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+  align-items: stretch;
 }
 
 .stat-grid {
@@ -127,11 +132,48 @@ a:hover { text-decoration: underline; }
 .stat-card .label { color: var(--muted); font-size: 0.8rem; }
 .stat-card .value { font-size: 1.75rem; font-weight: 700; margin-top: 0.25rem; }
 
-.track-card { cursor: pointer; transition: border-color 0.15s; }
-.track-card:hover { border-color: var(--accent); }
+.track-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+.track-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
+.track-card--in-progress {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(135deg, var(--accent-dim) 0%, var(--surface) 45%);
+}
+.track-card--in-progress:hover { border-color: var(--accent); }
+.track-card--completed {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--success);
+  background: linear-gradient(135deg, #22c55e14 0%, var(--surface) 45%);
+}
+.track-card--completed:hover { border-color: var(--success); }
+.track-card--completed h3 { color: var(--text); }
+.track-card--planned {
+  border: 1px dashed var(--border);
+  border-left: 3px solid var(--muted);
+  opacity: 0.82;
+}
+.track-card--planned:hover {
+  border-color: var(--muted);
+  opacity: 1;
+}
+.track-card--planned h3 { color: var(--muted); }
 .track-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 .track-card .meta-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem; }
-.track-card .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.track-card .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; flex: 1; }
+.track-card__footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
 .tag {
   background: var(--accent-dim);
   color: var(--accent);

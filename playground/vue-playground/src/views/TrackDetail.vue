@@ -44,7 +44,7 @@ const handleBack = () => router.push('/');
     <h1 class="page-title">{{ track.title }}</h1>
     <p class="page-subtitle">{{ track.id }} · {{ track.category }} · {{ track.depth }}</p>
 
-    <div v-if="track.schedule" class="panel schedule-cta">
+    <div v-if="track.schedule && track.category !== 'personal-wellbeing'" class="panel schedule-cta">
       <h2>学习计划</h2>
       <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 0.75rem">
         {{ track.schedule.subtitle ?? track.schedule.title }} · 共 {{ track.schedule.totalDays }} 天 · 支持打卡与薄弱点巩固
@@ -52,6 +52,30 @@ const handleBack = () => router.push('/');
       <RouterLink :to="track.schedule.route" class="schedule-link">
         打开 {{ track.schedule.totalDays }} 天学习计划 →
       </RouterLink>
+      <p v-if="track.id === 'mind-body'" class="schedule-hint">
+        计划页打卡存在浏览器本地；你在 <code>daily-checkin.md</code> 写的每日记录在下方「笔记」中同步展示。
+      </p>
+    </div>
+
+    <div
+      v-if="track.category === 'personal-wellbeing' && track.syncedNotes?.length"
+      class="panel wellbeing-cta"
+    >
+      <h2>修炼文档</h2>
+      <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 0.75rem">
+        仅展示框架与对话摘要；个人打卡、基线等私密内容保留在本地 md，不同步到网页。
+      </p>
+      <div class="note-links">
+        <RouterLink
+          v-for="note in track.syncedNotes"
+          :key="note.slug"
+          :to="note.route"
+          class="note-link"
+        >
+          {{ note.title }}
+          <span class="note-date">{{ note.updated }}</span>
+        </RouterLink>
+      </div>
     </div>
 
     <div class="panel">
@@ -67,7 +91,17 @@ const handleBack = () => router.push('/');
       </ul>
     </div>
 
-    <div class="panel" v-if="track.noteFiles?.length">
+    <div class="panel" v-if="track.syncedNotes?.length && track.category !== 'personal-wellbeing'">
+      <h2>笔记（{{ track.noteCount }}）</h2>
+      <ul class="detail-list note-detail-list">
+        <li v-for="note in track.syncedNotes" :key="note.slug">
+          <RouterLink :to="note.route">{{ note.title }}</RouterLink>
+          <span style="color: var(--muted); margin-left: 0.5rem">更新 {{ note.updated }}</span>
+          <code style="display:block;margin-top:0.25rem;color:var(--muted)">tracks/{{ track.id }}/{{ note.path }}</code>
+        </li>
+      </ul>
+    </div>
+    <div class="panel" v-else-if="track.noteFiles?.length">
       <h2>笔记（{{ track.noteCount }}）</h2>
       <ul class="detail-list">
         <li v-for="note in track.noteFiles" :key="note.path">
@@ -124,5 +158,47 @@ const handleBack = () => router.push('/');
 }
 .schedule-link:hover {
   opacity: 0.9;
+}
+.schedule-hint {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.wellbeing-cta {
+  border-color: #f472b6;
+  background: color-mix(in srgb, #ec4899 8%, var(--surface));
+}
+.note-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.note-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  text-decoration: none !important;
+  color: inherit !important;
+  font-weight: 600;
+}
+.note-link.primary {
+  border-color: #f472b6;
+}
+.note-link:hover {
+  border-color: var(--accent);
+}
+.note-date {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.note-detail-list a {
+  font-weight: 600;
 }
 </style>

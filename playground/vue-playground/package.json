@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "node ../../scripts/sync-catalog.mjs",
     "dev": "vite",
     "prebuild": "node ../../scripts/sync-catalog.mjs",
     "build": "vue-tsc --noEmit && vite build",

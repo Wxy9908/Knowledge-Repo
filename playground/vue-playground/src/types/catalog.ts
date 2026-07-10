@@ -3,6 +3,15 @@ export interface CatalogNoteFile {
   path: string;
 }
 
+export interface CatalogSyncedNote {
+  slug: string;
+  name: string;
+  path: string;
+  title: string;
+  updated: string;
+  route: string;
+}
+
 export interface CatalogUnit {
   id: string;
   path: string;
@@ -36,10 +45,11 @@ export interface CatalogTrack {
   next_review?: string;
   mastery?: number;
   related?: string[];
-  notes?: Array<{ path: string; title: string; mastery?: string }>;
+  notes?: Array<{ path: string; title: string; mastery?: string; platform?: boolean }>;
   artifacts?: CatalogArtifact[];
   demos?: Array<{ title: string; route: string }>;
   noteFiles?: CatalogNoteFile[];
+  syncedNotes?: CatalogSyncedNote[];
   units?: CatalogUnit[];
   unitCount?: number;
   noteCount?: number;

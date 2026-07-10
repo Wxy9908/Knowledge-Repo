@@ -10,6 +10,7 @@ const CATALOG_YAML = path.join(ROOT, 'catalog.yaml');
 const OUT_DIR = path.join(ROOT, 'playground', 'vue-playground', 'src', 'generated');
 const OUT_FILE = path.join(OUT_DIR, 'catalog.json');
 const SCHEDULES_DIR = path.join(OUT_DIR, 'schedules');
+const NOTES_DIR = path.join(OUT_DIR, 'notes');
 
 const readYaml = (filePath) => parse(fs.readFileSync(filePath, 'utf8'));
 
@@ -116,6 +117,55 @@ const listUnits = (trackDir) => {
     }));
 };
 
+const noteSlug = (filename) => filename.replace(/\.(md|html)$/, '');
+
+const noteTitle = (meta, notePath, filename) => {
+  const indexed = (meta.notes ?? []).find((n) => n.path === notePath);
+  if (indexed?.title) return indexed.title;
+  return filename.replace(/\.md$/, '').replace(/-/g, ' ');
+};
+
+const isNotePublic = (meta, notePath) => {
+  const indexed = (meta.notes ?? []).find((n) => n.path === notePath);
+  if (!indexed) return true;
+  return indexed.platform !== false;
+};
+
+const syncTrackNotes = (trackDir, trackId, meta) => {
+  const noteFiles = listNoteFiles(trackDir).filter(({ path: notePath }) => isNotePublic(meta, notePath));
+  if (!noteFiles.length) return null;
+
+  const notes = noteFiles.map(({ name, path: notePath }) => {
+    const absPath = path.join(trackDir, notePath);
+    const stat = fs.statSync(absPath);
+    return {
+      slug: noteSlug(name),
+      name,
+      path: notePath,
+      title: noteTitle(meta, notePath, name),
+      content: fs.readFileSync(absPath, 'utf8'),
+      updated: stat.mtime.toISOString().slice(0, 10),
+    };
+  });
+
+  fs.mkdirSync(NOTES_DIR, { recursive: true });
+  const payload = {
+    trackId,
+    updated: new Date().toISOString().slice(0, 10),
+    notes,
+  };
+  const outPath = path.join(NOTES_DIR, `${trackId}.json`);
+  fs.writeFileSync(outPath, JSON.stringify(payload, null, 2) + '\n', 'utf8');
+  return notes.map(({ slug, name, path: notePath, title, updated }) => ({
+    slug,
+    name,
+    path: notePath,
+    title,
+    updated,
+    route: `/tracks/${trackId}/notes/${slug}`,
+  }));
+};
+
 const buildStats = (tracks) => {
   const byDepth = {};
   const byCategory = {};
@@ -152,6 +202,7 @@ const main = () => {
     if (!fs.existsSync(metaPath)) return null;
     const meta = readYaml(metaPath);
     const noteFiles = listNoteFiles(trackDir);
+    const syncedNotes = syncTrackNotes(trackDir, id, meta);
     const units = listUnits(trackDir);
     const schedule = loadSchedule(trackDir, id);
     let scheduleSummary = null;
@@ -169,9 +220,10 @@ const main = () => {
       ...meta,
       id: meta.id || id,
       noteFiles,
+      syncedNotes,
       units,
       unitCount: units.length,
-      noteCount: noteFiles.length,
+      noteCount: syncedNotes?.length ?? noteFiles.length,
       schedule: scheduleSummary,
     };
   }).filter(Boolean);
@@ -190,7 +242,8 @@ const main = () => {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(output, null, 2) + '\n', 'utf8');
   const scheduleCount = tracks.filter((t) => t.schedule).length;
-  console.log(`[sync-catalog] wrote ${tracks.length} tracks, ${scheduleCount} schedules`);
+  const noteCount = tracks.filter((t) => t.syncedNotes?.length).length;
+  console.log(`[sync-catalog] wrote ${tracks.length} tracks, ${scheduleCount} schedules, ${noteCount} note bundles`);
 };
 
 main();
