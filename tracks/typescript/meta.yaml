@@ -1,0 +1,23 @@
+id: typescript
+depth: standard
+category: tech-learning
+title: 前端 TypeScript
+status: planned
+tags: [typescript, vue, frontend]
+audience: frontend
+started: null
+updated: 2026-07-11
+last_reviewed: null
+next_review: 2026-08-15
+mastery: 0
+prerequisites: [ai-coding]
+related: [ai-coding, react, fullstack-transition]
+notes:
+  - path: notes/type-basics.md
+    title: TypeScript 基础速查
+  - path: notes/vue-ts-patterns.md
+    title: Vue 里常见 TS 写法
+  - path: notes/utility-types-cheatsheet.md
+    title: 工具类型速查
+  - path: notes/ai-ts-workflow.md
+    title: 用 AI 学/审 TS 工作流

@@ -1,11 +1,12 @@
 {
   "version": 1,
-  "updated": "2026-07-10",
+  "updated": "2026-07-11",
   "tags_index": {
     "vue": [
       "ai-coding",
       "echarts",
-      "flowable"
+      "flowable",
+      "typescript"
     ],
     "echarts": [
       "echarts"
@@ -59,6 +60,13 @@
     ],
     "low-code": [
       "frontend-efficiency-tooling"
+    ],
+    "typescript": [
+      "typescript"
+    ],
+    "frontend": [
+      "typescript",
+      "flowable"
     ]
   },
   "depth_index": {
@@ -70,7 +78,8 @@
       "fullstack-transition",
       "frontend-efficiency-tooling",
       "echarts",
-      "flowable"
+      "flowable",
+      "typescript"
     ],
     "deep": [
       "ai-coding"
@@ -82,7 +91,8 @@
       "echarts",
       "react",
       "fullstack-transition",
-      "flowable"
+      "flowable",
+      "typescript"
     ],
     "work-assignment": [
       "frontend-efficiency-tooling"
@@ -92,21 +102,21 @@
     ]
   },
   "stats": {
-    "total": 7,
+    "total": 8,
     "byDepth": {
       "deep": 1,
-      "standard": 4,
+      "standard": 5,
       "light": 2
     },
     "byCategory": {
-      "tech-learning": 5,
+      "tech-learning": 6,
       "work-assignment": 1,
       "personal-wellbeing": 1
     },
     "byStatus": {
       "completed": 4,
       "in_progress": 2,
-      "planned": 1
+      "planned": 2
     }
   },
   "reviewReminders": [
@@ -190,7 +200,7 @@
           "name": "session-log.md",
           "path": "notes/session-log.md",
           "title": "陪伴对话记录",
-          "updated": "2026-07-10",
+          "updated": "2026-07-11",
           "route": "/tracks/mind-body/notes/session-log"
         }
       ],
@@ -815,7 +825,7 @@
           "name": "session-log.md",
           "path": "notes/session-log.md",
           "title": "陪伴对话记录",
-          "updated": "2026-07-10",
+          "updated": "2026-07-11",
           "route": "/tracks/mind-body/notes/session-log"
         }
       ],
@@ -828,6 +838,106 @@
         "totalDays": 28,
         "subtitle": "觉察优先 · 微行动 · 无评判复盘 · 弹性节奏"
       }
+    },
+    {
+      "id": "typescript",
+      "depth": "standard",
+      "category": "tech-learning",
+      "title": "前端 TypeScript",
+      "status": "planned",
+      "tags": [
+        "typescript",
+        "vue",
+        "frontend"
+      ],
+      "audience": "frontend",
+      "started": null,
+      "updated": "2026-07-11",
+      "last_reviewed": null,
+      "next_review": "2026-08-15",
+      "mastery": 0,
+      "prerequisites": [
+        "ai-coding"
+      ],
+      "related": [
+        "ai-coding",
+        "react",
+        "fullstack-transition"
+      ],
+      "notes": [
+        {
+          "path": "notes/type-basics.md",
+          "title": "TypeScript 基础速查"
+        },
+        {
+          "path": "notes/vue-ts-patterns.md",
+          "title": "Vue 里常见 TS 写法"
+        },
+        {
+          "path": "notes/utility-types-cheatsheet.md",
+          "title": "工具类型速查"
+        },
+        {
+          "path": "notes/ai-ts-workflow.md",
+          "title": "用 AI 学/审 TS 工作流"
+        }
+      ],
+      "noteFiles": [
+        {
+          "name": "ai-ts-workflow.md",
+          "path": "notes/ai-ts-workflow.md"
+        },
+        {
+          "name": "type-basics.md",
+          "path": "notes/type-basics.md"
+        },
+        {
+          "name": "utility-types-cheatsheet.md",
+          "path": "notes/utility-types-cheatsheet.md"
+        },
+        {
+          "name": "vue-ts-patterns.md",
+          "path": "notes/vue-ts-patterns.md"
+        }
+      ],
+      "syncedNotes": [
+        {
+          "slug": "ai-ts-workflow",
+          "name": "ai-ts-workflow.md",
+          "path": "notes/ai-ts-workflow.md",
+          "title": "用 AI 学/审 TS 工作流",
+          "updated": "2026-07-11",
+          "route": "/tracks/typescript/notes/ai-ts-workflow"
+        },
+        {
+          "slug": "type-basics",
+          "name": "type-basics.md",
+          "path": "notes/type-basics.md",
+          "title": "TypeScript 基础速查",
+          "updated": "2026-07-11",
+          "route": "/tracks/typescript/notes/type-basics"
+        },
+        {
+          "slug": "utility-types-cheatsheet",
+          "name": "utility-types-cheatsheet.md",
+          "path": "notes/utility-types-cheatsheet.md",
+          "title": "工具类型速查",
+          "updated": "2026-07-11",
+          "route": "/tracks/typescript/notes/utility-types-cheatsheet"
+        },
+        {
+          "slug": "vue-ts-patterns",
+          "name": "vue-ts-patterns.md",
+          "path": "notes/vue-ts-patterns.md",
+          "title": "Vue 里常见 TS 写法",
+          "updated": "2026-07-11",
+          "route": "/tracks/typescript/notes/vue-ts-patterns"
+        }
+      ],
+      "units": [],
+      "unitCount": 0,
+      "noteCount": 4,
+      "schedule": null
     }
   ]
 }

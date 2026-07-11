@@ -1,5 +1,5 @@
 version: 1
-updated: 2026-07-07
+updated: 2026-07-11
 tracks:
   - ai-coding
   - echarts
@@ -8,8 +8,9 @@ tracks:
   - frontend-efficiency-tooling
   - flowable
   - mind-body
+  - typescript
 tags_index:
-  vue: [ai-coding, echarts, flowable]
+  vue: [ai-coding, echarts, flowable, typescript]
   echarts: [echarts]
   visualization: [echarts]
   react: [react]
@@ -27,11 +28,13 @@ tags_index:
   ai: [ai-coding, frontend-efficiency-tooling]
   cursor: [ai-coding]
   low-code: [frontend-efficiency-tooling]
+  typescript: [typescript]
+  frontend: [typescript, flowable]
 depth_index:
   light: [react, mind-body]
-  standard: [fullstack-transition, frontend-efficiency-tooling, echarts, flowable]
+  standard: [fullstack-transition, frontend-efficiency-tooling, echarts, flowable, typescript]
   deep: [ai-coding]
 category_index:
-  tech-learning: [ai-coding, echarts, react, fullstack-transition, flowable]
+  tech-learning: [ai-coding, echarts, react, fullstack-transition, flowable, typescript]
   work-assignment: [frontend-efficiency-tooling]
   personal-wellbeing: [mind-body]
