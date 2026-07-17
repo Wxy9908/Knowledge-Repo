@@ -9,8 +9,14 @@ const WATCH_TARGETS = [
   path.join(REPO_ROOT, 'catalog.yaml'),
 ];
 
-const shouldSync = (file: string) =>
-  file.includes(`${path.sep}tracks${path.sep}`) || file.endsWith(`${path.sep}catalog.yaml`);
+/** schedule.md is generated from schedule.yaml — ignore to avoid sync loops */
+const isGeneratedScheduleMd = (file: string) =>
+  file.endsWith(`${path.sep}schedule.md`) || file.replace(/\//g, path.sep).endsWith(`${path.sep}schedule.md`);
+
+const shouldSync = (file: string) => {
+  if (isGeneratedScheduleMd(file)) return false;
+  return file.includes(`${path.sep}tracks${path.sep}`) || file.endsWith(`${path.sep}catalog.yaml`);
+};
 
 export function syncCatalogPlugin(): Plugin {
   let debounceTimer: ReturnType<typeof setTimeout> | null = null;

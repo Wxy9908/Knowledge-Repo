@@ -37,12 +37,16 @@ const scheduleSync = (reason) => {
   }, 400);
 };
 
+const shouldWatch = (filename) => {
+  const normalized = filename.replace(/\\/g, '/');
+  if (normalized.endsWith('schedule.md')) return false;
+  return normalized.endsWith('.md') || normalized.endsWith('.yaml') || normalized.endsWith('.html');
+};
+
 const watchDir = (dir) => {
   fs.watch(dir, { recursive: true }, (_event, filename) => {
-    if (!filename) return;
-    if (filename.endsWith('.md') || filename.endsWith('.yaml') || filename.endsWith('.html')) {
-      scheduleSync(`tracks change: ${filename}`);
-    }
+    if (!filename || !shouldWatch(filename)) return;
+    scheduleSync(`tracks change: ${filename}`);
   });
 };
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-11",
+  "updated": "2026-07-15",
   "tags_index": {
     "vue": [
       "ai-coding",
@@ -213,6 +213,130 @@
         "totalDays": 28,
         "subtitle": "觉察优先 · 微行动 · 无评判复盘 · 弹性节奏"
       },
+      "overdue": false
+    },
+    {
+      "id": "ai-coding",
+      "depth": "deep",
+      "category": "tech-learning",
+      "title": "AI Coding 系统学习",
+      "status": "completed",
+      "tags": [
+        "vue",
+        "ai",
+        "prompt-engineering",
+        "cursor"
+      ],
+      "started": "2026-03-01",
+      "updated": "2026-07-09",
+      "last_reviewed": "2026-05-22",
+      "next_review": "2026-07-22",
+      "mastery": 0.75,
+      "units": [
+        {
+          "id": "01-todo-basic",
+          "path": "units/01-todo-basic",
+          "hasReview": true
+        },
+        {
+          "id": "02-todo-enhance",
+          "path": "units/02-todo-enhance",
+          "hasReview": true
+        },
+        {
+          "id": "03-todo-filter",
+          "path": "units/03-todo-filter",
+          "hasReview": true
+        },
+        {
+          "id": "04-auth-login",
+          "path": "units/04-auth-login",
+          "hasReview": true
+        },
+        {
+          "id": "05-auth-guard",
+          "path": "units/05-auth-guard",
+          "hasReview": true
+        },
+        {
+          "id": "06-todo-polish",
+          "path": "units/06-todo-polish",
+          "hasReview": true
+        },
+        {
+          "id": "07-mock-api",
+          "path": "units/07-mock-api",
+          "hasReview": true
+        }
+      ],
+      "notes": [
+        {
+          "path": "notes/ai-coding-prompts.md",
+          "title": "Prompt 模板速查"
+        },
+        {
+          "path": "notes/ai-concept.md",
+          "title": "AI 概念笔记"
+        },
+        {
+          "path": "notes/phase1-self-assessment.md",
+          "title": "Phase1 自评"
+        }
+      ],
+      "artifacts": [
+        {
+          "type": "demo",
+          "route": "/todos",
+          "description": "Vue3 Todo + Mock API 全链路练习"
+        }
+      ],
+      "related": [
+        "fullstack-transition"
+      ],
+      "source": "migrated-from/new_work",
+      "noteFiles": [
+        {
+          "name": "ai-coding-prompts.md",
+          "path": "notes/ai-coding-prompts.md"
+        },
+        {
+          "name": "ai-concept.md",
+          "path": "notes/ai-concept.md"
+        },
+        {
+          "name": "phase1-self-assessment.md",
+          "path": "notes/phase1-self-assessment.md"
+        }
+      ],
+      "syncedNotes": [
+        {
+          "slug": "ai-coding-prompts",
+          "name": "ai-coding-prompts.md",
+          "path": "notes/ai-coding-prompts.md",
+          "title": "Prompt 模板速查",
+          "updated": "2026-06-30",
+          "route": "/tracks/ai-coding/notes/ai-coding-prompts"
+        },
+        {
+          "slug": "ai-concept",
+          "name": "ai-concept.md",
+          "path": "notes/ai-concept.md",
+          "title": "AI 概念笔记",
+          "updated": "2026-05-26",
+          "route": "/tracks/ai-coding/notes/ai-concept"
+        },
+        {
+          "slug": "phase1-self-assessment",
+          "name": "phase1-self-assessment.md",
+          "path": "notes/phase1-self-assessment.md",
+          "title": "Phase1 自评",
+          "updated": "2026-06-30",
+          "route": "/tracks/ai-coding/notes/phase1-self-assessment"
+        }
+      ],
+      "unitCount": 7,
+      "noteCount": 3,
+      "schedule": null,
       "overdue": false
     }
   ],

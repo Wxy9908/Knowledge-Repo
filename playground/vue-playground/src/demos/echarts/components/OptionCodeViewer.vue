@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { EChartsOption } from 'echarts';
-import CodeSnippetBlock from './CodeSnippetBlock.vue';
+import CodeBlock from '@/components/CodeBlock.vue';
 
 defineOptions({ name: 'OptionCodeViewer' });
 
@@ -14,7 +14,7 @@ const formattedCode = computed(() => JSON.stringify(props.option, null, 2));
 
 <template>
   <div class="code-viewer">
-    <CodeSnippetBlock
+    <CodeBlock
       :code="formattedCode"
       title="当前 option JSON"
       language="json"
@@ -26,10 +26,10 @@ const formattedCode = computed(() => JSON.stringify(props.option, null, 2));
 <style scoped>
 .code-viewer {
   border-top: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--code-bg);
 }
 
-.code-viewer :deep(.code-snippet) {
+.code-viewer :deep(.code-block-root) {
   border: none;
   border-radius: 0;
 }

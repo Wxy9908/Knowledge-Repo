@@ -1,16 +1,27 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { renderMarkdown } from '@/utils/renderMarkdown';
+import CodeBlock from '@/components/CodeBlock.vue';
+import { parseMarkdownBlocks } from '@/utils/renderMarkdown';
 
 const props = defineProps<{
   content: string;
 }>();
 
-const html = computed(() => renderMarkdown(props.content));
+const blocks = computed(() => parseMarkdownBlocks(props.content));
 </script>
 
 <template>
-  <article class="markdown-body" v-html="html" />
+  <article class="markdown-body">
+    <template v-for="(block, index) in blocks" :key="index">
+      <div v-if="block.kind === 'html'" class="md-chunk" v-html="block.html" />
+      <CodeBlock
+        v-else
+        class="md-code"
+        :code="block.code"
+        :language="block.language"
+      />
+    </template>
+  </article>
 </template>
 
 <style scoped>
@@ -29,13 +40,14 @@ const html = computed(() => renderMarkdown(props.content));
 }
 .markdown-body :deep(p),
 .markdown-body :deep(ul),
+.markdown-body :deep(ol),
 .markdown-body :deep(table),
-.markdown-body :deep(blockquote),
-.markdown-body :deep(pre) {
+.markdown-body :deep(blockquote) {
   margin: 0.6rem 0;
   line-height: 1.65;
 }
-.markdown-body :deep(ul) {
+.markdown-body :deep(ul),
+.markdown-body :deep(ol) {
   padding-left: 1.25rem;
 }
 .markdown-body :deep(blockquote) {
@@ -43,22 +55,13 @@ const html = computed(() => renderMarkdown(props.content));
   padding-left: 0.75rem;
   color: var(--muted);
 }
-.markdown-body :deep(code) {
-  background: var(--bg);
+.markdown-body :deep(.md-chunk code) {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
-  font-size: 0.9em;
-}
-.markdown-body :deep(pre) {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  overflow-x: auto;
-}
-.markdown-body :deep(pre code) {
-  background: none;
-  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
 }
 .markdown-body :deep(table) {
   width: 100%;
@@ -81,5 +84,9 @@ const html = computed(() => renderMarkdown(props.content));
 }
 .markdown-body :deep(a) {
   color: var(--accent);
+}
+
+.md-code {
+  margin: 0.85rem 0;
 }
 </style>

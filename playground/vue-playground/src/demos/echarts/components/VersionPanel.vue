@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CodeSnippetBlock from './CodeSnippetBlock.vue';
+import CodeBlock from '@/components/CodeBlock.vue';
 import type { ShowcasePanelExpose } from '../types/panel';
 
 defineOptions({ name: 'VersionPanel' });
@@ -165,13 +165,13 @@ defineExpose<ShowcasePanelExpose>({ resizeCharts });
 
     <section class="panel section">
       <h2>引入方式示例</h2>
-      <CodeSnippetBlock :code="importExample" language="typescript" />
+      <CodeBlock :code="importExample" language="typescript" />
       <p class="hint">首版 Showcase 沿用全量引入；生产环境可按需改为 echarts/core 按需加载。</p>
     </section>
 
     <section class="panel section">
       <h2>基本用法示例</h2>
-      <CodeSnippetBlock :code="basicUsageExample" language="vue" />
+      <CodeBlock :code="basicUsageExample" language="vue" />
       <p class="hint">
         容器需有明确宽高；<code>useEcharts</code> 已封装 init / setOption / resize / dispose，Tab 2 各图均按此模式编写。
       </p>
@@ -231,7 +231,7 @@ defineExpose<ShowcasePanelExpose>({ resizeCharts });
 }
 
 .version-badge {
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--accent);
   background: var(--accent-dim);

@@ -1,3 +1,5 @@
+import { normalizeCodeLanguage } from './highlightCode';
+
 const escapeHtml = (text: string): string =>
   text
     .replace(/&/g, '&amp;')
@@ -16,10 +18,25 @@ const inlineFormat = (text: string): string => {
 const isTableRow = (line: string) => /^\|.+\|$/.test(line.trim());
 const isTableSep = (line: string) => /^\|[\s:|-]+\|$/.test(line.trim());
 
-export const renderMarkdown = (source: string): string => {
+export type MarkdownBlock =
+  | { kind: 'html'; html: string }
+  | { kind: 'code'; code: string; language: string };
+
+/**
+ * Split markdown into HTML fragments and fenced code blocks so Vue can
+ * mount the shared CodeBlock component for ```lang fences.
+ */
+export const parseMarkdownBlocks = (source: string): MarkdownBlock[] => {
   const lines = source.replace(/\r\n/g, '\n').split('\n');
-  const html: string[] = [];
+  const blocks: MarkdownBlock[] = [];
+  const htmlBuf: string[] = [];
   let i = 0;
+
+  const flushHtml = () => {
+    if (!htmlBuf.length) return;
+    blocks.push({ kind: 'html', html: htmlBuf.join('\n') });
+    htmlBuf.length = 0;
+  };
 
   while (i < lines.length) {
     const line = lines[i];
@@ -31,37 +48,43 @@ export const renderMarkdown = (source: string): string => {
     }
 
     if (trimmed.startsWith('```')) {
+      flushHtml();
+      const langRaw = trimmed.slice(3).trim();
       const codeLines: string[] = [];
       i += 1;
       while (i < lines.length && !lines[i].trim().startsWith('```')) {
-        codeLines.push(escapeHtml(lines[i]));
+        codeLines.push(lines[i]);
         i += 1;
       }
-      html.push(`<pre><code>${codeLines.join('\n')}</code></pre>`);
+      blocks.push({
+        kind: 'code',
+        code: codeLines.join('\n'),
+        language: normalizeCodeLanguage(langRaw),
+      });
       i += 1;
       continue;
     }
 
     if (/^---+$/.test(trimmed)) {
-      html.push('<hr />');
+      htmlBuf.push('<hr />');
       i += 1;
       continue;
     }
 
     if (trimmed.startsWith('### ')) {
-      html.push(`<h3>${inlineFormat(trimmed.slice(4))}</h3>`);
+      htmlBuf.push(`<h3>${inlineFormat(trimmed.slice(4))}</h3>`);
       i += 1;
       continue;
     }
 
     if (trimmed.startsWith('## ')) {
-      html.push(`<h2>${inlineFormat(trimmed.slice(3))}</h2>`);
+      htmlBuf.push(`<h2>${inlineFormat(trimmed.slice(3))}</h2>`);
       i += 1;
       continue;
     }
 
     if (trimmed.startsWith('# ')) {
-      html.push(`<h1>${inlineFormat(trimmed.slice(2))}</h1>`);
+      htmlBuf.push(`<h1>${inlineFormat(trimmed.slice(2))}</h1>`);
       i += 1;
       continue;
     }
@@ -72,7 +95,7 @@ export const renderMarkdown = (source: string): string => {
         quoteLines.push(inlineFormat(lines[i].trim().slice(2)));
         i += 1;
       }
-      html.push(`<blockquote>${quoteLines.join('<br />')}</blockquote>`);
+      htmlBuf.push(`<blockquote>${quoteLines.join('<br />')}</blockquote>`);
       continue;
     }
 
@@ -92,30 +115,44 @@ export const renderMarkdown = (source: string): string => {
         );
       if (rows.length) {
         const [head, ...body] = rows;
-        html.push('<table><thead><tr>');
+        const parts: string[] = ['<table><thead><tr>'];
         head.forEach((cell) => {
-          html.push(`<th>${inlineFormat(cell)}</th>`);
+          parts.push(`<th>${inlineFormat(cell)}</th>`);
         });
-        html.push('</tr></thead><tbody>');
+        parts.push('</tr></thead><tbody>');
         body.forEach((row) => {
-          html.push('<tr>');
+          parts.push('<tr>');
           row.forEach((cell) => {
-            html.push(`<td>${inlineFormat(cell)}</td>`);
+            parts.push(`<td>${inlineFormat(cell)}</td>`);
           });
-          html.push('</tr>');
+          parts.push('</tr>');
         });
-        html.push('</tbody></table>');
+        parts.push('</tbody></table>');
+        htmlBuf.push(parts.join(''));
       }
       continue;
     }
 
     if (/^[-*] /.test(trimmed)) {
-      html.push('<ul>');
+      const parts: string[] = ['<ul>'];
       while (i < lines.length && /^[-*] /.test(lines[i].trim())) {
-        html.push(`<li>${inlineFormat(lines[i].trim().slice(2))}</li>`);
+        parts.push(`<li>${inlineFormat(lines[i].trim().slice(2))}</li>`);
         i += 1;
       }
-      html.push('</ul>');
+      parts.push('</ul>');
+      htmlBuf.push(parts.join(''));
+      continue;
+    }
+
+    // Numbered lists (common in notes)
+    if (/^\d+\. /.test(trimmed)) {
+      const parts: string[] = ['<ol>'];
+      while (i < lines.length && /^\d+\. /.test(lines[i].trim())) {
+        parts.push(`<li>${inlineFormat(lines[i].trim().replace(/^\d+\.\s*/, ''))}</li>`);
+        i += 1;
+      }
+      parts.push('</ol>');
+      htmlBuf.push(parts.join(''));
       continue;
     }
 
@@ -127,14 +164,26 @@ export const renderMarkdown = (source: string): string => {
       !lines[i].trim().startsWith('> ') &&
       !lines[i].trim().startsWith('```') &&
       !/^[-*] /.test(lines[i].trim()) &&
+      !/^\d+\. /.test(lines[i].trim()) &&
       !isTableRow(lines[i].trim()) &&
       !/^---+$/.test(lines[i].trim())
     ) {
       paraLines.push(inlineFormat(lines[i]));
       i += 1;
     }
-    html.push(`<p>${paraLines.join('<br />')}</p>`);
+    htmlBuf.push(`<p>${paraLines.join('<br />')}</p>`);
   }
 
-  return html.join('\n');
+  flushHtml();
+  return blocks;
+};
+
+/** Legacy full-HTML renderer (keeps fences as plain pre/code). Prefer parseMarkdownBlocks. */
+export const renderMarkdown = (source: string): string => {
+  return parseMarkdownBlocks(source)
+    .map((block) => {
+      if (block.kind === 'html') return block.html;
+      return `<pre><code>${escapeHtml(block.code)}</code></pre>`;
+    })
+    .join('\n');
 };

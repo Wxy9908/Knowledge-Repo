@@ -1,10 +1,11 @@
+import { getPlatformFont } from '../../../styles/fonts';
 import { getThemeColors } from './themeColors';
 
 export const getChartBaseStyle = () => {
   const colors = getThemeColors();
   
   const textStyle = {
-    fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
+    fontFamily: getPlatformFont('sans'),
     color: colors.muted,
   };
 

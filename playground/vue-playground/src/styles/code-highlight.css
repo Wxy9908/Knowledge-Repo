@@ -1,0 +1,111 @@
+/* Platform code-block tokens: readable light style (图四) + dark-mode variants */
+
+:root {
+  --code-bg: #0d1117;
+  --code-surface: #161b22;
+  --code-border: #30363d;
+  --code-text: #e6edf3;
+  --code-muted: #8b949e;
+
+  --hljs-keyword: #ff7b72;
+  --hljs-string: #a5d6ff;
+  --hljs-number: #79c0ff;
+  --hljs-comment: #8b949e;
+  --hljs-title: #d2a8ff;
+  --hljs-attr: #79c0ff;
+  --hljs-built-in: #ffa657;
+  --hljs-literal: #79c0ff;
+  --hljs-tag: #7ee787;
+  --hljs-name: #7ee787;
+  --hljs-meta: #8b949e;
+}
+
+body.light-mode {
+  --code-bg: #f6f8fa;
+  --code-surface: #ffffff;
+  --code-border: #d0d7de;
+  --code-text: #1f2328;
+  --code-muted: #656d76;
+
+  --hljs-keyword: #cf222e;
+  --hljs-string: #0a3069;
+  --hljs-number: #0550ae;
+  --hljs-comment: #6e7781;
+  --hljs-title: #8250df;
+  --hljs-attr: #0550ae;
+  --hljs-built-in: #953800;
+  --hljs-literal: #0550ae;
+  --hljs-tag: #116329;
+  --hljs-name: #116329;
+  --hljs-meta: #656d76;
+}
+
+.hljs {
+  color: var(--code-text);
+  background: transparent;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: var(--hljs-keyword);
+}
+
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp {
+  color: var(--hljs-string);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--hljs-number);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--hljs-comment);
+  font-style: italic;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: var(--hljs-title);
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-type,
+.hljs-symbol {
+  color: var(--hljs-attr);
+}
+
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-class .hljs-title {
+  color: var(--hljs-built-in);
+}
+
+.hljs-tag {
+  color: var(--hljs-tag);
+}
+
+.hljs-name {
+  color: var(--hljs-name);
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: var(--hljs-meta);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}

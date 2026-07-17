@@ -94,7 +94,12 @@ const writeScheduleMarkdown = (trackDir, schedule) => {
   );
 
   const mdPath = path.join(trackDir, 'schedule.md');
-  fs.writeFileSync(mdPath, lines.join('\n'), 'utf8');
+  const next = lines.join('\n');
+  const normalize = (text) => text.replace(/\r\n/g, '\n');
+  if (fs.existsSync(mdPath) && normalize(fs.readFileSync(mdPath, 'utf8')) === normalize(next)) {
+    return;
+  }
+  fs.writeFileSync(mdPath, next, 'utf8');
 };
 
 const listNoteFiles = (trackDir) => {
